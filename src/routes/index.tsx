@@ -3,6 +3,7 @@ import Articles from '../pages/Articles';
 import Home from '../pages/Home';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+import Login from '@/pages/Login';
 
 const Router = () => (
   <BrowserRouter>
@@ -12,6 +13,14 @@ const Router = () => (
         element={
           <PublicRoute>
             <Home />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <Login />
           </PublicRoute>
         }
       />

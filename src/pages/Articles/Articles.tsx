@@ -10,6 +10,8 @@ import {
   AccordionTrigger,
 } from '../../components/ui/accordion';
 import { Input } from '@/components/ui/input';
+import Header from '@/components/Header';
+// import Header from '@/components/HomeNavBar/Header';
 
 export type Filter = { page: number; search?: string };
 
@@ -71,7 +73,7 @@ const ArticleList: React.FC<ArticleListProps> = ({ articles }) => {
               </p>
             </header>
 
-            <footer className="flex items-center justify-between leading-none p-2 md:p-4">
+            <div className="flex items-center justify-between leading-none p-2 md:p-4">
               <a
                 className="flex items-center no-underline hover:underline text-black"
                 href="#"
@@ -90,7 +92,7 @@ const ArticleList: React.FC<ArticleListProps> = ({ articles }) => {
                 <span className="hidden">Like</span>
                 <i className="fa fa-heart"></i>
               </a>
-            </footer>
+            </div>
           </article>
         </div>
       ))}
@@ -113,6 +115,7 @@ const Articles = () => {
 
   return (
     <div className="container my-12 mx-auto px-4 md:px-12">
+      <Header />
       <div className="flex justify-center w-full">
         <div className="mb-3 xl:w-[40%]">
           <div className="input-group relative flex flex-wrap items-stretch w-full mb-4">
