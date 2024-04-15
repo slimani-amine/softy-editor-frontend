@@ -41,7 +41,7 @@ const Input = <T extends FieldValues, U extends FieldValues>({
         {...rest}
       />
       {errors && errors[name as keyof U] && (
-        <span className="">{errors[name as keyof U]?.message as string}</span>
+        <span className="text-red-500">{errors[name as keyof U]?.message as string}</span>
       )}
     </div>
   );
