@@ -12,7 +12,8 @@
     "format": "prettier --ignore-path .prettierignore --write \"**/*.+(ts|tsx|json)\"",
     "test": "jest",
     "release": "standard-version",
-    "commit": "git-cz"  },
+    "commit": "git-cz"
+  },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
       "npm run lint:fix",

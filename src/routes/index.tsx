@@ -4,6 +4,9 @@ import Home from '../pages/Home';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import Login from '@/pages/Login';
+import Register from '@/pages/Register';
+import SendMail from '@/pages/emailForResetPassword/SendMail';
+import ResetPassword from '@/pages/ResetPassword';
 
 const Router = () => (
   <BrowserRouter>
@@ -21,6 +24,30 @@ const Router = () => (
         element={
           <PublicRoute>
             <Login />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/register"
+        element={
+          <PublicRoute>
+            <Register />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/send-email"
+        element={
+          <PublicRoute>
+            <SendMail />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/reset-password"
+        element={
+          <PublicRoute>
+            <ResetPassword />
           </PublicRoute>
         }
       />

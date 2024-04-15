@@ -3,23 +3,28 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Input from '@/components/Input/Input';
-import { loginSchema } from '@/lib/validation';
-import { useLoginQuery } from '@/services/queries/auth.query';
+import { RegisterSchema } from '@/lib/validation';
+import { useRegisterQuery } from '@/services/queries/auth.query';
 import useAuthStore from '@/store/useAuthStore';
-import { LoginBody } from '@/types/auth';
+import { RegisterBody } from '@/types/auth';
 import { Button as UIButton } from '@/components/ui/button';
 import GoogleIcon from '@/components/ui/googleIcon';
 import Button from '@/components/Button';
 import { Link } from 'react-router-dom';
 
-const Login = () => {
+const Register = () => {
   const { setIsAuthenticated } = useAuthStore((state) => state);
-  const { isLoading, mutateAsync: login, isError, error } = useLoginQuery();
+  const {
+    isLoading,
+    mutateAsync: Register,
+    isError,
+    error,
+  } = useRegisterQuery();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginBody>({ resolver: yupResolver(loginSchema) });
+  } = useForm<RegisterBody>({ resolver: yupResolver(RegisterSchema) });
 
   useEffect(() => {
     if (isError) {
@@ -27,9 +32,12 @@ const Login = () => {
     }
   }, [isError]);
 
-  const onSubmit: SubmitHandler<LoginBody> = async (data) => {
-    console.log('🚀 ~ constonSubmit:SubmitHandler<LoginBody>= ~ data:', data);
-    await login(data);
+  const onSubmit: SubmitHandler<RegisterBody> = async (data) => {
+    console.log(
+      '🚀 ~ constonSubmit:SubmitHandler<RegisterBody>= ~ data:',
+      data
+    );
+    await Register(data);
     setIsAuthenticated(true);
   };
 
@@ -38,11 +46,9 @@ const Login = () => {
       <div className="w-full max-w-screen-xl mx-auto flex flex-col gap-5">
         <div className="flex flex-col items-start ">
           <h1 className=" text-2xl font-extrabold text-center leading-tight max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl">
-            Think it. Make it.
+            Join a global movement.
           </h1>
-          <h2 className="text-gray-500 text-xl font-semibold">
-            Sign into your Softy-Editor account
-          </h2>
+          <h2 className="text-gray-500 text-xl font-semibold">Sign up now!</h2>
         </div>
         <div className="flex flex-col items-center ">
           <form
@@ -52,9 +58,24 @@ const Login = () => {
             <div className="flex flex-col gap-2">
               <div className="flex flex-col gap-1">
                 <label
-                  htmlFor="notion-email-input"
+                  htmlFor="notion-userName-input"
                   className="block mb-1 text-xs font-medium text-gray-500"
                 >
+                  UserName
+                </label>
+                <Input
+                  placeholder="Enter your userName..."
+                  errors={errors}
+                  type="userName"
+                  autoComplete="userName"
+                  aria-label="Enter your userName..."
+                  className="w-full outline-none border border-gray-300 rounded-[5px] px-4 py-1 placeholder:text-gray-500"
+                  name="userName"
+                  register={register}
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label className="block mb-1 text-xs font-medium text-gray-500">
                   Email
                 </label>
                 <Input
@@ -68,14 +89,8 @@ const Login = () => {
                   register={register}
                 />
               </div>
-              {/* <div className="text-gray-500 text-xs leading-tight text-left">
-                Use an organization email to easily collaborate with teammates
-              </div> */}
               <div className="flex flex-col gap-1">
-                <label
-                  htmlFor="notion-email-input"
-                  className="block mb-1 text-xs font-medium text-gray-500"
-                >
+                <label className="block mb-1 text-xs font-medium text-gray-500">
                   Password
                 </label>
                 <Input
@@ -89,12 +104,21 @@ const Login = () => {
                   register={register}
                 />
               </div>
-              <Link
-                to="/send-email"
-                className="cursor-pointer  text-blue-500 hover:underline text-sm mt-1"
-              >
-                Forgot your password?
-              </Link>
+              <div className="flex flex-col gap-1">
+                <label className="block mb-1 text-xs font-medium text-gray-500">
+                  Confirm password
+                </label>
+                <Input
+                  placeholder="confirm your password..."
+                  errors={errors}
+                  type="password"
+                  autoComplete="confirmPassword"
+                  aria-label="confirm your password..."
+                  className="w-full outline-none border border-gray-300 rounded-[5px] px-4 py-1 placeholder:text-gray-500"
+                  name="confirmPassword"
+                  register={register}
+                />
+              </div>
             </div>
             <div className="flex flex-col justify-center items-center gap-1">
               <Button
@@ -104,12 +128,12 @@ const Login = () => {
                 className="w-full flex items-center justify-center h-10 rounded-[5px] text-white text-sm font-medium bg-blue-500 hover:bg-blue-600 shadow-inner md:shadow-md mt-2"
               />
               <a className="text-sm ">
-                Don't have an account?{' '}
+                You have an account?{' '}
                 <Link
-                  to={'/register'}
+                  to={'/login'}
                   className="cursor-pointer hover:underline text-sm text-blue-500 "
                 >
-                  Register
+                  Login
                 </Link>
               </a>
             </div>
@@ -124,7 +148,7 @@ const Login = () => {
               </span>
             </UIButton>
           </div>
-          <div className="w-full mb-0 text-xs text-gray-500 text-center">
+          <div className="w-full mb-0 text-xs text-gray-400 text-center">
             <p className="mb-0">
               By continuing, you acknowledge that you understand and agree to
               the{' '}
@@ -151,4 +175,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
