@@ -1,11 +1,20 @@
-// import Button from '@/components/Button';
 import useAuthStore from '@/store/useAuthStore';
 import { Button } from '../ui/button';
+import Cookies from 'universal-cookie'; 
 
 const Header = () => {
   const { isAuthenticated, setIsAuthenticated } = useAuthStore(
     (state) => state
   );
+
+  const cookies = new Cookies(); 
+
+  const handleLogout = () => {
+    cookies.remove('accessToken', { path: '/' });
+    cookies.remove('refreshToken', { path: '/' });
+
+    setIsAuthenticated(false);
+  };
 
   return (
     <nav className="bg-white shadow-lg">
@@ -37,11 +46,8 @@ const Header = () => {
             </a>
             {isAuthenticated && (
               <Button
-                // text="Logout"
                 className="py-3 px-3 font-medium text-white text-xs bg-blue-500 rounded hover:bg-blue-400 transition duration-300"
-                onClick={() => {
-                  setIsAuthenticated(false);
-                }}
+                onClick={handleLogout} // Update onClick handler
               >
                 Logout
               </Button>

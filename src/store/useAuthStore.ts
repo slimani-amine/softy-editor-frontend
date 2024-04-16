@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import Cookies from 'universal-cookie';
 import { logger } from './logger';
 
 interface AuthState {
@@ -9,8 +10,10 @@ export interface AuthStore extends AuthState {
   setIsAuthenticated: (args: AuthState['isAuthenticated']) => void;
 }
 
+const cookies = new Cookies();
+
 const initialState: Pick<AuthStore, keyof AuthState> = {
-  isAuthenticated: true,
+  isAuthenticated: cookies.get('isAuthenticated') === 'true',
 };
 
 const useAuthStore = create<AuthStore>()(
@@ -19,6 +22,7 @@ const useAuthStore = create<AuthStore>()(
       ...initialState,
       setIsAuthenticated: (isAuthenticated) => {
         set(() => ({ isAuthenticated }));
+        cookies.set('isAuthenticated', isAuthenticated ? 'true' : 'false', { path: '/' });
       },
     }),
     'authStore'

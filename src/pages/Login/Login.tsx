@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,6 +11,7 @@ import { Button as UIButton } from '@/components/ui/button';
 import GoogleIcon from '@/components/ui/googleIcon';
 import Button from '@/components/Button';
 import { Link } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
   const { setIsAuthenticated } = useAuthStore((state) => state);
@@ -20,17 +21,32 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginBody>({ resolver: yupResolver(loginSchema) });
+  const [showPassword, setShowPassword] = useState(false);
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
   useEffect(() => {
     if (isError) {
-      toast.error(error as string, { theme: 'colored' });
+      const errorMessage = error.response?.data?.errors;
+      if (errorMessage.email) {
+        toast.error('Email not found', { theme: 'colored' });
+      } else if (errorMessage.password) {
+        toast.error('Password incorrect', { theme: 'colored' });
+      } else {
+        toast.error('An error occurred. Please try again later.', {
+          theme: 'colored',
+        });
+      }
     }
   }, [isError]);
 
   const onSubmit: SubmitHandler<LoginBody> = async (data) => {
-    console.log('🚀 ~ constonSubmit:SubmitHandler<LoginBody>= ~ data:', data);
-    await login(data);
-    setIsAuthenticated(true);
+    const res = await login(data);
+    if (res) {
+      
+      setIsAuthenticated(true);
+    }
   };
 
   return (
@@ -71,7 +87,7 @@ const Login = () => {
               {/* <div className="text-gray-500 text-xs leading-tight text-left">
                 Use an organization email to easily collaborate with teammates
               </div> */}
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-1 relative">
                 <label
                   htmlFor="notion-email-input"
                   className="block mb-1 text-xs font-medium text-gray-500"
@@ -81,13 +97,24 @@ const Login = () => {
                 <Input
                   placeholder="Enter your password..."
                   errors={errors}
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   autoComplete="password"
                   aria-label="Enter your password..."
-                  className="w-full outline-none border border-gray-300 rounded-[5px] px-4 py-1 placeholder:text-gray-500"
+                  className="w-full outline-none border border-gray-300 rounded-[5px] px-4 py-1 placeholder:text-gray-500 pr-10"
                   name="password"
                   register={register}
                 />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 flex items-center px-2 mt-6"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? (
+                    <FaEye className="h-5 w-5 text-gray-400" />
+                  ) : (
+                    <FaEyeSlash className="h-5 w-5 text-gray-400" />
+                  )}
+                </button>
               </div>
               <Link
                 to="/send-email"

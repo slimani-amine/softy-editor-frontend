@@ -11,7 +11,7 @@ function App() {
       <div className="App font-mono h-screen bg-[#FFFEFC]">
         <Router />
       </div>
-      <ToastContainer />
+      <ToastContainer autoClose={1000} />
     </QueryClientProvider>
   );
 }

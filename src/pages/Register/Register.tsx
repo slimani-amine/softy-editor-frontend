@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,6 +11,7 @@ import { Button as UIButton } from '@/components/ui/button';
 import GoogleIcon from '@/components/ui/googleIcon';
 import Button from '@/components/Button';
 import { Link } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Register = () => {
   const { setIsAuthenticated } = useAuthStore((state) => state);
@@ -25,20 +26,41 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterBody>({ resolver: yupResolver(RegisterSchema) });
+  const [showPassword, setShowPassword] = useState(false);
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
+  const [showPassword2, setShowPassword2] = useState(false);
+
+  const togglePasswordVisibility2 = () => {
+    setShowPassword2((prevShowPassword2) => !prevShowPassword2);
+  };
   useEffect(() => {
     if (isError) {
-      toast.error(error as string, { theme: 'colored' });
+      const errorMessage = error.response?.data?.errors;
+      console.log('🚀 ~ useEffect ~ errorMessage:', errorMessage);
+      if (errorMessage?.userName) {
+        toast.error('UserName already used', { theme: 'colored' });
+      } else if (errorMessage?.email) {
+        toast.error('Email already used', { theme: 'colored' });
+      } else {
+        toast.error('An error occurred. Please try again later.', {
+          theme: 'colored',
+        });
+      }
     }
   }, [isError]);
 
   const onSubmit: SubmitHandler<RegisterBody> = async (data) => {
-    console.log(
-      '🚀 ~ constonSubmit:SubmitHandler<RegisterBody>= ~ data:',
-      data
-    );
-    await Register(data);
-    setIsAuthenticated(true);
+    const res = await Register(data);
+    if (res) {
+      toast.success('Welcome', {
+        theme: 'colored',
+      });
+      setIsAuthenticated(true);
+    }
   };
 
   return (
@@ -89,35 +111,60 @@ const Register = () => {
                   register={register}
                 />
               </div>
-              <div className="flex flex-col gap-1">
-                <label className="block mb-1 text-xs font-medium text-gray-500">
+              <div className="flex flex-col gap-1 relative">
+                <label
+                  htmlFor="notion-email-input"
+                  className="block mb-1 text-xs font-medium text-gray-500"
+                >
                   Password
                 </label>
                 <Input
                   placeholder="Enter your password..."
                   errors={errors}
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   autoComplete="password"
                   aria-label="Enter your password..."
-                  className="w-full outline-none border border-gray-300 rounded-[5px] px-4 py-1 placeholder:text-gray-500"
+                  className="w-full outline-none border border-gray-300 rounded-[5px] px-4 py-1 placeholder:text-gray-500 pr-10"
                   name="password"
                   register={register}
                 />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 flex items-center px-2 mt-6"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? (
+                    <FaEye className="h-5 w-5 text-gray-400" />
+                  ) : (
+                    <FaEyeSlash className="h-5 w-5 text-gray-400" />
+                  )}
+                </button>
               </div>
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-1 relative">
                 <label className="block mb-1 text-xs font-medium text-gray-500">
                   Confirm password
                 </label>
                 <Input
                   placeholder="confirm your password..."
                   errors={errors}
-                  type="password"
+                  type={showPassword2 ? 'text' : 'password'}
                   autoComplete="confirmPassword"
                   aria-label="confirm your password..."
                   className="w-full outline-none border border-gray-300 rounded-[5px] px-4 py-1 placeholder:text-gray-500"
                   name="confirmPassword"
                   register={register}
                 />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 flex items-center px-2 mt-6"
+                  onClick={togglePasswordVisibility2}
+                >
+                  {showPassword2 ? (
+                    <FaEye className="h-5 w-5 text-gray-400" />
+                  ) : (
+                    <FaEyeSlash className="h-5 w-5 text-gray-400" />
+                  )}
+                </button>
               </div>
             </div>
             <div className="flex flex-col justify-center items-center gap-1">

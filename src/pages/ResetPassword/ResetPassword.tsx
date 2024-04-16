@@ -35,10 +35,6 @@ const ResetPassword = () => {
   }, [isError]);
 
   const onSubmit: SubmitHandler<ResetPasswordBody> = async (data) => {
-    console.log(
-      '🚀 ~ constonSubmit:SubmitHandler<ResetPasswordBody>= ~ data:',
-      data
-    );
     await ResetPassword(data);
     setIsAuthenticated(true);
   };
@@ -68,11 +64,11 @@ const ResetPassword = () => {
                   Password
                 </label>
                 <Input
-                  placeholder="Enter your password..."
+                  placeholder="Enter a new password..."
                   errors={errors}
                   type="password"
                   autoComplete="password"
-                  aria-label="Enter your password..."
+                  aria-label="Enter a new password..."
                   className="w-full outline-none border border-gray-300 rounded-[5px] px-4 py-1 placeholder:text-gray-500"
                   name="password"
                   register={register}
