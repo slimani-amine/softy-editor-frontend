@@ -21,7 +21,7 @@ export const login = async (body: LoginBody) => {
     cookies.set('refreshToken', data.refreshToken, { path: '/' });
 
     return data;
-  } catch (error) {
+  } catch (error: any) {
     throw error;
   }
 };
@@ -34,7 +34,7 @@ export const register = async (body: RegisterBody) => {
     cookies.set('refreshToken', data.refreshToken, { path: '/' });
 
     return data;
-  } catch (error) {
+  } catch (error: any) {
     throw error;
   }
 };
@@ -44,9 +44,9 @@ export const sendmail = async (body: SendMailBody) => {
     const { data } = await api.post(`${BASE_URL}/auth/forgot/password`, body);
     console.log('🚀 ~ sendmail ~ data:', data);
     return data;
-  } catch (error) {
-    console.log("errorr");
-    
+  } catch (error: any) {
+    console.log('errorr');
+
     throw error;
   }
 };
@@ -55,7 +55,7 @@ export const resetPassword = async (body: ResetPasswordBody) => {
   try {
     const { data } = await api.post(`${BASE_URL}/auth/reset/password`, body);
     return data;
-  } catch (error) {
+  } catch (error: any) {
     throw error;
   }
 };

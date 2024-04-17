@@ -20,7 +20,7 @@ const Register = () => {
     mutateAsync: Register,
     isError,
     error,
-  } = useRegisterQuery();
+  }: any = useRegisterQuery();
   const {
     register,
     handleSubmit,

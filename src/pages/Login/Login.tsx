@@ -15,7 +15,7 @@ import toast from 'react-hot-toast';
 
 const Login = () => {
   const { setIsAuthenticated } = useAuthStore((state) => state);
-  const { isLoading, mutateAsync: login, isError, error } = useLoginQuery();
+  const { isLoading, mutateAsync: login, isError, error  } : any = useLoginQuery();
   const {
     register,
     handleSubmit,
@@ -29,7 +29,7 @@ const Login = () => {
   useEffect(() => {
     if (isError && error) {
       console.log('🚀 ~ useEffect ~ error:', error);
-      const errorMessage = error.response?.data?.errors;
+      const errorMessage = error.response?.data?.errors as any;
       if (errorMessage.email) {
         toast.error('Email not found');
       } else if (errorMessage.password) {

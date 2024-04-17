@@ -16,7 +16,7 @@ const ForgetPassword = () => {
     mutateAsync: sendMail,
     isError,
     error,
-  } = useSendMailQuery();
+  } : any = useSendMailQuery();
   const {
     register,
     handleSubmit,

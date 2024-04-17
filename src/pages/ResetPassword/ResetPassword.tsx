@@ -16,7 +16,7 @@ const ResetPassword = () => {
     mutateAsync: ResetPassword,
     isError,
     error,
-  } = useResetPasswordQuery();
+  } : any= useResetPasswordQuery();
   const [searchParams] = useSearchParams();
   const {
     register,
