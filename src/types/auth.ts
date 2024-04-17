@@ -16,5 +16,5 @@ export interface SendMailBody {
 
 export interface ResetPasswordBody {
   password: string;
-  confirmPassowrd: string;
+  hash: string;
 }

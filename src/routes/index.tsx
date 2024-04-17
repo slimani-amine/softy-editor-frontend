@@ -5,8 +5,8 @@ import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
-import SendMail from '@/pages/emailForResetPassword/SendMail';
 import ResetPassword from '@/pages/ResetPassword';
+import ForgetPassword from '@/pages/emailForResetPassword/ForgetPassword';
 
 const Router = () => (
   <BrowserRouter>
@@ -36,10 +36,10 @@ const Router = () => (
         }
       />
       <Route
-        path="/send-email"
+        path="/forget-password"
         element={
           <PublicRoute>
-            <SendMail />
+            <ForgetPassword />
           </PublicRoute>
         }
       />

@@ -28,7 +28,7 @@ const Input = <T extends FieldValues, U extends FieldValues>({
   ...rest
 }: Props<T, U>) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full ">
       <label className="flex" htmlFor={name}>
         {label ?? ''}
       </label>

@@ -17,7 +17,6 @@ export const RegisterSchema = yup.object().shape({
 
 export const SendMailSchema = yup.object().shape({
   email: yup.string().email().required('Email is required'),
-
 });
 
 export const ResetPasswordSchema = yup.object().shape({

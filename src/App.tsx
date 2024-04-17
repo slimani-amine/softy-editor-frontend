@@ -1,8 +1,7 @@
-import { ToastContainer } from 'react-toastify';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Router from './routes';
-import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const queryClient = new QueryClient();
@@ -11,7 +10,7 @@ function App() {
       <div className="App font-mono h-screen bg-[#FFFEFC]">
         <Router />
       </div>
-      <ToastContainer autoClose={1000} />
+      <Toaster position="top-right" reverseOrder={false} />
     </QueryClientProvider>
   );
 }

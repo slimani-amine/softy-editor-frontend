@@ -21,6 +21,7 @@ const useAuthStore = create<AuthStore>()(
     (set) => ({
       ...initialState,
       setIsAuthenticated: (isAuthenticated) => {
+        console.log("🚀 ~ isAuthenticated:", isAuthenticated)
         set(() => ({ isAuthenticated }));
         cookies.set('isAuthenticated', isAuthenticated ? 'true' : 'false', { path: '/' });
       },

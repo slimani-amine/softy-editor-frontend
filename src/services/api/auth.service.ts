@@ -29,42 +29,33 @@ export const login = async (body: LoginBody) => {
 export const register = async (body: RegisterBody) => {
   try {
     const { data } = await api.post(`${BASE_URL}/auth/email/register`, body);
-    console.log('🚀 ~ register ~ data:', data);
+
     cookies.set('accessToken', data.token, { path: '/' });
     cookies.set('refreshToken', data.refreshToken, { path: '/' });
+
     return data;
   } catch (error) {
-    console.error('Registration failed:', error);
-    throw error; // Re-throw the error to handle it in the calling code
+    throw error;
   }
 };
 
 export const sendmail = async (body: SendMailBody) => {
   try {
-    // Perform sending email logic here
-    // For example, make a POST request to the send mail endpoint
-    // const { data } = await api.post(`${BASE_URL}/auth/sendmail`, body);
-    // Return the response if needed
-    // return data;
-    // For demonstration purposes, I'm returning a mock response
-    return { success: true, message: 'Email sent successfully' };
+    const { data } = await api.post(`${BASE_URL}/auth/forgot/password`, body);
+    console.log('🚀 ~ sendmail ~ data:', data);
+    return data;
   } catch (error) {
-    console.error('Sending email failed:', error);
-    throw error; // Re-throw the error to handle it in the calling code
+    console.log("errorr");
+    
+    throw error;
   }
 };
 
 export const resetPassword = async (body: ResetPasswordBody) => {
   try {
-    // Perform password reset logic here
-    // For example, make a POST request to the reset password endpoint
-    // const { data } = await api.post(`${BASE_URL}/auth/resetpassword`, body);
-    // Return the response if needed
-    // return data;
-    // For demonstration purposes, I'm returning a mock response
-    return { success: true, message: 'Password reset successful' };
+    const { data } = await api.post(`${BASE_URL}/auth/reset/password`, body);
+    return data;
   } catch (error) {
-    console.error('Password reset failed:', error);
-    throw error; // Re-throw the error to handle it in the calling code
+    throw error;
   }
 };

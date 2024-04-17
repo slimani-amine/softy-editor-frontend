@@ -27,11 +27,11 @@ const Navbar = () => {
       )}
     >
       {/* <Logo /> */}
-      <a href="#" className="flex items-center w-full">
+      <Link to="/" className="flex items-center w-full">
         <span className="font-semibold text-gray-500 text-lg">
           Softy-Editor
         </span>
-      </a>
+      </Link>
       <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2 font-semibold text-gray-500 text-lg">
         {isLoading && <Spinner />}
         {!isAuthenticated && !isLoading && (

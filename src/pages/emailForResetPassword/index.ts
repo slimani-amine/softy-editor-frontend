@@ -1,1 +1,1 @@
-export { default } from './SendMail';
+export { default } from './ForgetPassword';

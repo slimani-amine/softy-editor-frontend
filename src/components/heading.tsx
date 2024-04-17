@@ -40,7 +40,7 @@ export const Heading = () => {
       )}
       {!isAuthenticated && !isLoading && (
         <Link to="/login">
-          <Button className="hover:text-red-500 ">
+          <Button className="hover:text-blue-500 ">
             <p className="animate-pulse ">Enter Now</p>
             <ArrowRight className="h-4 w-4 ml-2 animate-pulse " />
           </Button>
