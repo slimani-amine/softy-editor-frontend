@@ -13,4 +13,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  define: {
+    'process.env.IS_PREACT': JSON.stringify('false'),
+  },
 });

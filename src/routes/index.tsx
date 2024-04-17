@@ -1,9 +1,13 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Articles from '../pages/Articles';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import Documents from '../pages/Documents';
 import Home from '../pages/Home';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import Login from '@/pages/Login';
+import DocumentsPage from '@/pages/Documents/_components/DocumentsEmptyPage';
+import DocumentsEmptyPage from '@/pages/Documents/_components/DocumentsEmptyPage';
+import DocumentIdPage from '@/pages/Documents/_components/DocumentIdPage';
+import PageNotFound from '@/components/PageNotFound';
 
 const Router = () => (
   <BrowserRouter>
@@ -25,13 +29,17 @@ const Router = () => (
         }
       />
       <Route
-        path="/articles"
+        path="/documents"
         element={
           <PrivateRoute>
-            <Articles />
+            <Documents />
           </PrivateRoute>
         }
-      />
+      >
+        <Route index element={<DocumentsEmptyPage />} />
+        <Route path="/documents/:documentId" element={<DocumentIdPage />} />
+      </Route>
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   </BrowserRouter>
 );

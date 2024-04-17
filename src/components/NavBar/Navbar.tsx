@@ -1,5 +1,3 @@
-'use client';
-
 // import { useConvexAuth } from "convex/react";
 // import { Button, UserButton } from "@clerk/clerk-react";
 
@@ -36,16 +34,16 @@ const Navbar = () => {
         {isLoading && <Spinner />}
         {!isAuthenticated && !isLoading && (
           <>
-            <Button variant="ghost" size="sm">
-              <Link to="/login" className="text-sm hover:text-black ">
+            <Button className="hover:opacity-90 ">
+              <Link to="/login" className="text-sm  ">
                 Log in
               </Link>
             </Button>
-            <Button>
+            {/* <Button>
               <Link to="/" className="text-sm hover:text-black ">
                 Get Softy-Editor free
               </Link>
-            </Button>
+            </Button> */}
           </>
         )}
         {isAuthenticated && !isLoading && (

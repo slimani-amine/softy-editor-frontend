@@ -1,5 +1,3 @@
-'use client';
-
 // import { useConvexAuth } from "convex/react";
 import { ArrowRight } from 'lucide-react';
 // import { SignInButton } from "@clerk/clerk-react";
