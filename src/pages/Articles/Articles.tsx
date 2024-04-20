@@ -10,7 +10,7 @@ import {
   AccordionTrigger,
 } from '../../components/ui/accordion';
 import { Input } from '@/components/ui/input';
-import Header from '@/components/Header';
+import Header from '@/components/LandingPage/Header';
 // import Header from '@/components/HomeNavBar/Header';
 
 export type Filter = { page: number; search?: string };

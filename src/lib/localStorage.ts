@@ -19,4 +19,12 @@ const setItem = (key: string, value: unknown) => {
   window.localStorage.setItem(key, JSON.stringify(value));
 };
 
-export { getItem, setItem };
+/**
+ * Clears an item from localStorage by its key.
+ * @param key The key of the item to clear from localStorage.
+ */
+const clearItem = (key: string) => {
+  window.localStorage.removeItem(key);
+};
+
+export { getItem, setItem, clearItem };

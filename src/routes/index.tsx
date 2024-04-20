@@ -6,8 +6,8 @@ import PublicRoute from './PublicRoute';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
 import ResetPassword from '@/pages/ResetPassword';
-import ForgetPassword from '@/pages/emailForResetPassword/ForgetPassword';
-
+import ForgotPassword from '@/pages/ForgotPassword';
+import Pricing from '@/components/Pricing/Pricing';
 const Router = () => (
   <BrowserRouter>
     <Routes>
@@ -36,10 +36,10 @@ const Router = () => (
         }
       />
       <Route
-        path="/forget-password"
+        path="/forgot-password"
         element={
           <PublicRoute>
-            <ForgetPassword />
+            <ForgotPassword />
           </PublicRoute>
         }
       />
@@ -48,6 +48,14 @@ const Router = () => (
         element={
           <PublicRoute>
             <ResetPassword />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/pricing"
+        element={
+          <PublicRoute>
+            <Pricing />
           </PublicRoute>
         }
       />

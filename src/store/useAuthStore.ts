@@ -1,33 +1,47 @@
 import { create } from 'zustand';
-import Cookies from 'universal-cookie';
 import { logger } from './logger';
-
+import { clearItem, setItem } from '../lib/localStorage';
+ 
 interface AuthState {
+  isInitialised: boolean;
   isAuthenticated: boolean;
+  user: User | null;
 }
-
+ 
 export interface AuthStore extends AuthState {
   setIsAuthenticated: (args: AuthState['isAuthenticated']) => void;
+  setUser: (args: AuthState['user']) => void;
+  setToken: (args: string) => void;
+  clearToken: () => void;
 }
-
-const cookies = new Cookies();
-
+ 
 const initialState: Pick<AuthStore, keyof AuthState> = {
-  isAuthenticated: cookies.get('isAuthenticated') === 'true',
+  isAuthenticated: false,
+  isInitialised: false,
+  user: null,
 };
-
+ 
 const useAuthStore = create<AuthStore>()(
   logger<AuthStore>(
     (set) => ({
       ...initialState,
       setIsAuthenticated: (isAuthenticated) => {
-        console.log("🚀 ~ isAuthenticated:", isAuthenticated)
         set(() => ({ isAuthenticated }));
-        cookies.set('isAuthenticated', isAuthenticated ? 'true' : 'false', { path: '/' });
+        set(() => ({ isInitialised: true }));
+      },
+ 
+      setToken: (token: string) => {
+        setItem('token', token);
+      },
+      setUser: (user) => {
+        set(() => ({ user }));
+      },
+      clearToken: () => {
+        clearItem('token');
       },
     }),
     'authStore'
   )
 );
-
+ 
 export default useAuthStore;

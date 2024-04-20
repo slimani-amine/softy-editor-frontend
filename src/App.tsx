@@ -7,7 +7,7 @@ function App() {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="App font-mono h-screen bg-[#FFFEFC]">
+      <div className="App h-screen bg-[#FFFEFC] scroll-smooth ">
         <Router />
       </div>
       <Toaster position="top-right" reverseOrder={false} />
