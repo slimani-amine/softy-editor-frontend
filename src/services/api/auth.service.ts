@@ -17,9 +17,6 @@ export const login = async (body: LoginBody) => {
     const { data } = await api.post(`${BASE_URL}/auth/email/login`, body);
     console.log('🚀 ~ login ~ data:', data);
 
-    cookies.set('accessToken', data.token, { path: '/' });
-    cookies.set('refreshToken', data.refreshToken, { path: '/' });
-
     return data;
   } catch (error: any) {
     throw error;

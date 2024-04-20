@@ -14,7 +14,7 @@ import AuthNav from '@/components/Authentication/AuthNav';
 export const randomIcons = [];
 
 const Login = () => {
-  const { setIsAuthenticated } = useAuthStore((state) => state);
+  const { setIsAuthenticated, setUser } = useAuthStore((state) => state);
   const {
     isLoading,
     mutateAsync: login,
@@ -49,6 +49,7 @@ const Login = () => {
     const res = await login(data);
     if (res) {
       setIsAuthenticated(true);
+      setUser(res.user);
     }
   };
 
