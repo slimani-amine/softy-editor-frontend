@@ -61,7 +61,7 @@ const ForgotPassword = () => {
       setEmail(data.email);
       setButtonLabel('Resend');
       setRemainingSeconds(60);
-      toast.success('Email sent successfully');
+      toast.success('An email has been sent. Please check your inbox.');
     } catch (error) {
       toast.error('An error occurred. Please try again later.');
     }
@@ -72,7 +72,6 @@ const ForgotPassword = () => {
       await sendMail({ email });
       setButtonLabel('Resend');
       setRemainingSeconds(60);
-      toast.success('Email resend successfully');
     } catch (error) {
       toast.error('An error occurred. Please try again later.');
     }
@@ -122,7 +121,7 @@ const ForgotPassword = () => {
               <div className="flex flex-col justify-center items-center gap-1">
                 <Button
                   text={`${buttonLabel} ${
-                    buttonLabel === 'Resend'
+                    buttonLabel === 'Resend' && remainingSeconds > 0
                       ? `(${remainingSeconds} seconds)`
                       : ''
                   }`}

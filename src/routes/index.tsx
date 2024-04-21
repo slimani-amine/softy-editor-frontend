@@ -8,6 +8,7 @@ import Register from '@/pages/Register';
 import ResetPassword from '@/pages/ResetPassword';
 import ForgotPassword from '@/pages/ForgotPassword';
 import Pricing from '@/components/Pricing/Pricing';
+import NotFound from 'shared/features/NotFound/NotFound';
 const Router = () => (
   <BrowserRouter>
     <Routes>
@@ -56,6 +57,14 @@ const Router = () => (
         element={
           <PublicRoute>
             <Pricing />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="*"
+        element={
+          <PublicRoute>
+            <NotFound />
           </PublicRoute>
         }
       />

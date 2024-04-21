@@ -1,12 +1,10 @@
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Input from '@/components/Shared/Input/Input';
 import { ResetPasswordSchema } from '@/lib/validation';
 import { useResetPasswordQuery } from '@/services/queries/auth.query';
 import { ResetPasswordBody } from '@/types/auth';
-import Button from '@/components/Shared/Button';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import {  useNavigate, useSearchParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import ResetPasswordIcon from '@/components/Shared/Icons/ResetPasswordIcon';
 import AuthNav from '@/components/Authentication/AuthNav';

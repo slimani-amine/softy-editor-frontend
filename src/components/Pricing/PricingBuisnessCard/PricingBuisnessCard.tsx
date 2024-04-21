@@ -41,6 +41,11 @@ type CardProps = React.ComponentProps<typeof Card>;
 
 const PricingBuisnessCard = ({ className, billingPeriod, ...props }: any) => {
   const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate(`/register?plan=business&billingPeriod=${billingPeriod}`);
+  };
+  
   return (
     <Card
       className={cn(
@@ -60,12 +65,12 @@ const PricingBuisnessCard = ({ className, billingPeriod, ...props }: any) => {
       </CardHeader>
       <Button
         className=" bg-white text-black flex justify-center w-[80%] mx-auto rounded-[7px] font-semibold hover:opacity-80 shadow-sm "
-        onClick={() => navigate('/register')}
+        onClick={handleGetStarted}
       >
         Get started
       </Button>
       <CardContent className="grid gap-2 mt-4">
-        <span className="font-semibold">Everything in Free +</span>
+        <span className="font-semibold">Everything in Plus +</span>
 
         {details.map((detail, index) => (
           <div

@@ -1,18 +1,17 @@
 import useAuthStore from '@/store/useAuthStore';
 import { Button } from '../../ui/button';
-import Cookies from 'universal-cookie'; 
+import Cookies from 'universal-cookie';
+import { clearTokens } from '@/lib/utils/token';
 
 const Header = () => {
   const { isAuthenticated, setIsAuthenticated } = useAuthStore(
     (state) => state
   );
 
-  const cookies = new Cookies(); 
+  const cookies = new Cookies();
 
   const handleLogout = () => {
-    cookies.remove('accessToken', { path: '/' });
-    cookies.remove('refreshToken', { path: '/' });
-
+    clearTokens();
     setIsAuthenticated(false);
   };
 

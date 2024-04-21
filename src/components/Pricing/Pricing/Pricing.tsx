@@ -16,11 +16,11 @@ const Pricing = ({ className, ...props }: CardProps) => {
   };
 
   return (
-    <section className="bg-white dark:bg-gray-900 scroll-smooth " id='pricing' >
+    <section className="bg-white dark:bg-gray-900 scroll-smooth " id="pricing">
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div className="mx-auto max-w-screen-md text-center mb-8 lg:mb-12 flex flex-col items-center gap-4">
           <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-            One tool for your whole company. Free for teams to try.
+            One tool for your whole company. <br /> Free for teams to try.
           </h2>
           <div
             className="relative self-center bg-[#F6F5F4] rounded-2xl p-0.5 flex"
@@ -59,7 +59,7 @@ const Pricing = ({ className, ...props }: CardProps) => {
             </button>
           </div>
         </div>
-        <div className="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0" >
+        <div className="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
           <PricingFreeCard billingPeriod={billingPeriod} />
           <PricingPlusCard billingPeriod={billingPeriod} />
           <PricingBuisnessCard billingPeriod={billingPeriod} />
