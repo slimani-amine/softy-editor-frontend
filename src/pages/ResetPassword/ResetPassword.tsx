@@ -8,7 +8,7 @@ import {  useNavigate, useSearchParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import ResetPasswordIcon from '@/components/Shared/Icons/ResetPasswordIcon';
 import AuthNav from '@/components/Authentication/AuthNav';
-import ResetPasswordForm from './ResetPasswordForm';
+import ResetPasswordForm from '../../components/Authentication/ResetPasswordForm/ResetPasswordForm';
 
 const ResetPassword = () => {
   const {

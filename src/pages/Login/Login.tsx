@@ -7,7 +7,7 @@ import useAuthStore from '@/store/useAuthStore';
 import { LoginBody } from '@/types/auth';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import LoginForm from './LoginForm';
+import LoginForm from '../../components/Authentication/LoginForm/LoginForm';
 import GoogleButton from '@/components/Authentication/GoogleButton';
 import Terms from '@/components/Authentication/Terms';
 import AuthNav from '@/components/Authentication/AuthNav';

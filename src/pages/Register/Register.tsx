@@ -12,7 +12,7 @@ import Button from '@/components/Shared/Button';
 import { Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import toast from 'react-hot-toast';
-import RegisterForm from './RegisterForm';
+import RegisterForm from '../../components/Authentication/RegisterForm/RegisterForm';
 import GoogleButton from '@/components/Authentication/GoogleButton';
 import Terms from '@/components/Authentication/Terms';
 import AuthNav from '@/components/Authentication/AuthNav';

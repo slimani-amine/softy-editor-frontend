@@ -1,6 +1,5 @@
 import Button from '@/components/Shared/Button';
 import Input from '@/components/Shared/Input';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 export default function LoginForm({
