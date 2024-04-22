@@ -40,7 +40,7 @@ const Input = <T extends FieldValues, U extends FieldValues>({
   return (
     <div className="flex flex-col w-full relative">
       <label
-        className="block mb-1 text-xs font-medium text-gray-500"
+        className="block mb-1 text-sm font-normal text-[#37352F]"
         htmlFor={name}
       >
         {label ?? ''}

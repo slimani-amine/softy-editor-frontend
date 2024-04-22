@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const Terms: React.FC = () => (
-  <div className="w-full mb-0 text-xs text-gray-400 text-center">
+  <div className="w-full mb-0 text-xs text-[#ACABA9] text-center mt-16">
     <p className="mb-0">
       By continuing, you acknowledge that you understand and agree to the{' '}
       <a

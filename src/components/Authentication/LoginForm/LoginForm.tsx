@@ -17,43 +17,48 @@ export default function LoginForm({
       <div className="flex flex-col gap-2">
         <Input
           placeholder="Enter your email address..."
-          errors={errors}
           type="email"
           label="Email"
           autoComplete="email"
           aria-label="Enter your email address..."
-          className="w-full outline-none border border-gray-400 rounded-[5px] px-4 py-1 placeholder:text-gray-500"
+          className="w-full outline-none border border-gray-200 h-9 rounded-[5px] px-4 py-1 placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
           name="email"
           register={register}
         />
+        <p className="text-sm text-[#ACABA9] font-light">
+          Use an organization email to easily collaborate with teammates
+        </p>
 
-        <Input
+        {/* <Input
           placeholder="Enter your password..."
           errors={errors}
           type="password"
           label="Password"
           autoComplete="password"
           aria-label="Enter your password..."
-          className="w-full outline-none border border-gray-400 rounded-[5px] px-4 py-1 placeholder:text-gray-500 pr-10"
+          className="w-full outline-none border border-gray-00 rounded-[5px] px-4 py-1 placeholder:text-gray-500 pr-10"
           name="password"
           register={register}
-        />
-
+        /> */}
+        {/* 
         <Link
           to="/forgot-password"
           className="cursor-pointer  text-blue-500 hover:underline text-sm mt-1"
         >
           Forgot your password?
-        </Link>
+        </Link> */}
       </div>
       <div className="flex flex-col justify-center items-center gap-1">
         <Button
           text="Continue"
           type="submit"
           isLoading={isLoading}
-          className="w-full flex items-center justify-center h-10 rounded-[5px] text-white text-sm font-medium bg-blue-500 hover:bg-blue-600 shadow-inner md:shadow-md mt-2"
+          className="w-full flex items-center justify-center h-9 rounded-[5px] text-white text-sm font-medium bg-blue-500 hover:bg-blue-600 shadow-inner md:shadow-md mt-2"
         />
-        <a className="text-sm ">
+        {errors && errors && (
+          <span className="text-red-500">{errors?.email?.message as string}</span>
+        )}
+        {/* <a className="text-sm ">
           Don't have an account?{' '}
           <Link
             to={'/register'}
@@ -61,7 +66,7 @@ export default function LoginForm({
           >
             Register
           </Link>
-        </a>
+        </a> */}
       </div>
     </form>
   );

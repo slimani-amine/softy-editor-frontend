@@ -9,7 +9,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <GoogleAuthProvider>
-        <div className="App h-screen bg-[#FFFEFC] scroll-smooth ">
+        <div className="App h-screen bg-[#FFFEFC] scroll-smooth leading-1 ">
           <Router />
         </div>
         <Toaster position="top-right" reverseOrder={false} />

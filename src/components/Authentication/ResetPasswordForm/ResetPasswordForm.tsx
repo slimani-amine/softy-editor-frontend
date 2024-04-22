@@ -22,7 +22,7 @@ const ResetPasswordForm = ({
           type="password"
           autoComplete="password"
           aria-label="Enter your password..."
-          className="w-full outline-none border border-gray-400 rounded-[5px] px-4 py-1 placeholder:text-gray-500 pr-10"
+          className="w-full outline-none border border-gray-200 rounded-[5px] px-4 py-1 placeholder:text-gray-500 pr-10"
           name="password"
           register={register}
         />
@@ -34,7 +34,7 @@ const ResetPasswordForm = ({
           type="password"
           autoComplete="confirmPassword"
           aria-label="confirm your password..."
-          className="w-full outline-none border border-gray-400 rounded-[5px] px-4 py-1 placeholder:text-gray-500"
+          className="w-full outline-none border border-gray-200 rounded-[5px] px-4 py-1 placeholder:text-gray-500"
           name="confirmPassword"
           register={register}
         />

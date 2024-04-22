@@ -90,7 +90,7 @@ const ForgotPassword = () => {
               Forgot Your Password?
             </h1>
             <h2 className="text-gray-500 text-xl font-semibold">
-              Continue Creating with Softy-Editor
+              Continue Creating with E-ditor
             </h2>
           </div>
           <div className="flex flex-col items-center">
@@ -112,7 +112,7 @@ const ForgotPassword = () => {
                     type="email"
                     autoComplete="email"
                     aria-label="Enter your email address..."
-                    className="w-full outline-none border border-gray-400 rounded-[5px] px-4 py-1 placeholder:text-gray-500"
+                    className="w-full outline-none border border-gray-200 rounded-[5px] px-4 py-1 placeholder:text-gray-500"
                     name="email"
                     register={register}
                   />

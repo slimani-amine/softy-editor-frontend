@@ -74,7 +74,7 @@ const Register = () => {
               register={register}
               isLoading={isLoading}
             />
-            <hr className="h-1 w-full mb-5 border-gray-400" />
+            <hr className="h-1 w-full mb-5 border-gray-200" />
 
             <GoogleButton />
 

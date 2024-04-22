@@ -16,9 +16,7 @@ const Navbar = () => {
       )}
     >
       <Link to="/" className="flex items-center w-full">
-        <span className="font-semibold text-gray-700 text-lg">
-          Softy-Editor
-        </span>
+        <span className="font-semibold text-gray-700 text-lg">E-ditor </span>
       </Link>
       <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2 font-semibold text-gray-700 text-lg">
         {isLoading && <Spinner />}
@@ -45,7 +43,7 @@ const Navbar = () => {
         {isAuthenticated && !isLoading && (
           <>
             <Button variant="ghost" size="lg" asChild>
-              <Link to="/documents">Enter Softy-Editor</Link>
+              <Link to="/documents">Enter E-ditor</Link>
             </Button>
           </>
         )}

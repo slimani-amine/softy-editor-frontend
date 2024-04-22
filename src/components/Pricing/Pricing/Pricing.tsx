@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import PricingFreeCard from '../PricingFreeCard';
 import PricingPlusCard from '../PricingPlusCard';
-import PricingBuisnessCard from '../PricingBuisnessCard';
+import PricingBusinessCard from '../PricingBusinessCard';
 
 type CardProps = React.ComponentProps<typeof Card>;
 
@@ -62,7 +62,7 @@ const Pricing = ({ className, ...props }: CardProps) => {
         <div className="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
           <PricingFreeCard billingPeriod={billingPeriod} />
           <PricingPlusCard billingPeriod={billingPeriod} />
-          <PricingBuisnessCard billingPeriod={billingPeriod} />
+          <PricingBusinessCard billingPeriod={billingPeriod} />
         </div>
       </div>
     </section>

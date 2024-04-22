@@ -6,7 +6,7 @@ import LazyLoad from '@/components/Shared/LazyLoad';
 import { clearTokens, getTokens } from '@/lib/utils/token';
 import useAuthStore from '@/store/useAuthStore';
 import useIsMountedRef from 'shared/hooks/useIsMountedRef';
-import { BASE_URL } from '@/services/api/auth.service';
+import { BASE_URL } from 'shared/config';
 interface AuthProviderProps {
   children: React.ReactNode;
 }
@@ -36,12 +36,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       const { access_token } = getTokens();
       console.log("🚀 ~ fetchUser ~ access_token:", access_token)
       if (access_token && isValidToken(access_token)) {
-        console.log("ok");
-        
         const response = await api.get(`${BASE_URL}/auth/me`);
-        console.log("🚀 ~ fetchUser ~ response:", response)
         const user = response?.data;
-        console.log('🚀 ~ fetchUser ~ user:', user);
         setIsAuthenticated(true);
         setUser(user);
       } else {

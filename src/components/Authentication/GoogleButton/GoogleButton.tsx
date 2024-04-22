@@ -38,7 +38,6 @@ const GoogleButton: React.FC = () => {
     const res = await loginWithGoogle({ idToken });
 
     if (res) {
-      toast.success('Login successful');
       const { token: accessToken, refreshToken, user } = res;
       setTokens(accessToken, refreshToken);
       setUser(user);
@@ -55,13 +54,13 @@ const GoogleButton: React.FC = () => {
   });
   
   return (
-    <div className="w-full flex items-center justify-center dark:bg-gray-800 mb-5">
+    <div className="w-full flex items-center justify-center dark:bg-gray-800 mb-2">
       <Button
-        className="w-full items-center justify-center h-10 px-4 py-1 border flex border-gray-400 dark:border-slate-700 rounded-[5px] text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
+        className="w-full items-center justify-center h-9 px-2 py-1 border flex border-color dark:border-slate-700 rounded-[5px] text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
         onClick={Googlelogin}
       >
         <GoogleIcon />
-        <span className="font-semibold text-black ">Continue with Google</span>
+        <span className=" text-black ">Continue with Google</span>
       </Button>
     </div>
   );

@@ -7,14 +7,13 @@ import {
   SendMailBody,
 } from '@/types/auth';
 import axios from 'axios';
-import { googleClientId, googleSecret } from 'shared/config/google-config';
+import { BASE_URL, googleClientId, googleSecret } from 'shared/config';
+console.log("🚀 ~ BASE_URL:", BASE_URL)
 
-export const BASE_URL = 'http://localhost:3000/api/v1';
 
 export const login = async (body: LoginBody) => {
   try {
     const { data } = await api.post(`${BASE_URL}/auth/email/login`, body);
-
     return data;
   } catch (error: any) {
     throw error;
@@ -22,7 +21,6 @@ export const login = async (body: LoginBody) => {
 };
 
 export const googleLogin = async (body: LoginWithGoogleBody) => {
-  console.log('🚀 ~ googleLogin ~ body:', body);
   try {
     const { data } = await api.post(`${BASE_URL}/auth/google/login`, body);
     return data;
@@ -32,10 +30,6 @@ export const googleLogin = async (body: LoginWithGoogleBody) => {
 };
 
 export async function exchangeCodeForIdToken(authorizationCode: string) {
-  console.log(
-    '🚀 ~ exchangeCodeForIdToken ~ authorizationCode:',
-    authorizationCode
-  );
   try {
     const response = await axios.post('https://oauth2.googleapis.com/token', {
       client_id: googleClientId,
@@ -44,10 +38,8 @@ export async function exchangeCodeForIdToken(authorizationCode: string) {
       grant_type: 'authorization_code',
       redirect_uri: 'http://localhost:5173',
     });
-
     return response.data.id_token;
   } catch (error) {
-    console.error('Error exchanging code for token:', error);
     return null;
   }
 }
@@ -55,7 +47,6 @@ export async function exchangeCodeForIdToken(authorizationCode: string) {
 export const register = async (body: RegisterBody) => {
   try {
     const { data } = await api.post(`${BASE_URL}/auth/email/register`, body);
-
     return data;
   } catch (error: any) {
     throw error;
@@ -67,8 +58,6 @@ export const sendmail = async (body: SendMailBody) => {
     const { data } = await api.post(`${BASE_URL}/auth/forgot/password`, body);
     return data;
   } catch (error: any) {
-    console.log('errorr');
-
     throw error;
   }
 };

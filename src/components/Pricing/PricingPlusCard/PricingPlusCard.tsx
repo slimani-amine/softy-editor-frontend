@@ -7,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import FreeIcon from '@/components/Shared/Icons/FreeIcon';
 import { useNavigate } from 'react-router';
 import PlusIcon from '@/components/Shared/Icons/plusIcon';
 
@@ -30,7 +29,6 @@ const details = [
   },
 ];
 
-type CardProps = React.ComponentProps<typeof Card>;
 
 const PricingPlusCard = ({ className, billingPeriod, ...props }: any) => {
   const navigate = useNavigate();

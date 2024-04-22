@@ -72,7 +72,7 @@ const ResetPassword = () => {
               Reset Your Password
             </h1>
             <h2 className="text-gray-500 text-xl font-semibold">
-              Continue Creating with Softy-Editor
+              Continue Creating with E-ditor
             </h2>
           </div>
           <div className="flex flex-col items-center ">

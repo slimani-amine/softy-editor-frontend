@@ -23,7 +23,7 @@ const Header = () => {
             <div>
               <a href="#" className="flex items-center py-4 px-2">
                 <span className="font-semibold text-gray-500 text-lg">
-                  Softy-Editor
+                E-ditor
                 </span>
               </a>
             </div>

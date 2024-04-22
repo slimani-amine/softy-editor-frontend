@@ -22,7 +22,7 @@ export default function RegisterForm({
           autoComplete="userName"
           label="UserName"
           aria-label="Enter your userName..."
-          className="w-full outline-none border border-gray-400 rounded-[5px] px-4 py-1 placeholder:text-gray-500"
+          className="w-full outline-none border border-gray-200 rounded-[5px] px-4 py-1 placeholder:text-gray-500"
           name="userName"
           register={register}
         />
@@ -34,7 +34,7 @@ export default function RegisterForm({
           autoComplete="email"
           label="Email"
           aria-label="Enter your email address..."
-          className="w-full outline-none border border-gray-400 rounded-[5px] px-4 py-1 placeholder:text-gray-500"
+          className="w-full outline-none border border-gray-200 rounded-[5px] px-4 py-1 placeholder:text-gray-500"
           name="email"
           register={register}
         />
@@ -46,7 +46,7 @@ export default function RegisterForm({
           autoComplete="password"
           label="Password"
           aria-label="Enter your password..."
-          className="w-full outline-none border border-gray-400 rounded-[5px] px-4 py-1 placeholder:text-gray-500 pr-10"
+          className="w-full outline-none border border-gray-200 rounded-[5px] px-4 py-1 placeholder:text-gray-500 pr-10"
           name="password"
           register={register}
         />
@@ -58,7 +58,7 @@ export default function RegisterForm({
           autoComplete="confirmPassword"
           label="Confirm password"
           aria-label="confirm your password..."
-          className="w-full outline-none border border-gray-400 rounded-[5px] px-4 py-1 placeholder:text-gray-500"
+          className="w-full outline-none border border-gray-200 rounded-[5px] px-4 py-1 placeholder:text-gray-500"
           name="confirmPassword"
           register={register}
         />

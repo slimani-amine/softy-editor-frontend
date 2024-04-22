@@ -1,4 +1,4 @@
-import { clearTokens, getTokens, setTokens } from '../../auth/utils/token'
+import { clearTokens, getTokens, setTokens } from '@/lib/utils/token'
 import axios from 'axios'
 
 const baseURL = import.meta.env['VITE_APP_BASE_URL'] as string

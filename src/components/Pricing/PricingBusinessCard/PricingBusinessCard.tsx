@@ -37,9 +37,7 @@ const details = [
   },
 ];
 
-type CardProps = React.ComponentProps<typeof Card>;
-
-const PricingBuisnessCard = ({ className, billingPeriod, ...props }: any) => {
+const PricingBusinessCard = ({ className, billingPeriod, ...props }: any) => {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
@@ -88,4 +86,4 @@ const PricingBuisnessCard = ({ className, billingPeriod, ...props }: any) => {
     </Card>
   );
 };
-export default PricingBuisnessCard;
+export default PricingBusinessCard;
