@@ -1,7 +1,7 @@
 const LoginIcon = () => {
   return (
     <img
-      src="public\login.png"
+      src="/login.png"
       alt="login"
       className="w-[50%] flex justify-center items-center"
     />

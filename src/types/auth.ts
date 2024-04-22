@@ -10,6 +10,10 @@ export interface RegisterBody {
   confirmPassowrd: string;
 }
 
+export interface LoginWithGoogleBody {
+  idToken: string;
+}
+
 export interface SendMailBody {
   email: string;
 }

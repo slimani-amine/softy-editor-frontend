@@ -1,24 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Input from '@/components/Shared/Input/Input';
 import { RegisterSchema } from '@/lib/validation';
 import { useRegisterQuery } from '@/services/queries/auth.query';
 import useAuthStore from '@/store/useAuthStore';
 import { RegisterBody } from '@/types/auth';
-import { Button as UIButton } from '@/components/ui/button';
-import GoogleIcon from '@/components/ui/googleIcon';
-import Button from '@/components/Shared/Button';
-import { Link } from 'react-router-dom';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import RegisterForm from '../../components/Authentication/RegisterForm/RegisterForm';
 import GoogleButton from '@/components/Authentication/GoogleButton';
 import Terms from '@/components/Authentication/Terms';
 import AuthNav from '@/components/Authentication/AuthNav';
+import { setTokens } from '@/lib/utils/token';
 
 const Register = () => {
-  const { setIsAuthenticated } = useAuthStore((state) => state);
+  const { setIsAuthenticated, setUser } = useAuthStore((state) => state);
   const {
     isLoading,
     mutateAsync: Register,
@@ -30,6 +25,7 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<any>({ resolver: yupResolver(RegisterSchema) });
+  
   useEffect(() => {
     if (isError && error) {
       const errorMessage = error.response?.data?.errors;
@@ -48,6 +44,9 @@ const Register = () => {
     const res = await Register(data);
     if (res) {
       toast.success('Welcome');
+      const { token: accessToken, refreshToken, user } = res;
+      setTokens(accessToken, refreshToken);
+      setUser(user);
       setIsAuthenticated(true);
     }
   };

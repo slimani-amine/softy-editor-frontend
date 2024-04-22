@@ -1,40 +1,34 @@
 import { useMutation } from '@tanstack/react-query';
 import {
+  LoginWithGoogleBody,
   RegisterBody,
   ResetPasswordBody,
   SendMailBody,
   type LoginBody,
 } from '@/types/auth';
-import { login, register, resetPassword, sendmail } from '../api/auth.service';
-import { setTokens } from '@/lib/utils/token';
+import {
+  login,
+  googleLogin,
+  register,
+  resetPassword,
+  sendmail,
+} from '../api/auth.service';
 
 export const useLoginQuery = () =>
   useMutation(['login'], async (body: LoginBody) => {
     const res = await login(body);
-    console.log('🚀 ~ useMutation ~ res:', res);
-    const { token: accessToken, refreshToken, user } = res;
-    console.log(
-      '🚀 ~ useMutation ~  accessToken, refreshToken:',
-      accessToken,
-      refreshToken
-    );
+    return res;
+  });
 
-    setTokens(accessToken, refreshToken);
+export const usegoogleLoginQuery = () =>
+  useMutation(['googleLogin'], async (body: LoginWithGoogleBody) => {
+    const res = await googleLogin(body);
     return res;
   });
 
 export const useRegisterQuery = () =>
   useMutation(['register'], async (body: RegisterBody) => {
     const res = await register(body);
-    const { token: accessToken, refreshToken, user } = res;
-    console.log(
-      '🚀 ~ useMutation ~ accessToken, refreshToken:',
-      accessToken,
-      refreshToken
-    );
-
-    setTokens(accessToken, refreshToken);
-
     return res;
   });
 

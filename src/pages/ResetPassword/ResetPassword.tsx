@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { ResetPasswordSchema } from '@/lib/validation';
 import { useResetPasswordQuery } from '@/services/queries/auth.query';
 import { ResetPasswordBody } from '@/types/auth';
-import {  useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import ResetPasswordIcon from '@/components/Shared/Icons/ResetPasswordIcon';
 import AuthNav from '@/components/Authentication/AuthNav';
@@ -49,9 +49,13 @@ const ResetPassword = () => {
       toast.error(
         "Oops! Looks like your password reset link has expired. Don't worry, you can always try again "
       );
+      return;
     }
     const body = { password: data.password, hash };
     await ResetPassword(body);
+    toast.success(
+      'Your password was reset successfully. Please try to log in now.'
+    );
     navigate('/login');
   };
 
@@ -72,7 +76,13 @@ const ResetPassword = () => {
             </h2>
           </div>
           <div className="flex flex-col items-center ">
-            <ResetPasswordForm  handleSubmit={handleSubmit} onSubmit={onSubmit} errors={errors} register={register} isLoading={isLoading}  />
+            <ResetPasswordForm
+              handleSubmit={handleSubmit}
+              onSubmit={onSubmit}
+              errors={errors}
+              register={register}
+              isLoading={isLoading}
+            />
           </div>
           <div className="flex justify-center items-center">
             <ResetPasswordIcon />
@@ -84,5 +94,3 @@ const ResetPassword = () => {
 };
 
 export default ResetPassword;
-
-  

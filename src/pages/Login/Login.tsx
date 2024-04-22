@@ -5,13 +5,13 @@ import { loginSchema } from '@/lib/validation';
 import { useLoginQuery } from '@/services/queries/auth.query';
 import useAuthStore from '@/store/useAuthStore';
 import { LoginBody } from '@/types/auth';
-import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import LoginForm from '../../components/Authentication/LoginForm/LoginForm';
 import GoogleButton from '@/components/Authentication/GoogleButton';
 import Terms from '@/components/Authentication/Terms';
 import AuthNav from '@/components/Authentication/AuthNav';
-export const randomIcons = [];
+import GoogleAuthProvider from 'shared/providers/google-auth-provider';
+import { setTokens } from '@/lib/utils/token';
 
 const Login = () => {
   const { setIsAuthenticated, setUser } = useAuthStore((state) => state);
@@ -26,14 +26,9 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginBody>({ resolver: yupResolver(loginSchema) });
-  const [showPassword, setShowPassword] = useState(false);
 
-  const togglePasswordVisibility = () => {
-    setShowPassword((prevShowPassword) => !prevShowPassword);
-  };
   useEffect(() => {
     if (isError && error) {
-      console.log('🚀 ~ useEffect ~ error:', error);
       const errorMessage = error.response?.data?.errors as any;
       if (errorMessage.email) {
         toast.error('Email not found');
@@ -48,8 +43,11 @@ const Login = () => {
   const onSubmit: SubmitHandler<LoginBody> = async (data) => {
     const res = await login(data);
     if (res) {
+      const { token: accessToken, refreshToken, user } = res;
+      setTokens(accessToken, refreshToken);
+      setUser(user);
       setIsAuthenticated(true);
-      setUser(res.user);
+
     }
   };
 
@@ -73,12 +71,10 @@ const Login = () => {
               onSubmit={onSubmit}
               errors={errors}
               register={register}
-              togglePasswordVisibility={togglePasswordVisibility}
               isLoading={isLoading}
             />
             <hr className="h-1 w-full mb-5 border-gray-400" />
-
-            <GoogleButton />
+              <GoogleButton />
             <Terms />
           </div>
         </div>
