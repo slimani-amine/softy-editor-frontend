@@ -2,7 +2,7 @@ import * as yup from 'yup';
 
 export const loginSchema = yup.object().shape({
   email: yup.string().email().required('Email is required'),
-  password: yup.string().required('Password is required'),
+  code: yup.string().required('Code is required').optional(),
 });
 
 export const RegisterSchema = yup.object().shape({

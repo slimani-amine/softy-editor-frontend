@@ -20,7 +20,7 @@ const Navbar = () => {
       </Link>
       <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2 font-semibold text-gray-700 text-lg">
         {isLoading && <Spinner />}
-        {!isAuthenticated && !isLoading && (
+        {!isAuthenticated && !isLoading && (  
           <>
             <Button variant="ghost" size="lg">
               <Link

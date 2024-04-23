@@ -8,12 +8,10 @@ import {
 } from '@/types/auth';
 import axios from 'axios';
 import { BASE_URL, googleClientId, googleSecret } from 'shared/config';
-console.log("🚀 ~ BASE_URL:", BASE_URL)
-
 
 export const login = async (body: LoginBody) => {
   try {
-    const { data } = await api.post(`${BASE_URL}/auth/email/login`, body);
+    const { data } = await api.post(`${BASE_URL}/auth/login`, body);
     return data;
   } catch (error: any) {
     throw error;

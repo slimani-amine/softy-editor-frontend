@@ -1,5 +1,5 @@
 import AuthNav from '@/components/Authentication/AuthNav';
-import NotFoundIcon from '@/components/Shared/Icons/NotFound';
+import NotFoundIcon from '@/components/Shared/Icons/NotFoundIcon';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router';
 

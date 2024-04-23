@@ -3,7 +3,7 @@ const NotFoundIcon = () => {
     <img
       src="/Not-Found.png"
       alt="login"
-      className="w-[50%] flex justify-center items-center"
+      className="w-[45%] h-[50%] flex justify-center items-center"
     />
   );
 };
