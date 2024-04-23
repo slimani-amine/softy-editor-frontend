@@ -13,29 +13,31 @@ export default function LoginForm({
   resend,
 }: any) {
   const [resendTimer, setResendTimer] = useState<number | null>(null);
-  const [isResendDisabled, setIsResendDisabled] = useState(false);
+  const [isResendDisabled, setIsResendDisabled] = useState(true);
 
   const handleResendTimer = () => {
-    setResendTimer(30);
+    let timer = 30;
+
+    setResendTimer(timer);
 
     const timerInterval = setInterval(() => {
-      setResendTimer((prevTimer) => {
-        if (prevTimer === 1) {
-          clearInterval(timerInterval); // Clear the interval when timer reaches 1
-          setIsResendDisabled(false); // Enable the resend button
-          return null;
-        }
-        return prevTimer - 1;
-      });
+      timer -= 1;
+
+      if (timer <= 0) {
+        clearInterval(timerInterval);
+        setIsResendDisabled(false);
+        setResendTimer(null);
+      } else {
+        setResendTimer(timer);
+      }
     }, 1000);
   };
 
   useEffect(() => {
-    if (showCode) {
+    if (isResendDisabled && showCode) {
       handleResendTimer();
-      setIsResendDisabled(true);
     }
-  }, [showCode]);
+  }, [isResendDisabled, showCode]);
 
   return (
     <form
@@ -77,9 +79,8 @@ export default function LoginForm({
                 }`}
                 onClick={() => {
                   if (!isResendDisabled) {
-                    resend(defaultValues.email); // Call the resend function when clicked
-                    handleResendTimer(); // Restart the timer
-                    setIsResendDisabled(true); // Disable the resend span
+                    resend(defaultValues.email);
+                    setIsResendDisabled(true);
                   }
                 }}
               >

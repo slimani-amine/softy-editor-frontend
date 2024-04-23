@@ -10,7 +10,6 @@ import LoginForm from '../../components/Authentication/LoginForm/LoginForm';
 import GoogleButton from '@/components/Authentication/GoogleButton';
 import Terms from '@/components/Authentication/Terms';
 import AuthNav from '@/components/Authentication/AuthNav';
-import { setTokens } from '@/lib/utils/token';
 import AppleButton from '@/components/Authentication/AppleButton';
 import { generateUniqueCode } from '@/lib/utils/generateUniqueCode';
 import { useSearchParams } from 'react-router-dom';
@@ -47,13 +46,16 @@ const Login = () => {
     formState: { errors },
   } = useForm<LoginBody>({ resolver: yupResolver(loginSchema) });
 
-  // Resend function
   const resend = async (email: string) => {
     try {
       const res = await login({ email });
+      if (res) {
+        const { hash: token } = res;
+        setShowCode(true);
+        setToken(token);
+      }
       toast.success('Code resent successfully.');
     } catch (error) {
-      // Handle error
       toast.error('Failed to resend code.');
     }
   };

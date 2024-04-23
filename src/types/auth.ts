@@ -1,6 +1,6 @@
 export interface LoginBody {
   email: string;
-  code: string ;
+  code?: string;
 }
 
 export interface RegisterBody {
