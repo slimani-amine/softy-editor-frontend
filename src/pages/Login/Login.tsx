@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '@/lib/validation';
-import { useLoginQuery } from '@/services/queries/auth.query';
+import {
+  useEmailLoginQuery,
+  useLoginQuery,
+  useSendMailQuery,
+} from '@/services/queries/auth.query';
 import useAuthStore from '@/store/useAuthStore';
 import { LoginBody } from '@/types/auth';
 import toast from 'react-hot-toast';
@@ -12,27 +16,24 @@ import Terms from '@/components/Authentication/Terms';
 import AuthNav from '@/components/Authentication/AuthNav';
 import AppleButton from '@/components/Authentication/AppleButton';
 import { generateUniqueCode } from '@/lib/utils/generateUniqueCode';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
+import { setTokens } from '@/lib/utils/token';
 
 const Login = () => {
   const { setIsAuthenticated, setUser } = useAuthStore((state) => state);
+  const [token, setToken] = useState();
+  const [refreshToken, setRefreshToken] = useState();
+  const [showCode, setShowCode] = useState<boolean>();
+  const [ShowPassword, setShowPassword] = useState<boolean>();
+  const [forgotPassword, setForgotPassword] = useState<boolean>();
+  const [mailSended, setMailSended] = useState<boolean>();
+  const [sendMailLogin, setSendMailLogin] = useState<boolean>();
 
-  const [searchParams] = useSearchParams();
+  const [email, setEmail] = useState<string | undefined>();
+  const defaultValues = { email: email };
 
-  const [token, setToken] = useState(searchParams.get('token'));
-
-  const hash = searchParams.get('token');
-
-  const [showCode, setShowCode] = useState<boolean>(hash ? true : false);
-  const decoded = hash && (jwtDecode(hash) as any);
-
-  const [codeFromEmail, setCodeFromEmail] = useState<string | undefined>(
-    decoded?.hash ? generateUniqueCode(decoded.hash) : undefined
-  );
-
-  const [email, setEmail] = useState<string | undefined>(decoded?.email);
-  const defaultValues = { email: email, code: codeFromEmail };
+  const navigate = useNavigate();
 
   const {
     isLoading,
@@ -40,6 +41,10 @@ const Login = () => {
     isError,
     error,
   }: any = useLoginQuery();
+
+  const { isLoading: emailLoginLoading, mutateAsync: emailLogin }: any =
+    useEmailLoginQuery();
+
   const {
     register,
     handleSubmit,
@@ -50,34 +55,65 @@ const Login = () => {
     try {
       const res = await login({ email });
       if (res) {
-        const { hash: token } = res;
-        setShowCode(true);
-        setToken(token);
+        const { token: accessToken, refreshToken, user } = res;
+        setTokens(accessToken, refreshToken);
+        setUser(user);
+        setToken(accessToken);
       }
       toast.success('Code resent successfully.');
     } catch (error) {
       toast.error('Failed to resend code.');
     }
   };
+  const { isLoading: sendMailLoginLoading, mutateAsync: sendMail }: any =
+    useSendMailQuery();
 
   const onSubmit: SubmitHandler<LoginBody> = async (data) => {
-    if (!data.code) {
+    if (forgotPassword) {
+      await sendMail(data);
+      setMailSended(true);
+    }
+    if (data.email && !sendMailLogin) {
       setEmail(data.email);
       const res = await login(data);
       if (res) {
-        const { hash: token } = res;
-        setShowCode(true);
-        setToken(token);
+        const { user, token } = res;
+        const hash = jwtDecode(token) as any;
+
+        if (user.provider === 'email' && !hash.new) {
+          setShowPassword(true);
+        } else {
+          const { token: accessToken, refreshToken } = res;
+          setShowCode(true);
+          setUser(user);
+          setRefreshToken(refreshToken);
+          setToken(accessToken);
+        }
       }
+      setSendMailLogin(true);
     } else if (data.code && token) {
       const hash = jwtDecode(token) as any;
-
-      const decode = generateUniqueCode(hash?.hash);
+      const decode = generateUniqueCode(hash.hash);
       if (data.code === decode) {
-        toast.success('Perfect');
+        if (hash.new) {
+          navigate('/onBoarding');
+        } else {
+          setTokens(token, refreshToken);
+          setIsAuthenticated(true);
+          navigate('/articles');
+        }
       } else {
         toast.error('code incorrect');
       }
+    } else if (data.password) {
+      const res = await emailLogin({
+        email: data.email,
+        password: data.password,
+      });
+      const { token: accessToken, refreshToken, user } = res;
+      setTokens(accessToken, refreshToken);
+      setUser(user);
+      setIsAuthenticated(true);
     }
   };
 
@@ -103,10 +139,17 @@ const Login = () => {
               onSubmit={onSubmit}
               errors={errors}
               register={register}
-              isLoading={isLoading}
+              isLoading={isLoading || emailLoginLoading || sendMailLoginLoading}
               showCode={showCode}
+              setShowCode={setShowCode}
+              ShowPassword={ShowPassword}
+              setShowPassword={setShowPassword}
+              forgotPassword={forgotPassword}
+              setForgotPassword={setForgotPassword}
+              mailSended={mailSended}
               defaultValues={defaultValues}
-              resend={resend} // Pass the resend function as a prop
+              resend={resend}
+              setSendMailLogin={setSendMailLogin}
             />
             <Terms />
           </div>

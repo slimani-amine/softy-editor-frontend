@@ -40,14 +40,14 @@ const Input = <T extends FieldValues, U extends FieldValues>({
   return (
     <div className="flex flex-col w-full relative">
       <label
-        className="block mb-1 text-sm font-normal text-[#37352F]"
+        className="block mb-1 text-sm font-normal text-[#949493]"
         htmlFor={name}
       >
         {label ?? ''}
       </label>
       <div className="relative">
         <input
-          className="border rounded-lg p-2 w-full mb-2"
+          className="border rounded-lg w-full mb-2"
           placeholder={placeholder}
           disabled={disabled}
           value={value}

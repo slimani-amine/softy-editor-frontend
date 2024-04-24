@@ -11,6 +11,9 @@ import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import ForgotPasswordIcon from '@/components/Shared/Icons/ForgotPasswordIcon';
 import AuthNav from '@/components/Authentication/AuthNav';
+import GoogleButton from '@/components/Authentication/GoogleButton';
+import AppleButton from '@/components/Authentication/AppleButton';
+import Terms from '@/components/Authentication/Terms';
 
 const ForgotPassword = () => {
   const {
@@ -142,6 +145,38 @@ const ForgotPassword = () => {
           </div>
         </div>
       </section>
+      <div className="h-full flex flex-col justify-center ">
+        <AuthNav />
+        <section className="px-4 w-[23rem] h-full m-auto overflow-visible flex flex-col justify-center z-10 mt-24 ">
+          <div className="w-full  mx-auto flex flex-col gap-5 ">
+            <div className="flex flex-col items-start mb-5 leading-3">
+              <h1 className="text-2xl font-semibold text-center  max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl">
+                Think it. Make it.
+              </h1>
+              <h2 className="text-[#acaba9] text-2xl font-semibold leading-3">
+                Sign into your E-ditor account
+              </h2>
+            </div>
+            <div className="flex flex-col items-center  ">
+              <GoogleButton />
+              <AppleButton />
+              <hr className="h-1 w-full mb-4 mt-4 border-color" />
+              <Input
+                placeholder="Enter your email address..."
+                label='Email'
+                errors={errors}
+                type="email"
+                autoComplete="email"
+                aria-label="Enter your email address..."
+                className="w-full outline-none border border-gray-200 rounded-[5px] px-4 py-1 placeholder:text-gray-500"
+                name="email"
+                register={register}
+              />
+              <Terms />
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 };

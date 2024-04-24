@@ -18,6 +18,15 @@ export const login = async (body: LoginBody) => {
   }
 };
 
+export const emailLogin = async (body: LoginBody) => {
+  try {
+    const { data } = await api.post(`${BASE_URL}/auth/email/login`, body);
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
 export const googleLogin = async (body: LoginWithGoogleBody) => {
   try {
     const { data } = await api.post(`${BASE_URL}/auth/google/login`, body);

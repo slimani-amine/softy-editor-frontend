@@ -12,11 +12,17 @@ import {
   register,
   resetPassword,
   sendmail,
+  emailLogin,
 } from '../api/auth.service';
 
 export const useLoginQuery = () =>
   useMutation(['login'], async (body: LoginBody) => {
     const res = await login(body);
+    return res;
+  });
+export const useEmailLoginQuery = () =>
+  useMutation(['EmailLogin'], async (body: LoginBody) => {
+    const res = await emailLogin(body);
     return res;
   });
 
