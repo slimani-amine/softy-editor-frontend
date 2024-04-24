@@ -21,7 +21,6 @@ const GoogleButton: React.FC = () => {
   useEffect(() => {
     if (isError && error) {
       const errorMessage = error.response?.data?.errors;
-      console.log('🚀 ~ useEffect ~ errorMessage:', errorMessage);
       if (errorMessage?.userName) {
         toast.error('UserName already used');
       } else if (errorMessage?.email) {

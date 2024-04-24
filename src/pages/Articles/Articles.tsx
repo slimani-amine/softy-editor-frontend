@@ -3,12 +3,6 @@ import useDebounce from 'shared/hooks/useDebounce';
 import { formatDate } from '@/lib/helper';
 import { useArticlesQuery } from '@/services/queries/article.query';
 import { type Article } from '@/types/article';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '../../components/ui/accordion';
 import { Input } from '@/components/ui/input';
 import Header from '@/components/LandingPage/Header';
 // import Header from '@/components/HomeNavBar/Header';
@@ -111,7 +105,6 @@ const Articles = () => {
     }),
     [debouncedSearchTerm]
   );
-  const { isLoading, data } = useArticlesQuery(filter);
 
   return (
     <div className="container my-12 mx-auto px-4 md:px-12">
@@ -123,9 +116,7 @@ const Articles = () => {
               type="search"
               className="rounded-xl"
               placeholder="Enter search term"
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-              }}
+
             />
           </div>
         </div>

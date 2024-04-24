@@ -21,7 +21,7 @@ import { jwtDecode } from 'jwt-decode';
 import { setTokens } from '@/lib/utils/token';
 
 const Login = () => {
-  const { setIsAuthenticated, setUser } = useAuthStore((state) => state);
+  const { setIsAuthenticated, setUser, user } = useAuthStore((state) => state);
   const [token, setToken] = useState();
   const [refreshToken, setRefreshToken] = useState();
   const [showCode, setShowCode] = useState<boolean>();
@@ -55,9 +55,9 @@ const Login = () => {
     try {
       const res = await login({ email });
       if (res) {
-        const { token: accessToken, refreshToken, user } = res;
-        setTokens(accessToken, refreshToken);
-        setUser(user);
+        const { token: accessToken, refreshToken } = res;
+        setShowCode(true);
+        setRefreshToken(refreshToken);
         setToken(accessToken);
       }
       toast.success('Code resent successfully.');
@@ -77,10 +77,12 @@ const Login = () => {
       setEmail(data.email);
       const res = await login(data);
       if (res) {
-        const { user, token } = res;
-        const hash = jwtDecode(token) as any;
-
-        if (user.provider === 'email' && !hash.new) {
+        const { user } = res;
+        console.log(
+          '🚀 ~ constonSubmit:SubmitHandler<LoginBody>= ~ user:',
+          user
+        );
+        if (user.provider === 'email' && user.status.id === 1) {
           setShowPassword(true);
         } else {
           const { token: accessToken, refreshToken } = res;
@@ -93,10 +95,13 @@ const Login = () => {
       setSendMailLogin(true);
     } else if (data.code && token) {
       const hash = jwtDecode(token) as any;
+      console.log('🚀 ~ constonSubmit:SubmitHandler<LoginBody>= ~ hash:', hash);
       const decode = generateUniqueCode(hash.hash);
       if (data.code === decode) {
-        if (hash.new) {
-          navigate('/onBoarding');
+        if (user.status.id === 2) {
+          setTokens(token, refreshToken);
+          setIsAuthenticated(true);
+          navigate('/onboarding');
         } else {
           setTokens(token, refreshToken);
           setIsAuthenticated(true);

@@ -9,6 +9,8 @@ import ResetPassword from '@/pages/ResetPassword';
 import ForgotPassword from '@/pages/ForgotPassword';
 import Pricing from '@/components/Pricing/Pricing';
 import NotFound from 'shared/features/NotFound/NotFound';
+import Onboarding from '@/pages/Onboarding';
+import OnboardingRoute from './OnboardingRoute';
 const Router = () => (
   <BrowserRouter>
     <Routes>
@@ -74,6 +76,14 @@ const Router = () => (
           <PrivateRoute>
             <Articles />
           </PrivateRoute>
+        }
+      />
+      <Route
+        path="/onboarding"
+        element={
+          <OnboardingRoute>
+            <Onboarding />
+          </OnboardingRoute>
         }
       />
     </Routes>

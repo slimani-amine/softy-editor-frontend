@@ -6,14 +6,16 @@ interface Props {
   children: ReactElement;
 }
 
-const PrivateRoute: React.FC<Props> = ({ children }) => {
+const OnboardingRoute: React.FC<Props> = ({ children }) => {
   const { isAuthenticated, user } = useAuthStore((state) => state);
+  console.log('🚀 ~ isAuthenticated:', isAuthenticated);
+  console.log('🚀 ~ user:', user);
 
   if (user && user.status.id === 2) {
-    return <Navigate to="/onboarding" />;
-  } else {
-    return isAuthenticated ? children : <Navigate to="/" />;
+    console.log('here');
+
+    return children;
   }
 };
 
-export default PrivateRoute;
+export default OnboardingRoute;

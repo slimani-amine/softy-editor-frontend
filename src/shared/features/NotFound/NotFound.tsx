@@ -11,16 +11,15 @@ const NotFound = () => {
 
       <AuthNav />
 
-      <div className=" flex flex-col mt-20 dark:bg-[#1F1F1F]">
-        <div className="flex flex-col items-center justify-center md:justify-start text-center gap-y-8 flex-1 ">
+      <div className=" flex flex-col items-center dark:bg-[#1F1F1F]">
+        <div className="flex flex-col items-center justify-center md:justify-start text-cente gap-y-8 flex-1 ">
           <NotFoundIcon />
-          <h1 className=" text-4xl font-bold">404</h1>
-          <p className="text-gray-600">
+          <h1 className="text-gray-600">
             Oops! The page you are looking for could not be found.
-          </p>
+          </h1>
           <Button
             onClick={() => navigate('/')}
-            className="z-10  inline-block rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600 cursor-pointer"
+            className="z-10 inline-block rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600 cursor-pointer"
           >
             {' '}
             Go back to Home{' '}
