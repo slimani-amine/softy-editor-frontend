@@ -4,6 +4,7 @@ import {
   RegisterBody,
   ResetPasswordBody,
   SendMailBody,
+  UpdateUserBody,
   type LoginBody,
 } from '@/types/auth';
 import {
@@ -13,6 +14,7 @@ import {
   resetPassword,
   sendmail,
   emailLogin,
+  updateUser,
 } from '../api/auth.service';
 
 export const useLoginQuery = () =>
@@ -35,6 +37,12 @@ export const usegoogleLoginQuery = () =>
 export const useRegisterQuery = () =>
   useMutation(['register'], async (body: RegisterBody) => {
     const res = await register(body);
+    return res;
+  });
+
+export const useUpdateUserQuery = () =>
+  useMutation(['updateUser'], async (body: UpdateUserBody) => {
+    const res = await updateUser(body);
     return res;
   });
 

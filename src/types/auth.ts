@@ -15,8 +15,22 @@ export interface LoginWithGoogleBody {
   idToken: string;
 }
 
+export interface UpdateUserBody {
+  id: number;
+  photo?: string;
+  userName: string;
+  password: string;
+}
+
 export interface SendMailBody {
   email: string;
+}
+
+export interface ProfileBody {
+  id?: number;
+  photo?: string;
+  userName: string;
+  password: string;
 }
 
 export interface ResetPasswordBody {

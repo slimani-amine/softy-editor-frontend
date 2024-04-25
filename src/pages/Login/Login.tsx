@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '@/lib/validation';
@@ -16,11 +16,17 @@ import Terms from '@/components/Authentication/Terms';
 import AuthNav from '@/components/Authentication/AuthNav';
 import AppleButton from '@/components/Authentication/AppleButton';
 import { generateUniqueCode } from '@/lib/utils/generateUniqueCode';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { setTokens } from '@/lib/utils/token';
 
 const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginBody>({ resolver: yupResolver(loginSchema) });
+
   const { setIsAuthenticated, setUser, user } = useAuthStore((state) => state);
   const [token, setToken] = useState();
   const [refreshToken, setRefreshToken] = useState();
@@ -29,8 +35,8 @@ const Login = () => {
   const [forgotPassword, setForgotPassword] = useState<boolean>();
   const [mailSended, setMailSended] = useState<boolean>();
   const [sendMailLogin, setSendMailLogin] = useState<boolean>();
-
   const [email, setEmail] = useState<string | undefined>();
+
   const defaultValues = { email: email };
 
   const navigate = useNavigate();
@@ -42,14 +48,19 @@ const Login = () => {
     error,
   }: any = useLoginQuery();
 
-  const { isLoading: emailLoginLoading, mutateAsync: emailLogin }: any =
-    useEmailLoginQuery();
+  const {
+    isLoading: emailLoginLoading,
+    mutateAsync: emailLogin,
+    isError: isErrorForEmailLogin,
+    error: errorForEmailLogin,
+  }: any = useEmailLoginQuery();
 
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginBody>({ resolver: yupResolver(loginSchema) });
+    isLoading: sendMailLoginLoading,
+    mutateAsync: sendMail,
+    isError: isErrorForSendMail,
+    error: errorForSendMail,
+  }: any = useSendMailQuery();
 
   const resend = async (email: string) => {
     try {
@@ -65,8 +76,6 @@ const Login = () => {
       toast.error('Failed to resend code.');
     }
   };
-  const { isLoading: sendMailLoginLoading, mutateAsync: sendMail }: any =
-    useSendMailQuery();
 
   const onSubmit: SubmitHandler<LoginBody> = async (data) => {
     if (forgotPassword) {
@@ -78,10 +87,6 @@ const Login = () => {
       const res = await login(data);
       if (res) {
         const { user } = res;
-        console.log(
-          '🚀 ~ constonSubmit:SubmitHandler<LoginBody>= ~ user:',
-          user
-        );
         if (user.provider === 'email' && user.status.id === 1) {
           setShowPassword(true);
         } else {
@@ -95,7 +100,6 @@ const Login = () => {
       setSendMailLogin(true);
     } else if (data.code && token) {
       const hash = jwtDecode(token) as any;
-      console.log('🚀 ~ constonSubmit:SubmitHandler<LoginBody>= ~ hash:', hash);
       const decode = generateUniqueCode(hash.hash);
       if (data.code === decode) {
         if (user.status.id === 2) {
@@ -125,7 +129,7 @@ const Login = () => {
   return (
     <div className="h-full flex flex-col justify-center ">
       <AuthNav />
-      <section className="px-4 w-[23rem] h-full m-auto overflow-visible flex flex-col justify-center z-10 mt-24 ">
+      <section className="px-4 w-[23rem] h-full m-auto overflow-visible flex flex-col justify-center z-10 ">
         <div className="w-full  mx-auto flex flex-col gap-5 ">
           <div className="flex flex-col items-start mb-5 leading-3">
             <h1 className="text-2xl font-semibold text-center  max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl">
@@ -143,6 +147,8 @@ const Login = () => {
               handleSubmit={handleSubmit}
               onSubmit={onSubmit}
               errors={errors}
+              isError={isError}
+              error={error}
               register={register}
               isLoading={isLoading || emailLoginLoading || sendMailLoginLoading}
               showCode={showCode}
@@ -156,7 +162,7 @@ const Login = () => {
               resend={resend}
               setSendMailLogin={setSendMailLogin}
             />
-            <Terms />
+            <Terms className="w-full mb-0 text-xs text-[#62615c] text-center mt-14 font-normal" />
           </div>
         </div>
       </section>

@@ -18,6 +18,11 @@ export const SendMailSchema = yup.object().shape({
   email: yup.string().email().required('Email is required'),
 });
 
+export const profileSchema = yup.object().shape({
+  userName: yup.string().required('UserName is required'),
+  password: yup.string().required('Password is required'),
+});
+
 export const ResetPasswordSchema = yup.object().shape({
   password: yup.string().min(8).required('Password is required'),
   confirmPassword: yup

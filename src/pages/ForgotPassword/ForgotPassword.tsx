@@ -163,7 +163,7 @@ const ForgotPassword = () => {
               <hr className="h-1 w-full mb-4 mt-4 border-color" />
               <Input
                 placeholder="Enter your email address..."
-                label='Email'
+                label="Email"
                 errors={errors}
                 type="email"
                 autoComplete="email"
@@ -172,7 +172,7 @@ const ForgotPassword = () => {
                 name="email"
                 register={register}
               />
-              <Terms />
+              <Terms className="" />
             </div>
           </div>
         </section>

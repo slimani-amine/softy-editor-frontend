@@ -6,6 +6,8 @@ export default function LoginForm({
   handleSubmit,
   onSubmit,
   errors,
+  error,
+  isError,
   register,
   isLoading,
   showCode,
@@ -23,6 +25,12 @@ export default function LoginForm({
   const [isResendDisabled, setIsResendDisabled] = useState(true);
   const [codeValue, setCodeValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
+
+  useEffect(() => {
+    if (isError && error) {
+      console.log(error);
+    }
+  }, [isError, error]);
 
   const handleResendTimer = () => {
     let timer = 30;
@@ -67,7 +75,7 @@ export default function LoginForm({
               defaultValue={defaultValues?.email}
               autoComplete="email"
               aria-label="Enter your email address..."
-              className="w-full outline-none border border-gray-200 h-9 rounded-[5px] px-4 py-1 placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
+              className="w-full outline-none border border-gray-200 h-9 rounded-[5px] px-2 placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
               name="email"
               register={register}
               onChange={() => {
@@ -90,7 +98,7 @@ export default function LoginForm({
                   type="text"
                   label="Login code"
                   aria-label="Paste login code"
-                  className="w-full outline-none border border-gray-200 h-9 rounded-[5px] px-4 py-1 placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
+                  className="w-full outline-none border border-gray-200 h-9 rounded-[5px] px-2 placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
                   name="code"
                   value={codeValue}
                   onChange={(e) => setCodeValue(e.target.value)}
@@ -119,10 +127,10 @@ export default function LoginForm({
               <>
                 <Input
                   placeholder="Enter your password"
-                  type="text"
+                  type="password"
                   label="Password"
                   aria-label="Enter your password"
-                  className="w-full outline-none border border-gray-200 h-9 rounded-[5px] px-4 py-1 placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
+                  className="w-full outline-none border border-gray-200 h-9 rounded-[5px] px-2 placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
                   name="password"
                   value={passwordValue}
                   onChange={(e) => setPasswordValue(e.target.value)}

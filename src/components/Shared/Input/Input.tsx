@@ -42,6 +42,12 @@ const Input = <T extends FieldValues, U extends FieldValues>({
       <label
         className="block mb-1 text-sm font-normal text-[#949493]"
         htmlFor={name}
+        style={{
+          fontWeight: 500,
+          fontSize: '12px',
+          lineHeight: '16px',
+          color: 'rgba(55, 53, 47, 0.65)',
+        }}
       >
         {label ?? ''}
       </label>
@@ -62,9 +68,9 @@ const Input = <T extends FieldValues, U extends FieldValues>({
             onClick={togglePasswordVisibility}
           >
             {showPassword ? (
-              <FaEye className="h-5 w-5 text-gray-400" />
+              <FaEyeSlash className="h-4 w-4 text-gray-300 fill-[#F7F6F3]" />
             ) : (
-              <FaEyeSlash className="h-5 w-5 text-gray-400" />
+              <FaEye className="h-4 w-4 text-gray-300 fill-[#F7F6F3]" />
             )}
           </button>
         )}
