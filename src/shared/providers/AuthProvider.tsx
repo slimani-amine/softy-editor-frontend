@@ -34,7 +34,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
     async function fetchUser() {
       const { access_token } = getTokens();
-      console.log("🚀 ~ fetchUser ~ access_token:", access_token)
       if (access_token && isValidToken(access_token)) {
         const response = await api.get(`${BASE_URL}/auth/me`);
         const user = response?.data;

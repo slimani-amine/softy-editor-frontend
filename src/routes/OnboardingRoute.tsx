@@ -12,10 +12,9 @@ const OnboardingRoute: React.FC<Props> = ({ children }) => {
   console.log('🚀 ~ user:', user);
 
   if (user && user.status.id === 2) {
-    console.log('here');
-
     return children;
   }
+  // <Navigate to="/" />;
 };
 
 export default OnboardingRoute;

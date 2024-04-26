@@ -2,14 +2,15 @@ import Button from '@/components/Shared/Button';
 import Marketing from '../Marketing';
 import Input from '@/components/Shared/Input';
 import EmptyAvatar from '@/components/ui/EmptyAvatar';
+import { uplaodImage } from 'shared/utils/uploadImage';
 
 export default function WelcomeProfileForm({
-  handleFileChange,
   handleSubmit,
+  selectedFileUrl,
+  setSelectedFileUrl,
   onSubmit,
   register,
   errors,
-  selectedFileUrl,
   isLoading,
   isValid,
 }: any) {
@@ -20,13 +21,13 @@ export default function WelcomeProfileForm({
     >
       <div className="flex flex-col items-center gap-4">
         <EmptyAvatar selectedFileUrl={selectedFileUrl} />
-        <label className="text-xs text-gray-500 cursor-pointer">
+        <label className="text-xs text-gray-500 cursor-pointer hover:bg-gray-200 px-2 py-1 hover:rounded-[4px]">
           <input
             type="file"
             className="hidden"
             accept="image/*"
             onChange={(e) => {
-              handleFileChange(e);
+              uplaodImage(e, setSelectedFileUrl);
             }}
           />
           Add a photo

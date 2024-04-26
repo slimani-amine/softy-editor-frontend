@@ -1,5 +1,4 @@
-
-export default function Header() {
+export default function Header({ title, subTitle }: any) {
   return (
     <div className="flex flex-col items-center mb-3 gap-1">
       <h1
@@ -11,7 +10,7 @@ export default function Header() {
           color: '#37352f',
         }}
       >
-        Welcome to E-ditor
+        {title}
       </h1>
       <h2
         className="text-[#acaba9] text-xl text-center font-normal "
@@ -22,7 +21,7 @@ export default function Header() {
           color: 'rgba(55, 53, 47, 0.65)',
         }}
       >
-        First things first, tell us a bit about yourself.
+       {subTitle}
       </h2>
     </div>
   );
