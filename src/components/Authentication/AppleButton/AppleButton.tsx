@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import AppleIcon from '../../ui/AppleIcon';
+import AppleIcon from '../../Shared/Icons/AppleIcon';
 import { Button } from '@/components/ui/button';
 import toast from 'react-hot-toast';
 import { exchangeCodeForIdToken } from '@/services/api/auth.service';

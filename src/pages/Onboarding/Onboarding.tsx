@@ -1,11 +1,9 @@
 import PlanningToUse from '@/components/Onboarding/PlanningToUse';
 import WelcomeProfileForm from '@/components/Onboarding/WelcomeProfile';
 import Header from '@/components/Onboarding/WelcomeProfileHeader/WelcomeProfile';
+import WelcomeIcon from '@/components/Shared/Icons/WelcomeIcon';
 import { profileSchema } from '@/lib/validation';
-import {
-  useLoginQuery,
-  useUpdateUserQuery,
-} from '@/services/queries/auth.query';
+import { useUpdateUserQuery } from '@/services/queries/auth.query';
 import useAuthStore from '@/store/useAuthStore';
 import { ProfileBody } from '@/types/auth';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -26,10 +24,12 @@ const Onboarding = () => {
   const [isHaveProfile, setIsHaveProfile] = useState<boolean>(
     user.userName ? true : false
   );
+  const [isHaveAPlan, setIsHaveAPlan] = useState<boolean>(
+    user?.plan ? true : false
+  );
 
   const [selectedFileUrl, setSelectedFileUrl] = useState<string>(user?.photo);
   const [selectedId, setSelectedId] = useState<number>(0);
-  console.log('🚀 ~ Onboarding ~ selectedId:', selectedId);
 
   const {
     isLoading,
@@ -59,13 +59,12 @@ const Onboarding = () => {
         toast.success('user Upadated successfully');
         setIsHaveProfile(true);
       }
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
 
   return (
-    <div className="h-full flex flex-col justify-center bg-[#F7F6F3]">
+    <div className="h-full flex flex-col justify-center bg-[#F7F6F3] relative">
+      <WelcomeIcon className="absolute bottom-2 left-7 w-[10.5rem]" />
       {!isHaveProfile ? (
         <section className="px-4 w-[24rem] h-full m-auto overflow-visible flex flex-col justify-center  ">
           <div className="w-full  mx-auto flex flex-col gap-5 ">
@@ -85,7 +84,7 @@ const Onboarding = () => {
             />
           </div>
         </section>
-      ) : selectedId === 0 ? (
+      ) : !isHaveAPlan ? (
         <section className="px-4 w-full h-full m-auto overflow-visible flex flex-col justify-center  ">
           <div className="w-full  mx-auto flex flex-col gap-10 ">
             <Header
@@ -95,6 +94,7 @@ const Onboarding = () => {
             <PlanningToUse
               selectedId={selectedId}
               setSelectedId={setSelectedId}
+              setIsHaveAPlan={setIsHaveAPlan}
             />
           </div>
         </section>

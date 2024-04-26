@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import GoogleIcon from '../../ui/googleIcon';
+import GoogleIcon from '../../Shared/Icons/googleIcon';
 import { Button } from '@/components/ui/button';
 import { usegoogleLoginQuery } from '@/services/queries/auth.query';
 import toast from 'react-hot-toast';

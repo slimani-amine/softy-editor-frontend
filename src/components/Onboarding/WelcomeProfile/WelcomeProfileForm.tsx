@@ -1,7 +1,7 @@
 import Button from '@/components/Shared/Button';
 import Marketing from '../Marketing';
 import Input from '@/components/Shared/Input';
-import EmptyAvatar from '@/components/ui/EmptyAvatar';
+import EmptyAvatar from '@/components/Shared/Icons/EmptyAvatar';
 import { uplaodImage } from 'shared/utils/uploadImage';
 
 export default function WelcomeProfileForm({

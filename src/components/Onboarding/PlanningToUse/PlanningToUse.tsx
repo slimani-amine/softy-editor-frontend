@@ -6,9 +6,11 @@ import { useUpdateUserQuery } from '@/services/queries/auth.query';
 export default function PlanningToUse({
   selectedId,
   setSelectedId,
+  setIsHaveAPlan,
 }: {
   selectedId: number;
   setSelectedId: any;
+  setIsHaveAPlan: any;
 }) {
   const handleClick = (id: number) => () => {
     setSelectedId(id);
@@ -25,13 +27,14 @@ export default function PlanningToUse({
     try {
       const res = await update(data);
       if (res) {
+        setIsHaveAPlan(true);
         toast.success('user Upadated successfully');
       }
     } catch (error) {}
   };
 
   return (
-    <div className="flex flex-col items-center cursor-pointer mb-4 ">
+    <div className="flex flex-col items-center cursor-pointer mb-4  ">
       <div className="flex flex-col justify-center items-center gap-1 w-full ">
         <PlanningCards selectedId={selectedId} handleClick={handleClick} />
         <Button
