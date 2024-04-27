@@ -1,25 +1,22 @@
+import CreateWorkspace from '@/components/Onboarding/CreateWorkspace';
 import PlanningToUse from '@/components/Onboarding/PlanningToUse';
 import WelcomeProfileForm from '@/components/Onboarding/WelcomeProfile';
 import Header from '@/components/Onboarding/WelcomeProfileHeader/WelcomeProfile';
 import WelcomeIcon from '@/components/Shared/Icons/WelcomeIcon';
-import { profileSchema } from '@/lib/validation';
-import { useUpdateUserQuery } from '@/services/queries/auth.query';
 import useAuthStore from '@/store/useAuthStore';
-import { ProfileBody } from '@/types/auth';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
+import { useState } from 'react';
+import { Navigate, useNavigate } from 'react-router';
 
 const Onboarding = () => {
   const { user } = useAuthStore();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm<ProfileBody>({
-    resolver: yupResolver(profileSchema),
-  });
+  console.log("🚀 ~ Onboarding ~ user:", user)
+  const Navigate = useNavigate();
+  if (!user) {
+    console.log('here');
+    
+    Navigate('/');
+  }
+  console.log('🚀 ~ Onboarding ~ user:', user);
 
   const [isHaveProfile, setIsHaveProfile] = useState<boolean>(
     user.userName ? true : false
@@ -27,40 +24,6 @@ const Onboarding = () => {
   const [isHaveAPlan, setIsHaveAPlan] = useState<boolean>(
     user?.plan ? true : false
   );
-
-  const [selectedFileUrl, setSelectedFileUrl] = useState<string>(user?.photo);
-  const [selectedId, setSelectedId] = useState<number>(0);
-
-  const {
-    isLoading,
-    mutateAsync: update,
-    isError,
-    error,
-  }: any = useUpdateUserQuery();
-
-  useEffect(() => {
-    if (isError && error) {
-      const errorMessage = error.response?.data?.errors;
-      if (errorMessage?.userName) {
-        toast.error('UserName Already Exists');
-      } else {
-        toast.error('An error occurred. Please try again later.');
-      }
-    }
-  }, [isError, error]);
-
-  const onSubmit: SubmitHandler<ProfileBody> = async (data) => {
-    data.photo = selectedFileUrl;
-    data.id = user.id;
-
-    try {
-      const res = await update(data);
-      if (res) {
-        toast.success('user Upadated successfully');
-        setIsHaveProfile(true);
-      }
-    } catch (error) {}
-  };
 
   return (
     <div className="h-full flex flex-col justify-center bg-[#F7F6F3] relative">
@@ -73,33 +36,23 @@ const Onboarding = () => {
               subTitle={' First things first, tell us a bit about yourself.'}
             />
             <WelcomeProfileForm
-              handleSubmit={handleSubmit}
-              onSubmit={onSubmit}
-              register={register}
-              errors={errors}
-              selectedFileUrl={selectedFileUrl}
-              setSelectedFileUrl={setSelectedFileUrl}
-              isLoading={isLoading}
-              isValid={isValid}
+              user={user}
+              setIsHaveProfile={setIsHaveProfile}
             />
           </div>
         </section>
       ) : !isHaveAPlan ? (
         <section className="px-4 w-full h-full m-auto overflow-visible flex flex-col justify-center  ">
-          <div className="w-full  mx-auto flex flex-col gap-10 ">
+          <div className="w-full  mx-auto flex flex-col ">
             <Header
               title={'How are you planning to use Notion?'}
               subTitle={' We’ll streamline your setup experience accordingly.'}
             />
-            <PlanningToUse
-              selectedId={selectedId}
-              setSelectedId={setSelectedId}
-              setIsHaveAPlan={setIsHaveAPlan}
-            />
+            <PlanningToUse user={user} setIsHaveAPlan={setIsHaveAPlan} />
           </div>
         </section>
       ) : (
-        <section className="px-4 w-full h-full m-auto overflow-visible flex flex-col justify-center  ">
+        <section className="px-4 w-[24rem] h-full m-auto overflow-visible flex flex-col justify-center ">
           <div className="w-full  mx-auto flex flex-col gap-10 ">
             <Header
               title={'Create a team workspace'}
@@ -107,6 +60,7 @@ const Onboarding = () => {
                 ' Fill in some details for your teammates.             '
               }
             />
+            <CreateWorkspace user={user} setIsHaveProfile={setIsHaveProfile} />
           </div>
         </section>
       )}

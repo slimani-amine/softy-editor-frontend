@@ -4,8 +4,8 @@ import {
   requestInterceptor,
   successInterceptor,
 } from './interceptors';
-import { localStorageAdapter } from './utils/localStorageAdapter';
-const token = localStorageAdapter.get('access_token');
+import { getTokens } from './utils/token';
+const { access_token } = getTokens();
 
 const axiosRequestConfig: AxiosRequestConfig = {
   baseURL: import.meta.env.VITE_API_END_POINT,
@@ -13,7 +13,7 @@ const axiosRequestConfig: AxiosRequestConfig = {
   headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${access_token}`,
   },
 };
 

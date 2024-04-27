@@ -2,16 +2,17 @@ import Button from '@/components/Shared/Button';
 import toast from 'react-hot-toast';
 import PlanningCards from '../PlanningCards';
 import { useUpdateUserQuery } from '@/services/queries/auth.query';
+import { useState } from 'react';
 
 export default function PlanningToUse({
-  selectedId,
-  setSelectedId,
+  user,
   setIsHaveAPlan,
 }: {
-  selectedId: number;
-  setSelectedId: any;
+  user: any;
   setIsHaveAPlan: any;
 }) {
+  const [selectedId, setSelectedId] = useState<number>(0);
+
   const handleClick = (id: number) => () => {
     setSelectedId(id);
   };
@@ -23,9 +24,10 @@ export default function PlanningToUse({
   }: any = useUpdateUserQuery();
 
   const onSubmit = async () => {
-    const data = { plan: selectedId };
+    const data = { id: user.id, plan: { id: selectedId } };
     try {
       const res = await update(data);
+      console.log('🚀 ~ onSubmit ~ res:', res);
       if (res) {
         setIsHaveAPlan(true);
         toast.success('user Upadated successfully');

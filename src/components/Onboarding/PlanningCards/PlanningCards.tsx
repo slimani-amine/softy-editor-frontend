@@ -1,9 +1,9 @@
-import ForPersonnelIcon from '@/components/Shared/Icons/ForPersonnelIcon';
 import ForSchoolIcon from '@/components/Shared/Icons/ForSchoolIcon';
 import ForTeamIcon from '@/components/Shared/Icons/ForTeamIcon';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import UncheckedIcon from '@/components/Shared/Icons/UncheckedIcon';
 import CheckedIcon from '@/components/Shared/Icons/CheckedIcon';
+import ForPersonalIcon from '@/components/Shared/Icons/ForPersonalIcon';
 
 export default function PlanningToUse({ selectedId, handleClick }: any) {
   const cardStyle =
@@ -55,7 +55,7 @@ export default function PlanningToUse({ selectedId, handleClick }: any) {
           {selectedId === 2 ? <CheckedIcon /> : <UncheckedIcon />}
         </div>
         <CardHeader className="flex flex-col justify-center items-center gap-8">
-          <ForPersonnelIcon className="w-[90px]" />
+          <ForPersonalIcon className="w-[90px]" />
           <CardTitle>For personal use</CardTitle>
         </CardHeader>
         <CardContent

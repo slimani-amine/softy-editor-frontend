@@ -3,17 +3,56 @@ import Marketing from '../Marketing';
 import Input from '@/components/Shared/Input';
 import EmptyAvatar from '@/components/Shared/Icons/EmptyAvatar';
 import { uplaodImage } from 'shared/utils/uploadImage';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { ProfileBody } from '@/types/auth';
+import { profileSchema } from '@/lib/validation';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useUpdateUserQuery } from '@/services/queries/auth.query';
+import toast from 'react-hot-toast';
+import { useEffect, useState } from 'react';
 
-export default function WelcomeProfileForm({
-  handleSubmit,
-  selectedFileUrl,
-  setSelectedFileUrl,
-  onSubmit,
-  register,
-  errors,
-  isLoading,
-  isValid,
-}: any) {
+export default function WelcomeProfileForm({ user, setIsHaveProfile }: any) {
+  const [selectedFileUrl, setSelectedFileUrl] = useState<string>(user?.photo);
+
+  const {
+    isLoading,
+    mutateAsync: update,
+    isError,
+    error,
+  }: any = useUpdateUserQuery();
+
+  useEffect(() => {
+    if (isError && error) {
+      const errorMessage = error.response?.data?.errors;
+      if (errorMessage?.userName) {
+        toast.error('UserName Already Exists');
+      } else {
+        toast.error('An error occurred. Please try again later.');
+      }
+    }
+  }, [isError, error]);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<ProfileBody>({
+    resolver: yupResolver(profileSchema),
+  });
+
+  const onSubmit: SubmitHandler<ProfileBody> = async (data) => {
+    data.photo = selectedFileUrl;
+    data.id = user.id;
+
+    try {
+      const res = await update(data);
+      if (res) {
+        toast.success('user Upadated successfully');
+        setIsHaveProfile(true);
+      }
+    } catch (error) {}
+  };
+
   return (
     <form
       className="flex flex-col items-center cursor-pointer gap-3 "

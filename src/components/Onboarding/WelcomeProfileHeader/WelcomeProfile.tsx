@@ -1,6 +1,6 @@
 export default function Header({ title, subTitle }: any) {
   return (
-    <div className="flex flex-col items-center mb-3 gap-1">
+    <div className="flex flex-col items-center gap-1">
       <h1
         className="text-2xl font-semibold text-center max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl"
         style={{
