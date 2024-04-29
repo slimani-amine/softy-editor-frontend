@@ -1,14 +1,12 @@
 import Button from '@/components/Shared/Button';
 import Input from '@/components/Shared/Input';
+import { LoginBody } from '@/types/auth';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 export default function LoginForm({
-  handleSubmit,
   onSubmit,
-  errors,
-  error,
-  isError,
-  register,
   isLoading,
   showCode,
   setShowCode,
@@ -20,17 +18,16 @@ export default function LoginForm({
   defaultValues,
   resend,
   setSendMailLogin,
+  allErrors,
+  setAllErrors,
 }: any) {
+  console.log('🚀 ~ allErrors:', allErrors);
   const [resendTimer, setResendTimer] = useState<number | null>(null);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
   const [codeValue, setCodeValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
 
-  useEffect(() => {
-    if (isError && error) {
-      console.log(error);
-    }
-  }, [isError, error]);
+  const { register, handleSubmit } = useForm<LoginBody>();
 
   const handleResendTimer = () => {
     let timer = 30;
@@ -48,6 +45,9 @@ export default function LoginForm({
         setResendTimer(timer);
       }
     }, 1000);
+  };
+  const resetErrors = () => {
+    setAllErrors({});
   };
 
   useEffect(() => {
@@ -86,6 +86,7 @@ export default function LoginForm({
                   setPasswordValue('');
                   setSendMailLogin(false);
                 }
+                resetErrors();
               }}
             />
             <p className="text-sm text-[#ACABA9] font-light leading-4">
@@ -101,7 +102,10 @@ export default function LoginForm({
                   className="w-full outline-none border border-gray-200 h-9 rounded-[5px] px-2 placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
                   name="code"
                   value={codeValue}
-                  onChange={(e) => setCodeValue(e.target.value)}
+                  onChange={(e) => {
+                    setCodeValue(e.target.value);
+                    resetErrors();
+                  }}
                   register={register}
                 />
                 <p className="text-sm text-[#ACABA9] font-light leading-4">
@@ -133,7 +137,10 @@ export default function LoginForm({
                   className="w-full outline-none border border-gray-200 h-9 rounded-[5px] px-2 placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
                   name="password"
                   value={passwordValue}
-                  onChange={(e) => setPasswordValue(e.target.value)}
+                  onChange={(e) => {
+                    setPasswordValue(e.target.value);
+                    resetErrors();
+                  }}
                   register={register}
                 />
                 <a
@@ -153,11 +160,15 @@ export default function LoginForm({
                 isLoading={isLoading}
                 className="w-full flex items-center justify-center h-9 rounded-[5px] text-white text-sm font-medium bg-blue-500 hover:bg-blue-600 shadow-inner md:shadow-md mt-2"
               />
-              {errors && errors && (
+              {allErrors.emailLoginError &&
+                allErrors.emailLoginError.response?.data?.errors?.password && (
+                  <span className="text-red-500">
+                    {allErrors.emailLoginError.response.data.errors.password}
+                  </span>
+                )}
+              {allErrors.validationError && (
                 <span className="text-red-500">
-                  {errors?.email?.message
-                    ? errors?.email?.message
-                    : (errors?.code?.message as string)}
+                  {allErrors.validationError}
                 </span>
               )}
             </div>

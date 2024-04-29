@@ -9,11 +9,11 @@ import { Navigate, useNavigate } from 'react-router';
 
 const Onboarding = () => {
   const { user } = useAuthStore();
-  console.log("🚀 ~ Onboarding ~ user:", user)
+  console.log('🚀 ~ Onboarding ~ user:', user);
   const Navigate = useNavigate();
   if (!user) {
     console.log('here');
-    
+
     Navigate('/');
   }
   console.log('🚀 ~ Onboarding ~ user:', user);
@@ -43,7 +43,7 @@ const Onboarding = () => {
         </section>
       ) : !isHaveAPlan ? (
         <section className="px-4 w-full h-full m-auto overflow-visible flex flex-col justify-center  ">
-          <div className="w-full  mx-auto flex flex-col ">
+          <div className="w-full  mx-auto flex flex-col gap-10 ">
             <Header
               title={'How are you planning to use Notion?'}
               subTitle={' We’ll streamline your setup experience accordingly.'}

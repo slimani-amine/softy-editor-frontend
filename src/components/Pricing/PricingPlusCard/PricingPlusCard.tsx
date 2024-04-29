@@ -34,18 +34,18 @@ const PricingPlusCard = ({ className, billingPeriod, ...props }: any) => {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    navigate(`/register?plan=plus&billingPeriod=${billingPeriod}`);
+    navigate(`/login?plan=plus&billingPeriod=${billingPeriod}`);
   };
 
   return (
     <Card
       className={cn(
-        'w-[380px] bg-[#F6F5F4] flex flex-col rounded-2xl border-none hover:shadow-xl ',
+        'w-[380px] bg-[#F6F5F4] flex flex-col rounded-2xl border-none mx-auto ',
         className
       )}
       {...props}
     >
-      <CardHeader className="flex flex-col ">
+      <CardHeader className="flex flex-col ml-4">
         <PlusIcon className="w-10 h-10" />
 
         <CardTitle>Plus</CardTitle>
@@ -60,7 +60,7 @@ const PricingPlusCard = ({ className, billingPeriod, ...props }: any) => {
       >
         Get started
       </Button>
-      <CardContent className="grid gap-2 mt-4">
+      <CardContent className="grid gap-2 mt-4 ml-8">
         <span className="font-semibold">Everything in Free +</span>
         {details.map((detail, index) => (
           <div

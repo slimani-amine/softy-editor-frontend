@@ -47,17 +47,6 @@ const ForgotPassword = () => {
     return () => clearTimeout(timer);
   }, [buttonLabel, remainingSeconds]);
 
-  useEffect(() => {
-    if (isError && error) {
-      const errorMessage = error.response?.data?.errors;
-      if (errorMessage?.email) {
-        toast.error('Email not found');
-      } else {
-        toast.error('An error occurred. Please try again later.');
-      }
-    }
-  }, [isError, error]);
-
   const onSubmit: SubmitHandler<SendMailBody> = async (data) => {
     try {
       await sendMail(data);

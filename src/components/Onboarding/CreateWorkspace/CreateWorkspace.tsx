@@ -11,12 +11,24 @@ import EmojiPicker from 'emoji-picker-react';
 import { useState, useEffect, useRef } from 'react';
 import { useCreateWorkSpaceQuery } from '@/services/queries/workspace.query';
 import EmptyWorkspaceIcon from '@/components/Shared/Icons/EmptyWorkspaceIcon';
+import useAuthStore from '@/store/useAuthStore';
+import { useNavigate } from 'react-router';
 
 export default function CreateWorkspace({ user, setIsHaveProfile }: any) {
-  const [selectedFileUrl, setSelectedFileUrl] = useState<string>(user?.photo);
+  const { setUser } = useAuthStore((state) => state);
+  const navigate = useNavigate();
+
+  const [selectedFileUrl, setSelectedFileUrl] = useState<string>();
   const [open, setOpen] = useState<boolean>(false);
 
   const emojiPickerRef = useRef<HTMLDivElement>(null);
+
+  const {
+    isLoading: isUpdateLoading,
+    mutateAsync: update,
+    isError: isUpdateError,
+    error: updateError,
+  }: any = useUpdateUserQuery();
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -45,16 +57,6 @@ export default function CreateWorkspace({ user, setIsHaveProfile }: any) {
     error,
   }: any = useCreateWorkSpaceQuery();
 
-  useEffect(() => {
-    if (isError && error) {
-      const errorMessage = error.response?.data?.errors;
-      if (errorMessage?.userName) {
-        toast.error('UserName Already Exists');
-      } else {
-        toast.error('An error occurred. Please try again later.');
-      }
-    }
-  }, [isError, error]);
 
   const {
     register,
@@ -68,10 +70,15 @@ export default function CreateWorkspace({ user, setIsHaveProfile }: any) {
     data.icon = '';
 
     try {
-      const res = await CreateWorkspace(data);
-      if (res) {
-        toast.success('user Upadated successfully');
-        setIsHaveProfile(true);
+      // const res = await CreateWorkspace(data);
+      // if (res) {
+      //   toast.success('worspace created successfully');
+      //   setIsHaveProfile(true);
+      // }
+      const updateUser = await update({ status: { id: 1 }, id: user.id });
+      if (updateUser) {
+        setUser(updateUser);
+        navigate('/articles');
       }
     } catch (error) {}
   };

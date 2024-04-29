@@ -43,7 +43,6 @@ const Register = () => {
   const onSubmit: SubmitHandler<RegisterBody> = async (data) => {
     const res = await Register(data);
     if (res) {
-      toast.success('Welcome');
       const { token: accessToken, refreshToken, user } = res;
       setTokens(accessToken, refreshToken);
       setUser(user);
@@ -78,7 +77,7 @@ const Register = () => {
 
             <GoogleButton />
 
-            <Terms />
+            <Terms className='' />
           </div>
         </div>
       </section>

@@ -53,7 +53,7 @@ const Input = <T extends FieldValues, U extends FieldValues>({
       </label>
       <div className="relative">
         <input
-          className="border rounded-lg w-full mb-2"
+          className="border-[#acaba9] rounded-lg w-full mb-2"
           placeholder={placeholder}
           disabled={disabled}
           value={value}

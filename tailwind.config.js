@@ -51,7 +51,7 @@ module.exports = {
         typing: 'typing 2s steps(20) infinite alternate, blink .7s infinite',
       },
       colors: {
-        border: 'rgb(223,222,219)',
+        // border: 'rgb(233,232,230)',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',

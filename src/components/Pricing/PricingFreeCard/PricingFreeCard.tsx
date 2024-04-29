@@ -40,12 +40,12 @@ const PricingFreeCard = ({ className, billingPeriod, ...props }: any) => {
   return (
     <Card
       className={cn(
-        'w-[380px] bg-[#F6F5F4] flex flex-col rounded-2xl border-none hover:shadow-xl',
+        'w-[380px] bg-[#F6F5F4] flex flex-col rounded-2xl border-none ',
         className
       )}
       {...props}
     >
-      <CardHeader className="flex flex-col ">
+      <CardHeader className="flex flex-col ml-4">
         <FreeIcon className="w-10 h-10" />
 
         <CardTitle>Free</CardTitle>
@@ -53,11 +53,11 @@ const PricingFreeCard = ({ className, billingPeriod, ...props }: any) => {
       </CardHeader>
       <Button
         className=" bg-white text-black flex justify-center w-[80%] mx-auto rounded-[7px] font-semibold hover:opacity-80 shadow-sm"
-        onClick={() => navigate('/register')}
+        onClick={() => navigate('/login')}
       >
         Sign Up
       </Button>
-      <CardContent className="grid gap-2 mt-4 ">
+      <CardContent className="grid gap-2 mt-4 ml-8">
         {details.map((detail, index) => (
           <div
             key={index}

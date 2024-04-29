@@ -21,21 +21,11 @@ const ResetPassword = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<any>({
     resolver: yupResolver(ResetPasswordSchema),
   });
 
-  useEffect(() => {
-    if (isError && error) {
-      const errorMessage = error.response?.data?.errors;
-      if (errorMessage?.hash) {
-        toast.error('An error occurred. Please try with the right link.');
-      } else {
-        toast.error('An error occurred. Please try again later.');
-      }
-    }
-  }, [isError, error]);
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<ResetPasswordBody> = async (data) => {
@@ -53,39 +43,32 @@ const ResetPassword = () => {
     }
     const body = { password: data.password, hash };
     await ResetPassword(body);
-    toast.success(
-      'Your password was reset successfully. Please try to log in now.'
-    );
     navigate('/login');
   };
 
   return (
     <div className="h-full flex flex-col justify-center ">
-      <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
-
       <AuthNav />
-
-      <section className="px-4 md:px-40 w-[50%] max-xl:w-full h-full mx-auto overflow-visible flex justify-center items-center z-10">
-        <div className="w-full max-w-screen-xl mx-auto flex flex-col gap-5 bg-white p-10 shadow-2xl rounded-2xl">
-          <div className="flex flex-col items-start ">
-            <h1 className=" text-2xl font-extrabold text-center leading-tight max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl">
+      <section className="px-4 w-[24rem] h-full m-auto overflow-visible flex flex-col justify-center mt-16 ">
+        <div className="w-full  mx-auto flex flex-col gap-5 ">
+          <div className="flex flex-col items-start mb-5 leading-3">
+            <h1 className="text-2xl font-semibold text-center  max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl">
               Reset Your Password
             </h1>
-            <h2 className="text-gray-500 text-xl font-semibold">
+            <h2 className="text-[#acaba9] text-2xl font-semibold leading-3">
               Continue Creating with E-ditor
             </h2>
           </div>
-          <div className="flex flex-col items-center ">
+          <div className="flex flex-col items-center "></div>
+          <div className="flex flex-col items-center  ">
             <ResetPasswordForm
               handleSubmit={handleSubmit}
               onSubmit={onSubmit}
               errors={errors}
               register={register}
               isLoading={isLoading}
+              isValid={isValid}
             />
-          </div>
-          <div className="flex justify-center items-center">
-            <ResetPasswordIcon />
           </div>
         </div>
       </section>

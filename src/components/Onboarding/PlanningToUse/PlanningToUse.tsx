@@ -30,7 +30,6 @@ export default function PlanningToUse({
       console.log('🚀 ~ onSubmit ~ res:', res);
       if (res) {
         setIsHaveAPlan(true);
-        toast.success('user Upadated successfully');
       }
     } catch (error) {}
   };

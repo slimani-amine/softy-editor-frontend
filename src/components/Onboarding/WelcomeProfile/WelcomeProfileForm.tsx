@@ -21,17 +21,6 @@ export default function WelcomeProfileForm({ user, setIsHaveProfile }: any) {
     error,
   }: any = useUpdateUserQuery();
 
-  useEffect(() => {
-    if (isError && error) {
-      const errorMessage = error.response?.data?.errors;
-      if (errorMessage?.userName) {
-        toast.error('UserName Already Exists');
-      } else {
-        toast.error('An error occurred. Please try again later.');
-      }
-    }
-  }, [isError, error]);
-
   const {
     register,
     handleSubmit,
@@ -47,7 +36,6 @@ export default function WelcomeProfileForm({ user, setIsHaveProfile }: any) {
     try {
       const res = await update(data);
       if (res) {
-        toast.success('user Upadated successfully');
         setIsHaveProfile(true);
       }
     } catch (error) {}

@@ -41,18 +41,18 @@ const PricingBusinessCard = ({ className, billingPeriod, ...props }: any) => {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    navigate(`/register?plan=business&billingPeriod=${billingPeriod}`);
+    navigate(`/login?plan=business&billingPeriod=${billingPeriod}`);
   };
-  
+
   return (
     <Card
       className={cn(
-        'w-[380px] bg-[#F6F5F4] flex flex-col rounded-2xl border-none hover:shadow-xl',
+        'w-[380px] bg-[#F6F5F4] flex flex-col  rounded-2xl border-none',
         className
       )}
       {...props}
     >
-      <CardHeader className="flex flex-col ">
+      <CardHeader className="flex flex-col ml-4">
         <BuisnessIcon className="w-10 h-10" />
 
         <CardTitle>Business</CardTitle>
@@ -62,12 +62,12 @@ const PricingBusinessCard = ({ className, billingPeriod, ...props }: any) => {
         </CardTitle>
       </CardHeader>
       <Button
-        className=" bg-white text-black flex justify-center w-[80%] mx-auto rounded-[7px] font-semibold hover:opacity-80 shadow-sm "
+        className=" bg-white text-black  flex justify-center w-[80%] mx-auto rounded-[7px] font-semibold hover:opacity-80 shadow-sm "
         onClick={handleGetStarted}
       >
         Get started
       </Button>
-      <CardContent className="grid gap-2 mt-4">
+      <CardContent className="grid gap-2 mt-4 ml-8">
         <span className="font-semibold">Everything in Plus +</span>
 
         {details.map((detail, index) => (

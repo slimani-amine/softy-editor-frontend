@@ -1,7 +1,5 @@
-import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { loginSchema } from '@/lib/validation';
+import { useEffect, useState } from 'react';
+import { SubmitHandler } from 'react-hook-form';
 import {
   useEmailLoginQuery,
   useLoginQuery,
@@ -19,14 +17,9 @@ import { generateUniqueCode } from '@/lib/utils/generateUniqueCode';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { setTokens } from '@/lib/utils/token';
+import SingleAuthButton from '@/components/Authentication/SingleAuthButton';
 
 const Login = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginBody>({ resolver: yupResolver(loginSchema) });
-
   const { setIsAuthenticated, setUser, user } = useAuthStore((state) => state);
   const [token, setToken] = useState();
   const [refreshToken, setRefreshToken] = useState();
@@ -36,11 +29,11 @@ const Login = () => {
   const [mailSended, setMailSended] = useState<boolean>();
   const [sendMailLogin, setSendMailLogin] = useState<boolean>();
   const [email, setEmail] = useState<string | undefined>();
+  const [allErrors, setAllErrors] = useState<any>({});
 
   const defaultValues = { email: email };
 
   const navigate = useNavigate();
-
   const {
     isLoading,
     mutateAsync: login,
@@ -62,6 +55,15 @@ const Login = () => {
     error: errorForSendMail,
   }: any = useSendMailQuery();
 
+  useEffect(() => {
+    const errors = {
+      loginError: error,
+      emailLoginError: errorForEmailLogin,
+      sendMailError: errorForSendMail,
+    };
+    setAllErrors(errors);
+  }, [isError, isErrorForEmailLogin, isErrorForSendMail]);
+
   const resend = async (email: string) => {
     try {
       const res = await login({ email });
@@ -71,13 +73,15 @@ const Login = () => {
         setRefreshToken(refreshToken);
         setToken(accessToken);
       }
-      toast.success('Code resent successfully.');
     } catch (error) {
       toast.error('Failed to resend code.');
     }
   };
 
   const onSubmit: SubmitHandler<LoginBody> = async (data) => {
+    if (!data.email) {
+      setAllErrors({ ...allErrors, validationError: 'Email is required' });
+    }
     if (forgotPassword) {
       await sendMail(data);
       setMailSended(true);
@@ -99,6 +103,9 @@ const Login = () => {
       }
       setSendMailLogin(true);
     } else if (data.code && token) {
+      if (data.code.length !== 19) {
+        setAllErrors({ ...allErrors, validationError: 'Code invalid' });
+      }
       const hash = jwtDecode(token) as any;
       const decode = generateUniqueCode(hash.hash);
       if (data.code === decode) {
@@ -111,8 +118,6 @@ const Login = () => {
           setIsAuthenticated(true);
           navigate('/articles');
         }
-      } else {
-        toast.error('code incorrect');
       }
     } else if (data.password) {
       const res = await emailLogin({
@@ -129,7 +134,7 @@ const Login = () => {
   return (
     <div className="h-full flex flex-col justify-center ">
       <AuthNav />
-      <section className="px-4 w-[23rem] h-full m-auto overflow-visible flex flex-col justify-center z-10 ">
+      <section className="px-4 w-[22.5rem] h-full m-auto overflow-visible flex flex-col justify-center mt-16 ">
         <div className="w-full  mx-auto flex flex-col gap-5 ">
           <div className="flex flex-col items-start mb-5 leading-3">
             <h1 className="text-2xl font-semibold text-center  max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl">
@@ -142,14 +147,12 @@ const Login = () => {
           <div className="flex flex-col items-center  ">
             <GoogleButton />
             <AppleButton />
+            <SingleAuthButton />
             <hr className="h-1 w-full mb-4 mt-4 border-color" />
             <LoginForm
-              handleSubmit={handleSubmit}
               onSubmit={onSubmit}
-              errors={errors}
-              isError={isError}
-              error={error}
-              register={register}
+              isError={allErrors.loginError}
+              error={allErrors.loginError}
               isLoading={isLoading || emailLoginLoading || sendMailLoginLoading}
               showCode={showCode}
               setShowCode={setShowCode}
@@ -161,8 +164,10 @@ const Login = () => {
               defaultValues={defaultValues}
               resend={resend}
               setSendMailLogin={setSendMailLogin}
+              allErrors={allErrors}
+              setAllErrors={setAllErrors}
             />
-            <Terms className="w-full mb-0 text-xs text-[#62615c] text-center mt-14 font-normal" />
+            <Terms className="w-full text-xs text-[#62615c] text-center mt-16 font-normal" />
           </div>
         </div>
       </section>
