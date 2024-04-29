@@ -23,6 +23,7 @@ const Login = () => {
   const { setIsAuthenticated, setUser, user } = useAuthStore((state) => state);
   const [token, setToken] = useState();
   const [refreshToken, setRefreshToken] = useState();
+  const [isNewUser, setIseNewUser] = useState<boolean>(false);
   const [showCode, setShowCode] = useState<boolean>();
   const [ShowPassword, setShowPassword] = useState<boolean>();
   const [forgotPassword, setForgotPassword] = useState<boolean>();
@@ -93,6 +94,13 @@ const Login = () => {
         const { user } = res;
         if (user.provider === 'email' && user.status.id === 1) {
           setShowPassword(true);
+        } else if (user.provider === 'email' && user.status.id === 2) {
+          const { token: accessToken, refreshToken } = res;
+          setIseNewUser(true);
+          setShowCode(true);
+          setUser(user);
+          setRefreshToken(refreshToken);
+          setToken(accessToken);
         } else {
           const { token: accessToken, refreshToken } = res;
           setShowCode(true);
@@ -153,8 +161,7 @@ const Login = () => {
             <hr className="h-1 w-full mb-4 mt-4 border-color" />
             <LoginForm
               onSubmit={onSubmit}
-              isError={allErrors.loginError}
-              error={allErrors.loginError}
+              isNewUser={isNewUser}
               isLoading={isLoading || emailLoginLoading || sendMailLoginLoading}
               showCode={showCode}
               setShowCode={setShowCode}

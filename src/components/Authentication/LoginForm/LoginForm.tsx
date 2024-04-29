@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 export default function LoginForm({
+  isNewUser,
   onSubmit,
   isLoading,
   showCode,
@@ -94,10 +95,14 @@ export default function LoginForm({
             {showCode && (
               <>
                 <Input
-                  placeholder="Paste login code"
+                  placeholder={
+                    isNewUser ? 'Paste signup code' : `Paste login code`
+                  }
                   type="text"
-                  label="Login code"
-                  aria-label="Paste login code"
+                  label={isNewUser ? 'Signup code' : `Login code`}
+                  aria-label={
+                    isNewUser ? 'Paste signup code' : `Paste login code`
+                  }
                   className="w-full outline-none border border-gray-200 h-9 rounded-[5px] px-2 placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
                   name="code"
                   value={codeValue}
@@ -110,9 +115,10 @@ export default function LoginForm({
                 <p className="text-sm text-[#ACABA9] font-light leading-4">
                   We sent a login code to your inbox ·{' '}
                   <span
-                    className={` text-blue-500 font-medium cursor-pointer ${
-                      isResendDisabled &&
-                      'opacity-50 pointer-events-none text-[#ACABA9] text-sm'
+                    className={` font-medium cursor-pointer ${
+                      isResendDisabled
+                        ? 'opacity-50 pointer-events-none text-[#ACABA9] text-sm'
+                        : 'text-blue-500'
                     }`}
                     onClick={() => {
                       if (!isResendDisabled) {
