@@ -1,4 +1,39 @@
 export interface LoginBody {
-  username: string;
+  email: string;
+  code?: string;
+  password?: string;
+}
+
+export interface RegisterBody {
+  userName: string;
+  email: string;
   password: string;
+  confirmPassowrd: string;
+}
+
+export interface LoginWithGoogleBody {
+  idToken: string;
+}
+
+export interface UpdateUserBody {
+  id: number;
+  photo?: string;
+  userName: string;
+  password: string;
+}
+
+export interface SendMailBody {
+  email: string;
+}
+
+export interface ProfileBody {
+  id?: number;
+  photo?: string;
+  userName: string;
+  password: string;
+}
+
+export interface ResetPasswordBody {
+  password: string;
+  hash: string;
 }

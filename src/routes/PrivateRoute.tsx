@@ -1,5 +1,5 @@
-import { type ReactElement } from 'react';
-import { Navigate } from 'react-router';
+import { ReactElement } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
 import useAuthStore from '@/store/useAuthStore';
 
 interface Props {
@@ -7,10 +7,13 @@ interface Props {
 }
 
 const PrivateRoute: React.FC<Props> = ({ children }) => {
-  // Replace with your auth condition
-  const { isAuthenticated } = useAuthStore((state) => state);
+  const { isAuthenticated, user } = useAuthStore((state) => state);
 
-  return isAuthenticated ? children : <Navigate to="/" />;
+  if (user && user.status.id === 2) {
+    return <Navigate to="/onboarding" />;
+  } else {
+    return isAuthenticated ? children : <Navigate to="/" />;
+  }
 };
 
 export default PrivateRoute;

@@ -10,6 +10,13 @@ import DocumentIdPage from '@/pages/Documents/_components/DocumentIdPage';
 import PageNotFound from '@/components/PageNotFound';
 import PreviewDocument from '@/pages/Documents/Preview/PreviewDocument';
 
+import Register from '@/pages/Register';
+import ResetPassword from '@/pages/ResetPassword';
+import ForgotPassword from '@/pages/ForgotPassword';
+import Pricing from '@/components/Pricing/Pricing';
+import NotFound from 'shared/features/NotFound/NotFound';
+import Onboarding from '@/pages/Onboarding';
+import OnboardingRoute from './OnboardingRoute';
 const Router = () => (
   <BrowserRouter>
     <Routes>
@@ -26,6 +33,46 @@ const Router = () => (
         element={
           <PublicRoute>
             <Login />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/register"
+        element={
+          <PublicRoute>
+            <Register />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/forgot-password"
+        element={
+          <PublicRoute>
+            <ForgotPassword />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/reset-password"
+        element={
+          <PublicRoute>
+            <ResetPassword />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/pricing"
+        element={
+          <PublicRoute>
+            <Pricing />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="*"
+        element={
+          <PublicRoute>
+            <NotFound />
           </PublicRoute>
         }
       />
@@ -52,6 +99,14 @@ const Router = () => (
         }
       />
       <Route path="*" element={<PageNotFound />} />
+      <Route
+        path="/onboarding"
+        element={
+          <OnboardingRoute>
+            <Onboarding />
+          </OnboardingRoute>
+        }
+      />
     </Routes>
   </BrowserRouter>
 );

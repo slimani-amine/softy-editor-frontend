@@ -1,10 +1,8 @@
-// import { ToastContainer } from 'react-toastify';
-import { Toaster } from 'react-hot-toast';
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Router from './routes';
-import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
+import { Toaster } from 'react-hot-toast';
+import GoogleAuthProvider from 'shared/providers/google-auth-provider';
 
 export const metadata = {
   title: 'Jotion',
@@ -29,10 +27,12 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="App font-mono h-screen dark:bg-[#191919]">
-        <Router />
-      </div>
-      <Toaster position="bottom-center" reverseOrder={false} />{' '}
+      <GoogleAuthProvider>
+        <div className="App h-screen bg-[#FFFEFC] scroll-smooth leading-1 ">
+          <Router />
+        </div>
+        <Toaster position="bottom-center" reverseOrder={false} />
+      </GoogleAuthProvider>
     </QueryClientProvider>
   );
 }

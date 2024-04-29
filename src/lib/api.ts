@@ -4,6 +4,8 @@ import {
   requestInterceptor,
   successInterceptor,
 } from './interceptors';
+import { getTokens } from './utils/token';
+const { access_token } = getTokens();
 
 const axiosRequestConfig: AxiosRequestConfig = {
   baseURL: import.meta.env.VITE_API_END_POINT,
@@ -11,6 +13,7 @@ const axiosRequestConfig: AxiosRequestConfig = {
   headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
+    Authorization: `Bearer ${access_token}`,
   },
 };
 
