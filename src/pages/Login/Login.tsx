@@ -118,6 +118,8 @@ const Login = () => {
           setIsAuthenticated(true);
           navigate('/articles');
         }
+      } else {
+        setAllErrors({ ...allErrors, validationError: 'Code invalid' });
       }
     } else if (data.password) {
       const res = await emailLogin({

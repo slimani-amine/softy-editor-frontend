@@ -35,7 +35,7 @@ const Navbar = () => {
                 to="#pricing"
                 className="text-lg text-gray-700 hover:text-black scroll-smooth"
               >
-                Prising
+                pricing
               </HashLink>
             </Button>
           </>
