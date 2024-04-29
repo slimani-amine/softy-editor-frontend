@@ -9,6 +9,12 @@ import { Title } from './title';
 import { Banner } from './banner';
 import { Menu } from './menu';
 import { Publish } from './publish';
+import { useTheme } from '@/components/providers/theme-provider';
+import Button from '@/components/Button';
+import { ModeToggle } from '@/components/mode-toggle';
+import { useParams } from 'react-router';
+import { useQuery } from '@tanstack/react-query';
+import { getDocumentById } from 'api/documents/getDocumentById';
 
 interface NavbarProps {
   isCollapsed: boolean;
@@ -16,96 +22,17 @@ interface NavbarProps {
 }
 
 export const Navbar = ({ isCollapsed, onResetWidth }: NavbarProps) => {
-  // const params = useParams();
+  const { documentId } = useParams();
+  const {
+    isLoading,
+    data: document,
+    error,
+  } = useQuery({
+    queryKey: ['documents', documentId],
+    queryFn: async () => await getDocumentById({ documentId }),
+  });
 
-  // const document = useQuery(api.documents.getById, {
-  //   documentId: params.documentId as Id<"documents">,
-  // });
-  let document = {
-    _id: 'fhqjdkshfnkldjnfk',
-    title: 'my document',
-    isArchived: false,
-    coverImage:
-      'https://media.istockphoto.com/id/1208738316/photo/abstract-geometric-network-polygon-globe-graphic-background.webp?b=1&s=170667a&w=0&k=20&c=Ewa2JDeA8E9k9ch3IYWkSYdEkTEhyaMNfNLkClag-j4=',
-    content: `[
-      {
-        "id": "dcc3cbac-85e6-4f90-8544-32411614baa2",
-        "type": "paragraph",
-        "props": {
-          "textColor": "default",
-          "backgroundColor": "default",
-          "textAlignment": "left"
-        },
-        "content": [
-          {
-            "type": "text",
-            "text": "Welcome to this demo!",
-            "styles": {}
-          }
-        ],
-        "children": []
-      },
-      {
-        "id": "89f4abd6-b44a-4e28-a7c9-237da6659532",
-        "type": "heading",
-        "props": {
-          "textColor": "default",
-          "backgroundColor": "default",
-          "textAlignment": "left",
-          "level": 1
-        },
-        "content": [
-          {
-            "type": "text",
-            "text": "This is a heading block",
-            "styles": {}
-          }
-        ],
-        "children": []
-      },
-      {
-        "id": "ef7e36ef-4497-4695-9595-2d39c17ae2dd",
-        "type": "paragraph",
-        "props": {
-          "textColor": "default",
-          "backgroundColor": "default",
-          "textAlignment": "left"
-        },
-        "content": [],
-        "children": []
-      },
-      {
-        "id": "6303d7f9-e36a-4526-aad8-25312a63ceef",
-        "type": "paragraph",
-        "props": {
-          "textColor": "default",
-          "backgroundColor": "default",
-          "textAlignment": "left"
-        },
-        "content": [
-          {
-            "type": "text",
-            "text": "This is a paragraph block",
-            "styles": {}
-          }
-        ],
-        "children": []
-      },
-      {
-        "id": "45a93c6b-0b84-4924-9499-1ddd27859807",
-        "type": "paragraph",
-        "props": {
-          "textColor": "default",
-          "backgroundColor": "default",
-          "textAlignment": "left"
-        },
-        "content": [],
-        "children": []
-      }
-    ]
-    `,
-  };
-  if (document === undefined) {
+  if (isLoading) {
     return (
       <nav className="bg-background dark:bg-[#1F1F1F] px-3 py-2 w-full flex items-center justify-between">
         <Title.Skeleton />
@@ -116,13 +43,13 @@ export const Navbar = ({ isCollapsed, onResetWidth }: NavbarProps) => {
     );
   }
 
-  if (document === null) {
+  if (document === null || document?.statusCode === 404) {
     return null;
   }
 
   return (
     <>
-      <nav className="bg-background dark:bg-[#1F1F1F] px-3 py-2 w-full flex items-center gap-x-4">
+      <nav className="bg-background dark:bg-[#191919] px-3 py-2 w-full flex items-center gap-x-4">
         {isCollapsed && (
           <MenuIcon
             role="button"
@@ -131,14 +58,15 @@ export const Navbar = ({ isCollapsed, onResetWidth }: NavbarProps) => {
           />
         )}
         <div className="flex items-center justify-between w-full">
-          <Title initialData={document} />
+          <Title document={document} />
           <div className="flex items-center gap-x-2">
-            <Publish initialData={document} />
-            <Menu documentId={document._id} />
+            <Publish document={document} />
+            <ModeToggle />
+            <Menu document={document} />
           </div>
         </div>
       </nav>
-      {document?.isArchived && <Banner documentId={document?._id} />}
+      {document?.isTemporarilyDeleted && <Banner documentId={document?.id} />}
     </>
   );
 };

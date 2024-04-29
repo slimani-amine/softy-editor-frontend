@@ -7,26 +7,75 @@ import { toast } from 'sonner';
 
 // import { api } from "@/convex/_generated/api";
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { createDocument } from 'api/documents/createDocument';
+import { getDocumentsofWorkspace } from 'api/documents/getDocumentsofWorkspace';
+import Spinner from '@/components/Spinner';
+import { useEffect } from 'react';
+import { getWorkspaceById } from 'api/workspaces/getWorkspaceById';
 
 const DocumentsEmptyPage = () => {
   const navigate = useNavigate();
-  // const { user } = useUser();
   const user = {
     firstName: 'Anonymous',
   };
-  // const create = useMutation(api.documents.create);
 
-  // const onCreate = () => {
-  //   const promise = create({ title: "Untitled" })
-  //     .then((documentId) => router.push(`/documents/${documentId}`))
+  const queryClient = useQueryClient();
+  const { workspaceId } = useParams();
+  // if (!workspaceId) return;
+  // const { isLoading: isLoadingWorkspace, data: workspace } = useQuery({
+  //   queryKey: ['workspaces', workspaceId],
+  //   queryFn: async () => await getWorkspaceById({ workspaceId }),
+  // });
+  // console.log(workspace);
+  // if (isLoadingWorkspace) return null;
+  // if (workspace === null || workspace?.statusCode === 404) {
+  //   navigate('/');
+  // }
 
-  //   toast.promise(promise, {
-  //     loading: "Creating a new note...",
-  //     success: "New note created!",
-  //     error: "Failed to create a new note."
-  //   });
-  // };
+  const { mutateAsync: createDocApi } = useMutation({
+    mutationFn: async () => {
+      try {
+        const data = await createDocument({
+          title: 'Untitled',
+          workspace: { id: workspaceId },
+        });
+        return data;
+      } catch (error) {
+        toast.error('Failed to create new Note !');
+      }
+    },
+    onSuccess: (data) => {
+      toast.success('Note created!');
+      queryClient.invalidateQueries({ queryKey: ['documents'] });
+      navigate(`/workspaces/${workspaceId}/documents/${data?.id}`);
+    },
+  });
+
+  const isTemporarilyDeleted = false;
+  const {
+    isLoading,
+    data: documents,
+    error,
+  } = useQuery({
+    queryKey: ['documents', workspaceId],
+    queryFn: async () =>
+      await getDocumentsofWorkspace({ workspaceId, isTemporarilyDeleted }),
+  });
+  useEffect(() => {
+    if (!isLoading && documents?.length >= 0 && documents[0]?.id) {
+      navigate(`/workspaces/${workspaceId}/documents/${documents[0]?.id}`);
+    }
+  }, [isLoading, documents, navigate, workspaceId]);
+
+  if (isLoading) {
+    return (
+      <div className="h-full w-full items-center justify-center flex">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <div className="h-full flex flex-col items-center justify-center space-y-4">
@@ -49,7 +98,7 @@ const DocumentsEmptyPage = () => {
       </h2>
       <Button
         // onClick={onCreate}
-        onClick={() => navigate("/documents/id")}
+        onClick={() => createDocApi()}
       >
         <PlusCircle className="h-4 w-4 mr-2" />
         Create a note

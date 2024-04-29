@@ -12,23 +12,53 @@ import {
 } from '@/components/ui/dropdown-menu';
 import Button from '@/components/Button';
 import useAuthStore from '@/store/useAuthStore';
+import { useQuery } from '@tanstack/react-query';
+import { getMyWorkspaces } from 'api/workspaces/getMyWorkspaces';
+import Spinner from '@/components/Spinner';
+import { getMe } from 'api/users/getMe';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import WorkSpaceBoxInNavigation from './WorkSpaceBoxInNavigation';
+import WorkspaceBoxInDropDown from './WorkspaceBoxInDropDown';
+import { getWorkspaceById } from 'api/workspaces/getWorkspaceById';
 
 export const UserItem = () => {
   const { isAuthenticated, setIsAuthenticated } = useAuthStore(
-    (state) => state
+    (state) => state,
   );
+  const navigate = useNavigate();
 
-  // const { user } = useUser();
-  const user = {
-    fullName: 'Anonymous',
-    emailAddresses: [
-      {
-        emailAddress: 'unknown email',
-      },
-    ],
-    imageUrl:
-      'https://i.pinimg.com/236x/54/72/d1/5472d1b09d3d724228109d381d617326.jpg',
-  };
+  const params = useParams();
+  const { workspaceId } = params;
+  // if (!workspaceId) return;
+  // const { isLoading: isLoadingWorkspace, data: workspace } = useQuery({
+  //   queryKey: ['workspaces', workspaceId],
+  //   queryFn: async () => await getWorkspaceById({ workspaceId }),
+  // });
+  // if (isLoadingWorkspace) return;
+  // if (!isLoadingWorkspace && workspace?.statusCode === 404) {
+  //   navigate('/');
+  // }
+
+  const {
+    isLoading,
+    data: myWorkspaces,
+    error,
+  } = useQuery({
+    queryKey: ['workspaces'],
+    queryFn: async () => await getMyWorkspaces(),
+  });
+  const {
+    isLoading: isLoadingMe,
+    data: me,
+    error: errorMe,
+  } = useQuery({
+    queryKey: ['me'],
+    queryFn: async () => await getMe(),
+  });
+
+  const wantedWorkspace = myWorkspaces?.find(
+    (workspace: any) => workspace?.id === Number(workspaceId),
+  );
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -36,61 +66,57 @@ export const UserItem = () => {
           role="button"
           className="flex items-center text-sm p-3 w-full hover:bg-primary/5"
         >
-          <div className="gap-x-2 flex items-center max-w-[150px]">
-            <Avatar className="h-5 w-5">
-              <AvatarImage
-                src={
-                  user?.imageUrl ||
-                  'https://i.pinimg.com/236x/54/72/d1/5472d1b09d3d724228109d381d617326.jpg'
-                }
-              />
-            </Avatar>
-            <span className="text-start font-medium line-clamp-1">
-              {user?.fullName || 'Anonymous'}&apos;s Jotion
-            </span>
-          </div>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <WorkSpaceBoxInNavigation
+              workspace={wantedWorkspace}
+              key={wantedWorkspace.id}
+            />
+          )}
           <ChevronsLeftRight className="rotate-90 ml-2 text-muted-foreground h-4 w-4" />
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="w-80"
+        className="w-80 dark:bg-[#202020] shadow-2xl"
         align="start"
         alignOffset={11}
         forceMount
       >
-        <div className="flex flex-col space-y-4 p-2">
-          <p className="text-xs font-medium leading-none text-muted-foreground">
-            {user?.emailAddresses[0]?.emailAddress || 'unknown email'}
-          </p>
-          <div className="flex items-center gap-x-2">
-            <div className="rounded-md bg-secondary p-1">
-              <Avatar className="h-8 w-8">
-                <AvatarImage
-                  src={
-                    user?.imageUrl ||
-                    'https://i.pinimg.com/236x/54/72/d1/5472d1b09d3d724228109d381d617326.jpg'
-                  }
-                />
-              </Avatar>
-            </div>
-            <div className="space-y-1">
-              <p className="text-sm line-clamp-1">
-                {user?.fullName || 'Anonymous'}&apos;s Jotion
-              </p>
-            </div>
-          </div>
+        <div className="flex flex-col space-y-4 py-2">
+          {isLoadingMe ? (
+            <Spinner />
+          ) : (
+            <p className="text-xs font-medium leading-none text-muted-foreground">
+              {me?.email || 'unknown email'}
+            </p>
+          )}
+
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            myWorkspaces?.length > 0 &&
+            myWorkspaces?.map((workspace: any) => (
+              <WorkspaceBoxInDropDown
+                workspace={workspace}
+                inWorkspaceId={workspaceId}
+                key={workspace.id}
+              />
+            ))
+          )}
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem
           asChild
           className="w-full cursor-pointer text-muted-foreground"
         >
-          <Button
+          {/* <Button
             text={'Log out'}
             onClick={() => {
               setIsAuthenticated(false);
             }}
-          />
+          /> */}
+          <button>Logout</button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

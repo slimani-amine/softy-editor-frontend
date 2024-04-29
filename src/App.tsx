@@ -1,4 +1,6 @@
-import { ToastContainer } from 'react-toastify';
+// import { ToastContainer } from 'react-toastify';
+import { Toaster } from 'react-hot-toast';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Router from './routes';
 import 'react-toastify/dist/ReactToastify.css';
@@ -27,10 +29,10 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="App font-mono h-screen">
+      <div className="App font-mono h-screen dark:bg-[#191919]">
         <Router />
       </div>
-      <ToastContainer />
+      <Toaster position="bottom-center" reverseOrder={false} />{' '}
     </QueryClientProvider>
   );
 }

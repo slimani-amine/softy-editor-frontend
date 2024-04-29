@@ -8,13 +8,21 @@ import {
 } from '@udecode/plate-basic-marks';
 import { useEditorReadOnly } from '@udecode/plate-common';
 
-import { Icons } from '@/components/icons';
+import { Icons, iconVariants } from '@/components/icons';
 import { CommentToolbarButton } from '@/components/plate-ui/comment-toolbar-button';
 import { LinkToolbarButton } from '@/components/plate-ui/link-toolbar-button';
 
 import { MarkToolbarButton } from './mark-toolbar-button';
 import { MoreDropdownMenu } from './more-dropdown-menu';
 import { TurnIntoDropdownMenu } from './turn-into-dropdown-menu';
+import { MARK_BG_COLOR, MARK_COLOR } from '@udecode/plate-font';
+import { ColorDropdownMenu } from './color-dropdown-menu';
+import { AlignDropdownMenu } from './align-dropdown-menu';
+import { LineHeightDropdownMenu } from './line-height-dropdown-menu';
+import { IndentListToolbarButton } from './indent-list-toolbar-button';
+import { ListStyleType } from '@udecode/plate-indent-list';
+import { OutdentToolbarButton } from './outdent-toolbar-button';
+import { IndentToolbarButton } from './indent-toolbar-button';
 
 export function FloatingToolbarButtons() {
   const readOnly = useEditorReadOnly();
@@ -43,6 +51,24 @@ export function FloatingToolbarButtons() {
           >
             <Icons.strikethrough />
           </MarkToolbarButton>
+
+          <ColorDropdownMenu nodeType={MARK_COLOR} tooltip="Text Color">
+            <Icons.color className={iconVariants({ variant: 'toolbar' })} />
+          </ColorDropdownMenu>
+          <ColorDropdownMenu nodeType={MARK_BG_COLOR} tooltip="Highlight Color">
+            <Icons.bg className={iconVariants({ variant: 'toolbar' })} />
+          </ColorDropdownMenu>
+
+          <AlignDropdownMenu />
+
+          <LineHeightDropdownMenu />
+
+          <IndentListToolbarButton nodeType={ListStyleType.Disc} />
+          <IndentListToolbarButton nodeType={ListStyleType.Decimal} />
+
+          <OutdentToolbarButton />
+          <IndentToolbarButton />
+
           <MarkToolbarButton nodeType={MARK_CODE} tooltip="Code (⌘+E)">
             <Icons.code />
           </MarkToolbarButton>

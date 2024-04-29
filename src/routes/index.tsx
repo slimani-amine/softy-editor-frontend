@@ -8,6 +8,7 @@ import DocumentsPage from '@/pages/Documents/_components/DocumentsEmptyPage';
 import DocumentsEmptyPage from '@/pages/Documents/_components/DocumentsEmptyPage';
 import DocumentIdPage from '@/pages/Documents/_components/DocumentIdPage';
 import PageNotFound from '@/components/PageNotFound';
+import PreviewDocument from '@/pages/Documents/Preview/PreviewDocument';
 
 const Router = () => (
   <BrowserRouter>
@@ -29,7 +30,7 @@ const Router = () => (
         }
       />
       <Route
-        path="/documents"
+        path="/workspaces/:workspaceId/documents"
         element={
           <PrivateRoute>
             <Documents />
@@ -37,8 +38,19 @@ const Router = () => (
         }
       >
         <Route index element={<DocumentsEmptyPage />} />
-        <Route path="/documents/:documentId" element={<DocumentIdPage />} />
+        <Route
+          path="/workspaces/:workspaceId/documents/:documentId"
+          element={<DocumentIdPage />}
+        />
       </Route>
+      <Route
+        path="/preview/:documentId"
+        element={
+          <PublicRoute>
+            <PreviewDocument />
+          </PublicRoute>
+        }
+      />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   </BrowserRouter>

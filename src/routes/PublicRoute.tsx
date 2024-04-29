@@ -10,7 +10,7 @@ const PublicRoute: React.FC<Props> = ({ children }) => {
   // Replace with your auth condition
   const { isAuthenticated } = useAuthStore((state) => state);
 
-  return isAuthenticated ? <Navigate to="/documents" /> : children;
+  return isAuthenticated ? children : <Navigate to="/" />;
 };
 
 export default PublicRoute;

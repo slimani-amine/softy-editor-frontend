@@ -14,6 +14,7 @@ import {
 } from '@udecode/plate-floating';
 import { set } from 'date-fns';
 import { useFocused } from 'slate-react';
+import { useScrollBlock } from './useScrollBlock';
 
 export type FloatingToolbarState = {
   floatingOptions?: UseVirtualFloatingOptions;
@@ -44,8 +45,8 @@ export const useFloatingToolbarState = ({
         open,
         onOpenChange: setOpen,
       },
-      floatingOptions
-    )
+      floatingOptions,
+    ),
   );
 
   return {
@@ -80,6 +81,8 @@ export const useFloatingToolbar = ({
 }: ReturnType<typeof useFloatingToolbarState>) => {
   // On refocus, the editor keeps the previous selection,
   // so we need to wait it's collapsed at the new position before displaying the floating toolbar.
+  const [blockScroll, allowScroll] = useScrollBlock();
+
   React.useEffect(() => {
     if (!focused || ignoreReadOnly) {
       setWaitForCollapsedSelection(true);
@@ -95,47 +98,13 @@ export const useFloatingToolbar = ({
     setWaitForCollapsedSelection,
   ]);
 
-  // React.useEffect(() => {
-  //   if (
-  //     !selectionExpanded ||
-  //     !selectionText ||
-  //     (!(editorId === focusedEditorId || ignoreReadOnly) && hideToolbar)
-  //   ) {
-  //     setOpen(false);
-  //   } else if (
-  //     selectionText &&
-  //     selectionExpanded &&
-  //     !waitForCollapsedSelection
-  //   ) {
-  //     setOpen(true);
-  //   }
-  // }, [
-  //   setOpen,
-  //   editorId,
-  //   focusedEditorId,
-  //   hideToolbar,
-  //   ignoreReadOnly,
-  //   selectionExpanded,
-  //   selectionText,
-  //   waitForCollapsedSelection,
-  // ]);
-
-  // const { update } = floating;
-
-  // const selectionTextLength = selectionText?.length ?? 0;
-
-  // React.useEffect(() => {
-  //   if (selectionTextLength > 0) {
-  //     update?.();
-  //   }
-  // }, [selectionTextLength, update]);
-
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === '/' && !open) {
         setOpen(true);
       } else {
         setOpen(false);
+        allowScroll();
       }
     };
 
@@ -150,6 +119,7 @@ export const useFloatingToolbar = ({
     const handleClickOutside = (event: MouseEvent) => {
       if (event.target) {
         setOpen(false);
+        allowScroll();
       }
     };
 

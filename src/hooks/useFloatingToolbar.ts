@@ -43,8 +43,8 @@ export const useFloatingToolbarState = ({
         open,
         onOpenChange: setOpen,
       },
-      floatingOptions
-    )
+      floatingOptions,
+    ),
   );
 
   return {
@@ -128,20 +128,6 @@ export const useFloatingToolbar = ({
       update?.();
     }
   }, [selectionTextLength, update]);
-
-  React.useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === '/' && !open) {
-        setOpen(true);
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [open, setOpen]);
 
   return {
     ref: floating.refs.setFloating,

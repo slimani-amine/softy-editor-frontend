@@ -13,7 +13,10 @@ import {
   CommandList,
 } from '@/components/ui/command';
 import { useSearch } from '@/hooks/use-search';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
+import { useQuery } from '@tanstack/react-query';
+import { getDocumentsofWorkspace } from 'api/documents/getDocumentsofWorkspace';
+import { DocumentItemPropsType, DocumentPropsType } from '@/types/Propstypes';
 // import { api } from "@/convex/_generated/api";
 
 export const SearchCommand = () => {
@@ -42,8 +45,22 @@ export const SearchCommand = () => {
     return () => document.removeEventListener('keydown', down);
   }, [toggle]);
 
+  const params = useParams();
+
+  const { workspaceId } = params;
+  const isTemporarilyDeleted = false;
+  const {
+    isLoading,
+    data: documents,
+    error,
+  } = useQuery({
+    queryKey: ['documents', workspaceId],
+    queryFn: async () =>
+      await getDocumentsofWorkspace({ workspaceId, isTemporarilyDeleted }),
+  });
+
   const onSelect = (id: string) => {
-    navigate(`/documents/${id}`);
+    navigate(`/workspaces/${workspaceId}/documents/${id}`);
     onClose();
   };
 
@@ -52,7 +69,7 @@ export const SearchCommand = () => {
   }
 
   const user = {
-    fullName : "John Doe"
+    fullName: 'John Doe',
   };
   return (
     <CommandDialog open={isOpen} onOpenChange={onClose}>
@@ -62,25 +79,21 @@ export const SearchCommand = () => {
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Documents">
-          {/* {documents?.map((document) => (
+          {documents?.map((document: DocumentPropsType) => (
             <CommandItem
-              key={document._id}
-              value={`${document._id}-${document.title}`}
+              key={document.id}
+              value={`${document.id}-${document.title}`}
               title={document.title}
-              onSelect={() => onSelect(document._id)}
+              onSelect={() => onSelect(document.id)}
             >
-              {document.icon ? (
-                <p className="mr-2 text-[18px]">
-                  {document.icon}
-                </p>
+              {document.emoji ? (
+                <p className="mr-2 text-[18px]">{document.emoji}</p>
               ) : (
                 <File className="mr-2 h-4 w-4" />
               )}
-              <span>
-                {document.title}
-              </span>
+              <span>{document.title}</span>
             </CommandItem>
-          ))} */}
+          ))}
         </CommandGroup>
       </CommandList>
     </CommandDialog>

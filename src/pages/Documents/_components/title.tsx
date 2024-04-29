@@ -1,29 +1,24 @@
 import { useRef, useState } from 'react';
-// import { useMutation } from "convex/react";
-
-// import { Doc } from "@/convex/_generated/dataModel";
-// import { api } from "@/convex/_generated/api";
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { updateDocument } from 'api/documents/updateDocument';
+import { DocumentItemPropsType } from '@/types/Propstypes';
+import toast from 'react-hot-toast';
 
-interface TitleProps {
-  initialData: any;
-}
-
-export const Title = ({ initialData }: TitleProps) => {
+export const Title = ({ document }: DocumentItemPropsType) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  // const update = useMutation(api.documents.update);
+  const queryClient = useQueryClient();
 
-  const [title, setTitle] = useState(initialData.title || 'Untitled');
+  const [title, setTitle] = useState(document.title || 'Untitled');
   const [isEditing, setIsEditing] = useState(false);
 
   const enableInput = () => {
-    setTitle(initialData.title);
+    setTitle(document.title);
     setIsEditing(true);
     setTimeout(() => {
       inputRef.current?.focus();
-      inputRef.current?.setSelectionRange(0, inputRef.current.value.length);
     }, 0);
   };
 
@@ -31,31 +26,53 @@ export const Title = ({ initialData }: TitleProps) => {
     setIsEditing(false);
   };
 
-  // const onChange = (
-  //   event: React.ChangeEvent<HTMLInputElement>
-  // ) => {
-  //   setTitle(event.target.value);
-  //   update({
-  //     id: initialData._id,
-  //     title: event.target.value || "Untitled"
-  //   });
-  // };
+  const { mutateAsync: updateDocTitle } = useMutation({
+    mutationFn: async ({
+      documentId,
+      title,
+    }: {
+      documentId: string;
+      title: string;
+    }) => {
+      const { error, data }: any = await updateDocument({
+        documentId,
+        body: {
+          title: title,
+        },
+      });
+
+      if (error) {
+        toast.error('Changing title Failed.');
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['documents'] });
+    },
+  });
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
+      updateDocTitle({
+        documentId: document.id,
+        title: title || 'Untitled',
+      });
       disableInput();
     }
   };
 
   return (
     <div className="flex items-center gap-x-1">
-      {!!initialData.icon && <p>{initialData.icon}</p>}
+      {!!document?.emoji && <p>{document?.emoji}</p>}
       {isEditing ? (
         <Input
           ref={inputRef}
           onClick={enableInput}
           onBlur={disableInput}
-          // onChange={onChange}
+          onChange={onChange}
           onKeyDown={onKeyDown}
           value={title}
           className="h-7 px-2 focus-visible:ring-transparent"
@@ -67,7 +84,7 @@ export const Title = ({ initialData }: TitleProps) => {
           size="sm"
           className="font-normal h-auto p-1"
         >
-          <span className="truncate">{initialData?.title}</span>
+          <span className="truncate">{document?.title}</span>
         </Button>
       )}
     </div>

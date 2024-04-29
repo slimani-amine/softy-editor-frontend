@@ -10,7 +10,6 @@ import {
 import { ElementRef, useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 // import { useMutation } from 'convex/react';
-import { toast } from 'sonner';
 
 import { cn } from '@/lib/utils';
 // import { api } from '@/convex/_generated/api';
@@ -28,15 +27,20 @@ import { DocumentList } from './document-list';
 import { TrashBox } from './trash-box';
 import { Navbar } from './navbar';
 import { useLocation, useNavigate, useParams } from 'react-router';
+import toast from 'react-hot-toast';
+import { createDocument } from 'api/documents/createDocument';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { DocumentItemPropsType, DocumentPropsType } from '@/types/Propstypes';
 
 export const Navigation = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const settings = useSettings();
   const search = useSearch();
   const params = useParams();
   const pathname = useLocation();
   const isMobile = useMediaQuery('(max-width: 768px)');
-  // const create = useMutation(api.documents.create);
+  const { workspaceId } = params;
 
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<'aside'>>(null);
@@ -59,7 +63,7 @@ export const Navigation = () => {
   }, [pathname, isMobile]);
 
   const handleMouseDown = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
     event.preventDefault();
     event.stopPropagation();
@@ -81,7 +85,7 @@ export const Navigation = () => {
       navbarRef.current.style.setProperty('left', `${newWidth}px`);
       navbarRef.current.style.setProperty(
         'width',
-        `calc(100% - ${newWidth}px)`
+        `calc(100% - ${newWidth}px)`,
       );
     }
   };
@@ -100,7 +104,7 @@ export const Navigation = () => {
       sidebarRef.current.style.width = isMobile ? '100%' : '240px';
       navbarRef.current.style.setProperty(
         'width',
-        isMobile ? '0' : 'calc(100% - 240px)'
+        isMobile ? '0' : 'calc(100% - 240px)',
       );
       navbarRef.current.style.setProperty('left', isMobile ? '100%' : '240px');
       setTimeout(() => setIsResetting(false), 300);
@@ -119,40 +123,33 @@ export const Navigation = () => {
     }
   };
 
-  const handleCreate = () => {
-    // const promise = create({ title: 'Untitled' }).then((documentId: string) =>
-    //   navigate(`/documents/${documentId}`)
-    // );
-
-    // toast.promise(promise, {
-    //   loading: 'Creating a new note...',
-    //   success: 'New note created!',
-    //   error: 'Failed to create a new note.',
-    // });
-
-    //
-    ////FIXME: falsy promise to test ////
-    //
-    const promise = new Promise(() =>
-      setTimeout(() => {
-        navigate(`/documents/${'documentId'}`);
-      }, 1000)
-    );
-    toast.promise(promise, {
-      loading: 'Creating a new note...',
-      success: 'New note created!',
-      error: 'Failed to create a new note.',
-    });
-  };
+  const { mutateAsync: createDocApi } = useMutation({
+    mutationFn: async () => {
+      try {
+        const data = await createDocument({
+          title: 'Untitled',
+          workspace: { id: workspaceId },
+        });
+        return data;
+      } catch (error) {
+        toast.error('Failed to create new Note !');
+      }
+    },
+    onSuccess: (data) => {
+      toast.success('Note created!');
+      queryClient.invalidateQueries({ queryKey: ['documents'] });
+      navigate(`/workspaces/${workspaceId}/documents/${data?.id}`);
+    },
+  });
 
   return (
     <>
       <aside
         ref={sidebarRef}
         className={cn(
-          'group/sidebar h-full bg-secondary overflow-y-auto relative flex w-60 flex-col z-[99999]',
+          'group/sidebar h-full bg-[#F7F7F5] dark:bg-[#202020] overflow-y-auto relative flex w-60 flex-col z-[99999] pb-10',
           isResetting && 'transition-all ease-in-out duration-300',
-          isMobile && 'w-0'
+          isMobile && 'w-0',
         )}
       >
         <div
@@ -160,22 +157,22 @@ export const Navigation = () => {
           role="button"
           className={cn(
             'h-6 w-6 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 absolute top-3 right-2 opacity-0 group-hover/sidebar:opacity-100 transition',
-            isMobile && 'opacity-100'
+            isMobile && 'opacity-100',
           )}
         >
           <ChevronsLeft className="h-6 w-6" />
         </div>
-        <div>
+        <div className=" mt-2">
           <UserItem />
           <Item label="Search" icon={Search} isSearch onClick={search.onOpen} />
-          <Item label="Settings" icon={Settings} onClick={settings.onOpen} />
-          <Item onClick={handleCreate} label="New page" icon={PlusCircle} />
+          {/* <Item label="Settings" icon={Settings} onClick={settings.onOpen} /> */}
+          <Item onClick={createDocApi} label="New page" icon={PlusCircle} />
         </div>
         <div className="mt-4">
           <DocumentList />
-          <Item onClick={handleCreate} icon={Plus} label="Add a page" />
+          <Item onClick={createDocApi} icon={Plus} label="Add a page" />
           <Popover>
-            <PopoverTrigger className="w-full mt-4">
+            <PopoverTrigger className="w-full mt-2">
               <Item label="Trash" icon={Trash} />
             </PopoverTrigger>
             <PopoverContent
@@ -197,7 +194,7 @@ export const Navigation = () => {
         className={cn(
           'absolute top-0 z-[99999] left-60 w-[calc(100%-240px)]',
           isResetting && 'transition-all ease-in-out duration-300',
-          isMobile && 'left-0 w-full'
+          isMobile && 'left-0 w-full',
         )}
       >
         {!!params.documentId ? (

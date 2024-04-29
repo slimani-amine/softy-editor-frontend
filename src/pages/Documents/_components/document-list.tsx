@@ -1,43 +1,31 @@
-// import { useParams, useRouter } from "next/navigation";
 import { useState } from 'react';
-// import { useQuery } from "convex/react";
 import { FileIcon } from 'lucide-react';
 
-// import { Doc, Id } from "@/convex/_generated/dataModel";
-// import { api } from "@/convex/_generated/api";
 import { cn } from '@/lib/utils';
 
 import { Item } from './item';
 import { useNavigate, useParams } from 'react-router';
-
-// interface DocumentListProps {
-//   parentDocumentId?: Id<"documents">;
-//   level?: number;
-//   data?: Doc<"documents">[];
-// }
+import { useQuery } from '@tanstack/react-query';
+import { getDocumentsofWorkspace } from 'api/documents/getDocumentsofWorkspace';
+import { DocumentItemPropsType, DocumentPropsType } from '@/types/Propstypes';
+import DocumentItem from './DocumentItem';
 
 export const DocumentList = ({ parentDocumentId, level = 0 }: any) => {
-  const navigate = useNavigate();
   const params = useParams();
-  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
 
-  // const onExpand = (documentId: string) => {
-  //   setExpanded((prevExpanded) => ({
-  //     ...prevExpanded,
-  //     [documentId]: !prevExpanded[documentId],
-  //   }));
-  // };
+  const { workspaceId } = params;
+  const isTemporarilyDeleted = false;
+  const {
+    isLoading,
+    data: documents,
+    error,
+  } = useQuery({
+    queryKey: ['documents', workspaceId],
+    queryFn: async () =>
+      await getDocumentsofWorkspace({ workspaceId, isTemporarilyDeleted }),
+  });
 
-  // const documents = useQuery(api.documents.getSidebar, {
-  //   parentDocument: parentDocumentId,
-  // });
-
-  const onRedirect = (documentId: string) => {
-    navigate(`/documents/${documentId}`);
-  };
-
-  let documents;
-  if (documents === undefined) {
+  if (isLoading) {
     return (
       <>
         <Item.Skeleton level={level} />
@@ -53,36 +41,18 @@ export const DocumentList = ({ parentDocumentId, level = 0 }: any) => {
 
   return (
     <>
-      <p
-        style={{
-          paddingLeft: level ? `${level * 12 + 25}px` : undefined,
-        }}
-        className={cn(
-          'hidden text-sm font-medium text-muted-foreground/80',
-          expanded && 'last:block',
-          level === 0 && 'hidden'
-        )}
-      >
-        No pages inside
-      </p>
-      {/* {documents.map((document:any) => (
-        <div key={document._id}>
-          <Item
-            id={document._id}
-            onClick={() => onRedirect(document._id)}
-            label={document.title}
-            icon={FileIcon}
-            documentIcon={document.icon}
-            active={params.documentId === document._id}
-            level={level}
-            onExpand={() => onExpand(document._id)}
-            expanded={expanded[document._id]}
-          />
-          {expanded[document._id] && (
-            <DocumentList parentDocumentId={document._id} level={level + 1} />
+      {!documents?.length && (
+        <p
+          className={cn(
+            'pl-4 text-xs pb-4 font-medium text-muted-foreground/80',
           )}
-        </div>
-      ))} */}
+        >
+          No pages inside
+        </p>
+      )}
+      {documents.map((document: DocumentPropsType) => (
+        <DocumentItem document={document} key={document?.id} />
+      ))}
     </>
   );
 };

@@ -1,5 +1,3 @@
- 
-
 import React from 'react';
 import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
 import { ELEMENT_BLOCKQUOTE } from '@udecode/plate-block-quote';
@@ -45,6 +43,7 @@ import {
   useOpenState,
 } from './dropdown-menu';
 import { ToolbarButton } from './toolbar';
+import { useScrollBlock } from '@/hooks/useScrollBlock';
 
 const items = [
   {
@@ -150,6 +149,9 @@ const items = [
 
 export function DropdownSlash(props: DropdownMenuProps) {
   const editor = useEditorRef();
+  const [blockScroll, allowScroll] = useScrollBlock();
+
+  blockScroll();
 
   return (
     <div className="flex max-h-[500px] min-w-0 flex-col gap-0.5 overflow-y-auto ">
@@ -161,7 +163,7 @@ export function DropdownSlash(props: DropdownMenuProps) {
           {nestedItems.map(({ value: type, label: itemLabel, icon: Icon }) => (
             <div
               key={type}
-              className="relative flex h-9 min-w-[200px] cursor-pointer select-none items-center rounded-sm p-2 text-sm outline-none transition-colors hover:bg-gray-100 focus:text-gray-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 "
+              className="relative flex h-9 min-w-[200px] cursor-pointer select-none items-center rounded-sm p-2 text-sm outline-none transition-colors dark:hover:bg-gray-800 hover:bg-gray-100 focus:text-gray-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 "
               onClick={async () => {
                 deleteBackward(editor, { unit: 'character' });
 
@@ -202,7 +204,6 @@ export function DropdownSlash(props: DropdownMenuProps) {
                   }
                   case ELEMENT_LINK: {
                     await triggerFloatingLink(editor, { focused: true });
-
 
                     break;
                   }

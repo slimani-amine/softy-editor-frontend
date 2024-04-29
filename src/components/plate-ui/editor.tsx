@@ -12,7 +12,7 @@ const editorVariants = cva(
     'min-h-[80px] w-full rounded-md bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none',
     '[&_[data-slate-placeholder]]:text-muted-foreground [&_[data-slate-placeholder]]:!opacity-100',
     '[&_[data-slate-placeholder]]:top-[auto_!important]',
-    '[&_strong]:font-bold'
+    '[&_strong]:font-bold',
   ),
   {
     variants: {
@@ -40,7 +40,7 @@ const editorVariants = cva(
       focusRing: true,
       size: 'sm',
     },
-  }
+  },
 );
 
 export type EditorProps = PlateContentProps &
@@ -58,7 +58,7 @@ const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
       variant,
       ...props
     },
-    ref
+    ref,
   ) => {
     return (
       <div ref={ref} className="relative w-full">
@@ -71,7 +71,7 @@ const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
               size,
               variant,
             }),
-            className
+            className,
           )}
           disableDefaultStyles
           readOnly={disabled ?? readOnly}
@@ -80,7 +80,7 @@ const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
         />
       </div>
     );
-  }
+  },
 );
 Editor.displayName = 'Editor';
 

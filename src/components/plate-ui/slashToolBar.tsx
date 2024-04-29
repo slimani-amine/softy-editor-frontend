@@ -1,5 +1,3 @@
- 
-
 import React from 'react';
 import { cn, withRef } from '@udecode/cn';
 import { PortalBody, useComposedRef } from '@udecode/plate-common';
@@ -53,7 +51,7 @@ export const SlashToolbar = withRef<
       <Toolbar
         ref={ref}
         className={cn(
-          'absolute z-50 whitespace-nowrap border bg-popover px-1 opacity-100 shadow-md print:hidden'
+          'absolute z-50 whitespace-nowrap border bg-popover px-1 opacity-100 shadow-md print:hidden dark:bg-[#202020]',
         )}
         {...rootProps}
         {...props}

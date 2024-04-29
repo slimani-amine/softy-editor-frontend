@@ -1,9 +1,5 @@
-// import { useUser } from "@clerk/clerk-react";
-// import { useMutation } from "convex/react";
-import { toast } from 'sonner';
 import { MoreHorizontal, Trash } from 'lucide-react';
 
-// import { Id } from "@/convex/_generated/dataModel";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -11,41 +7,41 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
-// import { api } from "@/convex/_generated/api";
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { updateDocument } from 'api/documents/updateDocument';
+import toast from 'react-hot-toast';
+import { formatDate } from 'helpers/formatDate';
+import { DocumentItemPropsType, DocumentPropsType } from '@/types/Propstypes';
 
-interface MenuProps {
-  documentId: any;
-}
-export const Menu = ({ documentId }: MenuProps) => {
+export const Menu = ({ document }: DocumentItemPropsType) => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const user = {
-    fullName: 'Anonymous',
-    emailAddresses: [
-      {
-        emailAddress: 'unknown email',
-      },
-    ],
-    imageUrl:
-      'https://i.pinimg.com/236x/54/72/d1/5472d1b09d3d724228109d381d617326.jpg',
+
+  const { mutateAsync: updateDocIsPermanentlyDeleted } = useMutation({
+    mutationFn: async ({ documentId }: { documentId: string }) => {
+      console.log(documentId);
+      const { error, data }: any = await updateDocument({
+        documentId,
+        body: {
+          isTemporarilyDeleted: true,
+        },
+      });
+      if (error) {
+        toast.error('Failed to archive note.');
+      }
+    },
+    onSuccess: () => {
+      toast.success('Note moved to trash!');
+      queryClient.invalidateQueries({ queryKey: ['documents'] });
+    },
+  });
+
+  const onArchive = async () => {
+    await updateDocIsPermanentlyDeleted({ documentId: document?.id });
   };
-  // const { user } = useUser();
-
-  // const archive = useMutation(api.documents.archive);
-
-  // const onArchive = () => {
-  //   const promise = archive({ id: documentId });
-
-  //   toast.promise(promise, {
-  //     loading: 'Moving to trash...',
-  //     success: 'Note moved to trash!',
-  //     error: 'Failed to archive note.',
-  //   });
-
-  //   router.push('/documents');
-  // };
 
   return (
     <DropdownMenu>
@@ -60,15 +56,17 @@ export const Menu = ({ documentId }: MenuProps) => {
         alignOffset={8}
         forceMount
       >
-        <DropdownMenuItem
-        // onClick={onArchive}
-        >
-          <Trash className="h-4 w-4 mr-2" />
-          Delete
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
+        {!document?.isTemporarilyDeleted && (
+          <>
+            <DropdownMenuItem onClick={onArchive}>
+              <Trash className="h-4 w-4 mr-2" />
+              Delete
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+          </>
+        )}
         <div className="text-xs text-muted-foreground p-2">
-          Last edited by: {user?.fullName || 'Anonymous'}
+          Last edited at: {formatDate(document?.updatedAt)}
         </div>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Button from '@/components/Button';
 import Input from '@/components/Input/Input';
@@ -8,6 +7,7 @@ import { loginSchema } from '@/lib/validation';
 import { useLoginQuery } from '@/services/queries/auth.query';
 import useAuthStore from '@/store/useAuthStore';
 import { type LoginBody } from '@/types/auth';
+import toast from 'react-hot-toast';
 
 const Loginv2 = () => {
   const { setIsAuthenticated } = useAuthStore((state) => state);
@@ -20,7 +20,7 @@ const Loginv2 = () => {
 
   useEffect(() => {
     if (isError) {
-      toast.error(error as string, { theme: 'colored' });
+      toast.error(error as string);
     }
   }, [isError]);
 
