@@ -1,4 +1,4 @@
 export interface CreateWorkspaceBody {
-  icon?: string;
+  emoji?: string;
   name: string;
 }

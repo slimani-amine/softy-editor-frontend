@@ -1,4 +1,5 @@
 import CreateWorkspace from '@/components/Onboarding/CreateWorkspace';
+import InviteMembers from '@/components/Onboarding/InviteMembers';
 import PlanningToUse from '@/components/Onboarding/PlanningToUse';
 import WelcomeProfileForm from '@/components/Onboarding/WelcomeProfile';
 import Header from '@/components/Onboarding/WelcomeProfileHeader/WelcomeProfile';
@@ -12,17 +13,17 @@ const Onboarding = () => {
   console.log('🚀 ~ Onboarding ~ user:', user);
   const Navigate = useNavigate();
   if (!user) {
-    console.log('here');
-
     Navigate('/');
   }
-  console.log('🚀 ~ Onboarding ~ user:', user);
 
   const [isHaveProfile, setIsHaveProfile] = useState<boolean>(
     user.userName ? true : false
   );
   const [isHaveAPlan, setIsHaveAPlan] = useState<boolean>(
     user?.plan ? true : false
+  );
+  const [isHaveAWorkspace, setIsHaveAWorkspace] = useState<boolean>(
+    user?.workspace ? true : false
   );
 
   return (
@@ -51,6 +52,21 @@ const Onboarding = () => {
             <PlanningToUse user={user} setIsHaveAPlan={setIsHaveAPlan} />
           </div>
         </section>
+      ) : !isHaveAWorkspace ? (
+        <section className="px-4 w-[24rem] h-full m-auto overflow-visible flex flex-col justify-center ">
+          <div className="w-full  mx-auto flex flex-col gap-10 ">
+            <Header
+              title={'Create a team workspace'}
+              subTitle={
+                ' Fill in some details for your teammates.             '
+              }
+            />
+            <CreateWorkspace
+              user={user}
+              setIsHaveProfile={setIsHaveAWorkspace}
+            />
+          </div>
+        </section>
       ) : (
         <section className="px-4 w-[24rem] h-full m-auto overflow-visible flex flex-col justify-center ">
           <div className="w-full  mx-auto flex flex-col gap-10 ">
@@ -60,7 +76,7 @@ const Onboarding = () => {
                 ' Fill in some details for your teammates.             '
               }
             />
-            <CreateWorkspace user={user} setIsHaveProfile={setIsHaveProfile} />
+            <InviteMembers user={user} setIsHaveProfile={setIsHaveAWorkspace} />
           </div>
         </section>
       )}

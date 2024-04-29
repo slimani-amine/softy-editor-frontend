@@ -12,7 +12,7 @@ import EmptyWorkspaceIcon from '@/components/Shared/Icons/EmptyWorkspaceIcon';
 import useAuthStore from '@/store/useAuthStore';
 import { useNavigate } from 'react-router';
 
-export default function CreateWorkspace({ user, setIsHaveProfile }: any) {
+export default function InviteMembers({ user, setIsHaveProfile }: any) {
   const { setUser } = useAuthStore((state) => state);
   const navigate = useNavigate();
 
@@ -70,6 +70,7 @@ export default function CreateWorkspace({ user, setIsHaveProfile }: any) {
     try {
       // const res = await CreateWorkspace(data);
       // if (res) {
+      //   toast.success('worspace created successfully');
       //   setIsHaveProfile(true);
       // }
       const updateUser = await update({ status: { id: 1 }, id: user.id });
