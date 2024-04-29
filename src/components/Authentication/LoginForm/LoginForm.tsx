@@ -21,7 +21,6 @@ export default function LoginForm({
   allErrors,
   setAllErrors,
 }: any) {
-  console.log('🚀 ~ allErrors:', allErrors);
   const [resendTimer, setResendTimer] = useState<number | null>(null);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
   const [codeValue, setCodeValue] = useState('');

@@ -68,9 +68,9 @@ const Input = <T extends FieldValues, U extends FieldValues>({
             onClick={togglePasswordVisibility}
           >
             {showPassword ? (
-              <FaEyeSlash className="h-4 w-4 text-gray-300 fill-[#F7F6F3]" />
+              <FaEyeSlash className="h-4 w-4 text-gray-300 fill-[#acaba9]" />
             ) : (
-              <FaEye className="h-4 w-4 text-gray-300 fill-[#F7F6F3]" />
+              <FaEye className="h-4 w-4 text-gray-300 fill-[#acaba9]" />
             )}
           </button>
         )}
