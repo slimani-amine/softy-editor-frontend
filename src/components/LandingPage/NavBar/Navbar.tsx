@@ -22,7 +22,7 @@ const Navbar = () => {
         {isLoading && <Spinner />}
         {!isAuthenticated && !isLoading && (
           <>
-            <Button size="lg">
+            <Button >
               <Link
                 to="/login"
                 className="text-lg text-gray-700 hover:text-black "
@@ -42,7 +42,7 @@ const Navbar = () => {
         )}
         {isAuthenticated && !isLoading && (
           <>
-            <Button variant="ghost" size="lg" asChild>
+            <Button asChild>
               <Link to="/documents">Enter E-ditor</Link>
             </Button>
           </>

@@ -10,10 +10,9 @@ import { Navigate, useNavigate } from 'react-router';
 
 const Onboarding = () => {
   const { user } = useAuthStore();
-  console.log('🚀 ~ Onboarding ~ user:', user);
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   if (!user) {
-    Navigate('/');
+    navigate('/login');
   }
 
   const [isHaveProfile, setIsHaveProfile] = useState<boolean>(
@@ -68,17 +67,7 @@ const Onboarding = () => {
           </div>
         </section>
       ) : (
-        <section className="px-4 w-[24rem] h-full m-auto overflow-visible flex flex-col justify-center ">
-          <div className="w-full  mx-auto flex flex-col gap-10 ">
-            <Header
-              title={'Create a team workspace'}
-              subTitle={
-                ' Fill in some details for your teammates.             '
-              }
-            />
-            <InviteMembers user={user} setIsHaveProfile={setIsHaveAWorkspace} />
-          </div>
-        </section>
+        <></>
       )}
     </div>
   );
