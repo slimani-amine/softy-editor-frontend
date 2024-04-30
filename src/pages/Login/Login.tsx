@@ -18,9 +18,13 @@ import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { setTokens } from '@/lib/utils/token';
 import SingleAuthButton from '@/components/Authentication/SingleAuthButton';
+import { getMyWorkspaces } from 'api/workspaces/getMyWorkspaces';
+import { useQuery } from '@tanstack/react-query';
+import { useGetMyWorkSpacesQuery } from '@/services/queries/workspace.query';
 
 const Login = () => {
-  const { setIsAuthenticated, setUser, user } = useAuthStore((state) => state);
+  const { setIsAuthenticated, setUser, user, myWorkspaces, setMyWorkspaces } =
+    useAuthStore((state) => state);
   const [token, setToken] = useState();
   const [refreshToken, setRefreshToken] = useState();
   const [isNewUser, setIseNewUser] = useState<boolean>(false);
@@ -56,6 +60,13 @@ const Login = () => {
     error: errorForSendMail,
   }: any = useSendMailQuery();
 
+  const {
+    isLoading: getMyWorkspacesLoading,
+    mutateAsync: getMyWorkspaces,
+    isError: isErrorForGetMyWorkspaces,
+    error: errorForGetMyWorkspaces,
+  }: any = useGetMyWorkSpacesQuery();
+
   useEffect(() => {
     const errors = {
       loginError: error,
@@ -80,7 +91,7 @@ const Login = () => {
   };
 
   const onSubmit: SubmitHandler<LoginBody> = async (data) => {
-    console.log("🚀 ~ constonSubmit:SubmitHandler<LoginBody>= ~ data:", data)
+    console.log('🚀 ~ constonSubmit:SubmitHandler<LoginBody>= ~ data:', data);
     if (!data.email) {
       setAllErrors({ ...allErrors, validationError: 'Email is required' });
     }
@@ -119,13 +130,27 @@ const Login = () => {
       const decode = generateUniqueCode(hash.hash);
       if (data.code === decode) {
         if (user.status.id === 2) {
+          console.log('step1');
           setTokens(token, refreshToken);
           setIsAuthenticated(true);
           navigate('/onboarding');
         } else {
+          console.log('step2');
           setTokens(token, refreshToken);
           setIsAuthenticated(true);
-          navigate(`/workspaces/${user?.workspace?.id}/documents`);
+          const myWorkspaces = await getMyWorkspaces();
+          console.log(myWorkspaces);
+          if (myWorkspaces) {
+            console.log('step3');
+            console.log('workspace => ');
+            setMyWorkspaces(myWorkspaces);
+            navigate(`/workspaces/${myWorkspaces[0]?.id}/documents`);
+          } else {
+            console.log('step4');
+
+            console.log('onboarding =>');
+            navigate('/onboarding');
+          }
         }
       } else {
         setAllErrors({ ...allErrors, validationError: 'Code invalid' });
@@ -136,12 +161,29 @@ const Login = () => {
         password: data.password,
       });
       const { token: accessToken, refreshToken, user } = res;
+      console.log(res);
       setTokens(accessToken, refreshToken);
+
       setUser(user);
+      const myWorkspaces = await getMyWorkspaces(accessToken);
+      console.log(myWorkspaces);
+      setIsAuthenticated(true);
+      if (myWorkspaces) {
+        console.log('step3');
+        setMyWorkspaces(myWorkspaces);
+
+        navigate(`/workspaces/${myWorkspaces[0]?.id}/documents`);
+      } else {
+        console.log('step4');
+
+        console.log('onboarding =>');
+        navigate('/onboarding');
+      }
+
       setIsAuthenticated(true);
     }
   };
-
+  console.log(myWorkspaces);
   return (
     <div className="h-full flex flex-col justify-center ">
       <AuthNav />

@@ -7,7 +7,7 @@ import {
 import { getTokens } from './utils/token';
 import { BASE_URL } from 'shared/config';
 const { access_token } = getTokens();
-
+console.log('🚀 ~ access_token:', access_token);
 const axiosRequestConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
   responseType: 'json',

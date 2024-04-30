@@ -14,38 +14,30 @@ import useAuthStore from '@/store/useAuthStore';
 import { useQuery } from '@tanstack/react-query';
 import { getMyWorkspaces } from 'api/workspaces/getMyWorkspaces';
 import { getMe } from 'api/users/getMe';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import WorkSpaceBoxInNavigation from './WorkSpaceBoxInNavigation';
 import WorkspaceBoxInDropDown from './WorkspaceBoxInDropDown';
-import { getWorkspaceById } from 'api/workspaces/getWorkspaceById';
 import Spinner from '@/components/Shared/Spinner';
+import { clearTokens } from '@/lib/utils/token';
 
 export const UserItem = () => {
-  const { isAuthenticated, setIsAuthenticated } = useAuthStore(
+  const { isAuthenticated, setIsAuthenticated, myWorkspaces } = useAuthStore(
     (state) => state,
   );
-  const navigate = useNavigate();
 
   const params = useParams();
   const { workspaceId } = params;
-  // if (!workspaceId) return;
-  // const { isLoading: isLoadingWorkspace, data: workspace } = useQuery({
-  //   queryKey: ['workspaces', workspaceId],
-  //   queryFn: async () => await getWorkspaceById({ workspaceId }),
+  console.log(workspaceId);
+  // const {
+  //   isLoading,
+  //   data: myWorkspaces,
+  //   error,
+  // } = useQuery({
+  console.log('🚀 ~ UserItem ~ myWorkspaces:', myWorkspaces);
+  //   queryKey: ['workspaces'],
+  //   queryFn: async () => await getMyWorkspaces(),
   // });
-  // if (isLoadingWorkspace) return;
-  // if (!isLoadingWorkspace && workspace?.statusCode === 404) {
-  //   navigate('/');
-  // }
 
-  const {
-    isLoading,
-    data: myWorkspaces,
-    error,
-  } = useQuery({
-    queryKey: ['workspaces'],
-    queryFn: async () => await getMyWorkspaces(),
-  });
   const {
     isLoading: isLoadingMe,
     data: me,
@@ -58,6 +50,12 @@ export const UserItem = () => {
   const wantedWorkspace = myWorkspaces?.find(
     (workspace: any) => workspace?.id === Number(workspaceId),
   );
+  const handleLogout = () => {
+    clearTokens();
+    setIsAuthenticated(false);
+  };
+
+  if (!wantedWorkspace) return <Navigate to={'/'} />;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -65,14 +63,11 @@ export const UserItem = () => {
           role="button"
           className="flex items-center text-sm p-3 w-full hover:bg-primary/5"
         >
-          {isLoading ? (
-            <Spinner />
-          ) : (
-            <WorkSpaceBoxInNavigation
-              workspace={wantedWorkspace}
-              key={wantedWorkspace.id}
-            />
-          )}
+          <WorkSpaceBoxInNavigation
+            workspace={wantedWorkspace}
+            key={wantedWorkspace.id}
+          />
+
           <ChevronsLeftRight className="rotate-90 ml-2 text-muted-foreground h-4 w-4" />
         </div>
       </DropdownMenuTrigger>
@@ -91,18 +86,14 @@ export const UserItem = () => {
             </p>
           )}
 
-          {isLoading ? (
-            <Spinner />
-          ) : (
-            myWorkspaces?.length > 0 &&
+          {myWorkspaces?.length > 0 &&
             myWorkspaces?.map((workspace: any) => (
               <WorkspaceBoxInDropDown
                 workspace={workspace}
                 inWorkspaceId={workspaceId}
                 key={workspace.id}
               />
-            ))
-          )}
+            ))}
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem
@@ -115,7 +106,7 @@ export const UserItem = () => {
               setIsAuthenticated(false);
             }}
           /> */}
-          <button>Logout</button>
+          <button onClick={handleLogout}>Logout</button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

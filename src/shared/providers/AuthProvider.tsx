@@ -7,6 +7,7 @@ import { clearTokens, getTokens } from '@/lib/utils/token';
 import useAuthStore from '@/store/useAuthStore';
 import useIsMountedRef from 'shared/hooks/useIsMountedRef';
 import { BASE_URL } from 'shared/config';
+import { useGetMyWorkSpacesQuery } from '@/services/queries/workspace.query';
 interface AuthProviderProps {
   children: React.ReactNode;
 }
@@ -14,10 +15,18 @@ interface AuthProviderProps {
 interface JwtPayload {
   exp: number;
 }
+
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const isMounted = useIsMountedRef();
+  const {
+    isLoading: getMyWorkspacesLoading,
+    mutateAsync: getMyWorkspaces,
+    isError: isErrorForGetMyWorkspaces,
+    error: errorForGetMyWorkspaces,
+  }: any = useGetMyWorkSpacesQuery();
 
-  const { isInitialised, setUser, setIsAuthenticated } = useAuthStore();
+  const { isInitialised, setUser, setIsAuthenticated, setMyWorkspaces } =
+    useAuthStore();
 
   const isValidToken = (token: string) => {
     const decoded: JwtPayload = jwtDecode(token);
@@ -37,6 +46,13 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       if (access_token && isValidToken(access_token)) {
         const response = await api.get(`${BASE_URL}/auth/me`);
         const user = response?.data;
+        const myWorkspaces = await getMyWorkspaces(access_token);
+        console.log(myWorkspaces);
+        setIsAuthenticated(true);
+        if (myWorkspaces) {
+          console.log('step3');
+          setMyWorkspaces(myWorkspaces);
+        }
         setIsAuthenticated(true);
         setUser(user);
       } else {

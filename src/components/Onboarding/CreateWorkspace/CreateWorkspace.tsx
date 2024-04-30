@@ -11,9 +11,11 @@ import { useCreateWorkSpaceQuery } from '@/services/queries/workspace.query';
 import EmptyWorkspaceIcon from '@/components/Shared/Icons/EmptyWorkspaceIcon';
 import useAuthStore from '@/store/useAuthStore';
 import { useNavigate } from 'react-router';
+import { useQuery } from '@tanstack/react-query';
+import { getMyWorkspaces } from 'api/workspaces/getMyWorkspaces';
 
 export default function CreateWorkspace({ user, setIsHaveProfile }: any) {
-  const { setUser } = useAuthStore((state) => state);
+  const { setUser, setMyWorkspaces } = useAuthStore((state) => state);
   const navigate = useNavigate();
 
   const [selectedFileUrl, setSelectedFileUrl] = useState<string>();
@@ -64,21 +66,30 @@ export default function CreateWorkspace({ user, setIsHaveProfile }: any) {
   });
 
   const onSubmit: SubmitHandler<CreateWorkspaceBody> = async (data) => {
+    console.log(
+      '🚀 ~ constonSubmit:SubmitHandler<CreateWorkspaceBody>= ~ selectedFileUrl:',
+      selectedFileUrl,
+    );
     data.emoji = selectedFileUrl;
 
     try {
       const res = await CreateWorkspace(data);
-      console.log(res);
-
-      console.log(data);
-      if (res) {
-        setIsHaveProfile(true);
-      }
-      const updateUser = await update({ status: { id: 1 }, id: user.id });
-      if (updateUser) {
-        setUser(updateUser);
-        navigate(`/workspaces/${res?.id}/documents`);
-      }
+      console.log(
+        '🚀 ~ constonSubmit:SubmitHandler<CreateWorkspaceBody>= ~ res:',
+        res,
+      );
+      // const updateUser = await update({ status: { id: 1 }, id: user.id });
+      // console.log(
+      //   '🚀 ~ constonSubmit:SubmitHandler<CreateWorkspaceBody>= ~ updateUser:',
+      //   updateUser,
+      // );
+      // if (updateUser) {
+      //   setUser(updateUser);
+      //   // const myWorkspaces = myWorkspacesApi;
+      //   setMyWorkspaces(res);
+      //   // navigate(`/workspaces/${res?.id}/documents`);
+      // }
+      setMyWorkspaces(res);
     } catch (error) {}
   };
 

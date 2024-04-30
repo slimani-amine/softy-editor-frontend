@@ -16,7 +16,7 @@ import { getDocumentById } from 'api/documents/getDocumentById';
 
 const DocumentIdPage = () => {
   const params = useParams();
-  const { documentId } = params;
+  const { documentId, workspaceId } = params;
 
   const { isLoading, data: document } = useQuery({
     queryKey: ['documents', documentId],
@@ -38,8 +38,8 @@ const DocumentIdPage = () => {
       </div>
     );
   }
-
-  if (document === null || document?.statusCode === 404) {
+  const isInWorkspace = document?.workspace?.id === Number(workspaceId);
+  if (document === null || document?.statusCode === 404 || !isInWorkspace) {
     return (
       <div>
         <Cover.Skeleton />

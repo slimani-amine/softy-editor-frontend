@@ -1,16 +1,8 @@
-// import { useQuery } from "convex/react";
-// import { useParams } from "next/navigation";
 import { MenuIcon } from 'lucide-react';
-
-// import { api } from "@/convex/_generated/api";
-// import { Id } from "@/convex/_generated/dataModel";
-
 import { Title } from './title';
 import { Banner } from './banner';
 import { Menu } from './menu';
 import { Publish } from './publish';
-import { useTheme } from '@/components/providers/theme-provider';
-import Button from '@/components/Button';
 import { ModeToggle } from '@/components/mode-toggle';
 import { useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
@@ -22,7 +14,7 @@ interface NavbarProps {
 }
 
 export const Navbar = ({ isCollapsed, onResetWidth }: NavbarProps) => {
-  const { documentId } = useParams();
+  const { documentId, workspaceId } = useParams();
   const {
     isLoading,
     data: document,
@@ -42,8 +34,8 @@ export const Navbar = ({ isCollapsed, onResetWidth }: NavbarProps) => {
       </nav>
     );
   }
-
-  if (document === null || document?.statusCode === 404) {
+  const isInWorkspace = document?.workspace?.id === Number(workspaceId);
+  if (document === null || document?.statusCode === 404 || !isInWorkspace) {
     return null;
   }
 

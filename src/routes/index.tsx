@@ -20,7 +20,14 @@ import OnboardingRoute from './OnboardingRoute';
 const Router = () => (
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route
+        path="/"
+        element={
+          <PublicRoute>
+            <Home />
+          </PublicRoute>
+        }
+      />
       <Route
         path="/login"
         element={
@@ -94,14 +101,7 @@ const Router = () => (
           }
         />
       </Route>
-      <Route
-        path="/preview/:documentId"
-        element={
-          <PublicRoute>
-            <PreviewDocument />
-          </PublicRoute>
-        }
-      />
+      <Route path="/preview/:documentId" element={<PreviewDocument />} />
       <Route path="*" element={<PageNotFound />} />
       <Route
         path="/onboarding"

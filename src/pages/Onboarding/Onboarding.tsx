@@ -5,26 +5,29 @@ import WelcomeProfileForm from '@/components/Onboarding/WelcomeProfile';
 import Header from '@/components/Onboarding/WelcomeProfileHeader/WelcomeProfile';
 import WelcomeIcon from '@/components/Shared/Icons/WelcomeIcon';
 import useAuthStore from '@/store/useAuthStore';
+import { useQuery } from '@tanstack/react-query';
+import { getMyWorkspaces } from 'api/workspaces/getMyWorkspaces';
 import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router';
 
 const Onboarding = () => {
-  const { user } = useAuthStore();
+  const { user, myWorkspaces, setMyWorkspaces } = useAuthStore();
   const navigate = useNavigate();
   if (!user) {
     navigate('/login');
   }
 
   const [isHaveProfile, setIsHaveProfile] = useState<boolean>(
-    user.userName ? true : false
+    user.userName ? true : false,
   );
   const [isHaveAPlan, setIsHaveAPlan] = useState<boolean>(
-    user?.plan ? true : false
+    user?.plan ? true : false,
   );
   const [isHaveAWorkspace, setIsHaveAWorkspace] = useState<boolean>(
-    user?.workspace ? true : false
+    myWorkspaces ? true : false,
   );
 
+  console.log('🚀 ~ Onboarding ~ isHaveAWorkspace:', isHaveAWorkspace);
   return (
     <div className="h-full flex flex-col justify-center bg-[#F7F6F3] relative">
       <WelcomeIcon className="absolute bottom-2 left-7 w-[10.5rem]" />

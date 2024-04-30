@@ -3,6 +3,7 @@ import Router from './routes';
 import './App.css';
 import { Toaster } from 'react-hot-toast';
 import GoogleAuthProvider from 'shared/providers/google-auth-provider';
+import AuthProvider from 'shared/providers/AuthProvider';
 
 export const metadata = {
   title: 'Jotion',
@@ -27,12 +28,14 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <GoogleAuthProvider>
-        <div className="App h-screen bg-[#FFFEFC] scroll-smooth leading-1 ">
-          <Router />
-        </div>
-        <Toaster position="bottom-center" reverseOrder={false} />
-      </GoogleAuthProvider>
+      <AuthProvider>
+        <GoogleAuthProvider>
+          <div className="App h-screen bg-[#FFFEFC] scroll-smooth leading-1 ">
+            <Router />
+          </div>
+          <Toaster position="bottom-center" reverseOrder={false} />
+        </GoogleAuthProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
