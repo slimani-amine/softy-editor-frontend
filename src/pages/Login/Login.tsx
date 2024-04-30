@@ -80,6 +80,7 @@ const Login = () => {
   };
 
   const onSubmit: SubmitHandler<LoginBody> = async (data) => {
+    console.log("🚀 ~ constonSubmit:SubmitHandler<LoginBody>= ~ data:", data)
     if (!data.email) {
       setAllErrors({ ...allErrors, validationError: 'Email is required' });
     }
@@ -124,7 +125,7 @@ const Login = () => {
         } else {
           setTokens(token, refreshToken);
           setIsAuthenticated(true);
-          navigate('/articles');
+          navigate(`/workspaces/${user?.workspace?.id}/documents`);
         }
       } else {
         setAllErrors({ ...allErrors, validationError: 'Code invalid' });

@@ -12,7 +12,7 @@ import EmptyWorkspaceIcon from '@/components/Shared/Icons/EmptyWorkspaceIcon';
 import useAuthStore from '@/store/useAuthStore';
 import { useNavigate } from 'react-router';
 
-export default function InviteMembers({ user, setIsHaveProfile }: any) {
+export default function CreateWorkspace({ user, setIsHaveProfile }: any) {
   const { setUser } = useAuthStore((state) => state);
   const navigate = useNavigate();
 
@@ -64,18 +64,20 @@ export default function InviteMembers({ user, setIsHaveProfile }: any) {
   });
 
   const onSubmit: SubmitHandler<CreateWorkspaceBody> = async (data) => {
-    data.emoji = '';
+    data.emoji = selectedFileUrl;
 
     try {
-      // const res = await CreateWorkspace(data);
-      // if (res) {
-      //   toast.success('worspace created successfully');
-      //   setIsHaveProfile(true);
-      // }
+      const res = await CreateWorkspace(data);
+      console.log(res);
+
+      console.log(data);
+      if (res) {
+        setIsHaveProfile(true);
+      }
       const updateUser = await update({ status: { id: 1 }, id: user.id });
       if (updateUser) {
         setUser(updateUser);
-        navigate('/articles');
+        navigate(`/workspaces/${res?.id}/documents`);
       }
     } catch (error) {}
   };
@@ -119,9 +121,9 @@ export default function InviteMembers({ user, setIsHaveProfile }: any) {
             label="Workspace name"
             placeholder="Acme Inc."
             type="text"
-            aria-label="name"
+            aria-label="title"
             className="w-full outline-none border border-gray-200 h-7 rounded-[5px] px-2  placeholder:text-sm placeholder:font-extralight placeholder:bg-[#FFFEFC]"
-            name="name"
+            name="title"
             register={register}
           />
           <p className="text-xs  font-light ">

@@ -18,7 +18,7 @@ export default function PlanningToUse({ selectedId, handleClick }: any) {
       <Card
         className={`${cardStyle} ${
           selectedId === 1 ? 'opacity-100' : 'opacity-60 hover:opacity-100'
-        }`}
+        } transition-all`}
         onClick={handleClick(1)}
         style={{
           boxShadow: selectedId === 1 ? boxShadow1 : boxShadow2,
@@ -45,7 +45,7 @@ export default function PlanningToUse({ selectedId, handleClick }: any) {
       <Card
         className={`${cardStyle} ${
           selectedId === 2 ? 'opacity-100' : 'opacity-60 hover:opacity-100'
-        }`}
+        } transition-all`}
         onClick={handleClick(2)}
         style={{
           boxShadow: selectedId === 2 ? boxShadow1 : boxShadow2,
@@ -72,7 +72,7 @@ export default function PlanningToUse({ selectedId, handleClick }: any) {
       <Card
         className={`${cardStyle} ${
           selectedId === 3 ? 'opacity-100' : 'opacity-60 hover:opacity-100'
-        }`}
+        } transition-all`}
         onClick={handleClick(3)}
         style={{
           boxShadow: selectedId === 3 ? boxShadow1 : boxShadow2,

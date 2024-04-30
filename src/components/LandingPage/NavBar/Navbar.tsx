@@ -44,7 +44,7 @@ const Navbar = () => {
         )}
         {isAuthenticated && !isLoading && (
           <>
-            <Button variant="ghost" size="lg" asChild>
+            <Button asChild>
               <Link to="/documents">Enter E-ditor</Link>
             </Button>
           </>
