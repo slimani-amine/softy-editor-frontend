@@ -12,17 +12,19 @@ const Navbar = () => {
   return (
     <div
       className={cn(
-        'bg-transparent dark:bg-[#1F1F1F] fixed top-0 flex items-center w-full p-6',
+        'bg-transparent dark:bg-[#1F1F1F] fixed top-0 flex items-center w-full p-6 z-50',
       )}
     >
       <Link to="/" className="flex items-center w-full">
-        <span className="font-semibold text-gray-700 text-lg">E-ditor </span>
+        <span className="font-semibold text-gray-700 text-lg">
+          Softy Editor{' '}
+        </span>
       </Link>
       <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2 font-semibold text-gray-700 text-lg">
         {isLoading && <Spinner />}
         {!isAuthenticated && !isLoading && (
           <>
-            <Button size="lg">
+            <Button size="lg" variant={'ghost'}>
               <Link
                 to="/login"
                 className="text-lg text-gray-700 hover:text-black "
@@ -30,7 +32,7 @@ const Navbar = () => {
                 Log in
               </Link>
             </Button>
-            <Button>
+            <Button variant={'ghost'}>
               <HashLink
                 to="#pricing"
                 className="text-lg text-gray-700 hover:text-black scroll-smooth"

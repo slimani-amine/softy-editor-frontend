@@ -20,14 +20,7 @@ import OnboardingRoute from './OnboardingRoute';
 const Router = () => (
   <BrowserRouter>
     <Routes>
-      <Route
-        path="/"
-        element={
-          <PublicRoute>
-            <Home />
-          </PublicRoute>
-        }
-      />
+      <Route path="/" element={<Home />} />
       <Route
         path="/login"
         element={

@@ -54,7 +54,7 @@ const PricingPlusCard = ({ className, billingPeriod, ...props }: any) => {
         </CardTitle>
       </CardHeader>
       <Button
-        variant={'ghost'}
+        // variant={'ghost'}
         className=" bg-black  text-white flex justify-center w-[80%] mx-auto rounded-[7px] font-semibold hover:opacity-80 shadow-sm"
         onClick={handleGetStarted}
       >

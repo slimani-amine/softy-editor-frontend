@@ -16,7 +16,7 @@ const Heading = () => {
         <span className=" animate-bounce">E-ditor</span>
       </h1>
       <h3 className="text-base sm:text-xl md:text-2xl font-medium">
-      E-ditor is the connected workspace where <br />
+        E-ditor is the connected workspace where <br />
         better, faster work happens.
       </h3>
       {isLoading && (
@@ -25,7 +25,7 @@ const Heading = () => {
         </div>
       )}
       {isAuthenticated && !isLoading && (
-        <Button asChild>
+        <Button asChild className="mt-4">
           <Link to="/documents" className="hover:text-black">
             Enter E-ditor
             <ArrowRight className="h-4 w-4 ml-2" />
@@ -34,7 +34,7 @@ const Heading = () => {
       )}
       {!isAuthenticated && !isLoading && (
         <Link to="/login">
-          <Button className="hover:text-blue-500 ">
+          <Button className="hover:text-blue-500 mt-4">
             <p className="animate-pulse ">Enter Now</p>
             <ArrowRight className="h-4 w-4 ml-2 animate-pulse " />
           </Button>

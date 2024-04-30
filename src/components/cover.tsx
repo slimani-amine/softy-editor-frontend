@@ -1,15 +1,8 @@
 import { useState } from 'react';
 import { ImageIcon, X } from 'lucide-react';
-// import { useMutation } from "convex/react";
-// import { useParams } from "next/navigation";
-
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-// import { api } from "@/convex/_generated/api";
-// import { Id } from "@/convex/_generated/dataModel";
-// import { useEdgeStore } from "@/lib/edgestore";
-import { useCoverImage } from '@/hooks/use-cover-image';
 import { useParams } from 'react-router';
 import { updateDocument } from 'api/documents/updateDocument';
 import { useMutation, useQueryClient } from '@tanstack/react-query';

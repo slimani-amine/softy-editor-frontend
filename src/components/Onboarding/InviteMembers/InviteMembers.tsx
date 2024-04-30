@@ -55,7 +55,6 @@ export default function InviteMembers({ user, setIsHaveProfile }: any) {
     error,
   }: any = useCreateWorkSpaceQuery();
 
-
   const {
     register,
     handleSubmit,
@@ -140,7 +139,7 @@ export default function InviteMembers({ user, setIsHaveProfile }: any) {
           {errors && errors && (
             <span className="text-red-500">
               {' '}
-              {errors?.name?.message && errors?.name?.message}
+              {errors?.title?.message && errors?.title?.message}
             </span>
           )}
         </div>
