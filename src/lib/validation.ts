@@ -26,7 +26,7 @@ export const profileSchema = yup.object().shape({
 });
 
 export const createWorkspaceSchema = yup.object().shape({
-  name: yup.string().required('Name is required'),
+  title: yup.string().required('Name is required'),
 });
 
 export const ResetPasswordSchema = yup.object().shape({

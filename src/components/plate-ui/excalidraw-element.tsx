@@ -1,8 +1,7 @@
 import React from 'react';
 import { withRef } from '@udecode/cn';
 import { PlateElement } from '@udecode/plate-common';
-import { useExcalidrawElement } from '@/hooks/useExcalidrawElement';
-// import { useExcalidrawElement } from '@udecode/plate-excalidraw';
+import { useExcalidrawElement } from 'shared/hooks/useExcalidrawElement';
 
 export const ExcalidrawElement = withRef<typeof PlateElement>(
   ({ nodeProps, ...props }, ref) => {

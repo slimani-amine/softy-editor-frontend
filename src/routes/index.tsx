@@ -8,7 +8,7 @@ import DocumentsPage from '@/pages/Documents/_components/DocumentsEmptyPage';
 import DocumentsEmptyPage from '@/pages/Documents/_components/DocumentsEmptyPage';
 import DocumentIdPage from '@/pages/Documents/_components/DocumentIdPage';
 import PageNotFound from '@/components/PageNotFound';
-import PreviewDocument from '@/pages/Documents/Preview/PreviewDocument';
+import PreviewDocument from '@/pages/Preview/PreviewDocument';
 
 import Register from '@/pages/Register';
 import ResetPassword from '@/pages/ResetPassword';
@@ -84,10 +84,21 @@ const Router = () => (
           </PrivateRoute>
         }
       >
-        <Route index element={<DocumentsEmptyPage />} />
+        <Route
+          index
+          element={
+            <PrivateRoute>
+              <DocumentsEmptyPage />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/workspaces/:workspaceId/documents/:documentId"
-          element={<DocumentIdPage />}
+          element={
+            <PrivateRoute>
+              <DocumentIdPage />
+            </PrivateRoute>
+          }
         />
       </Route>
       <Route

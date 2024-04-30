@@ -10,16 +10,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import Button from '@/components/Button';
 import useAuthStore from '@/store/useAuthStore';
 import { useQuery } from '@tanstack/react-query';
 import { getMyWorkspaces } from 'api/workspaces/getMyWorkspaces';
-import Spinner from '@/components/Spinner';
 import { getMe } from 'api/users/getMe';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import WorkSpaceBoxInNavigation from './WorkSpaceBoxInNavigation';
 import WorkspaceBoxInDropDown from './WorkspaceBoxInDropDown';
 import { getWorkspaceById } from 'api/workspaces/getWorkspaceById';
+import Spinner from '@/components/Shared/Spinner';
 
 export const UserItem = () => {
   const { isAuthenticated, setIsAuthenticated } = useAuthStore(

@@ -3,12 +3,11 @@ import { cn, withRef } from '@udecode/cn';
 import { PortalBody, useComposedRef } from '@udecode/plate-common';
 import { flip, FloatingToolbarState, offset } from '@udecode/plate-floating';
 
+import { Toolbar } from './toolbar';
 import {
   useFloatingToolbar,
   useFloatingToolbarState,
-} from '@/hooks/useFloatingSlash';
-
-import { Toolbar } from './toolbar';
+} from 'shared/hooks/useFloatingSlash';
 
 export const SlashToolbar = withRef<
   typeof Toolbar,

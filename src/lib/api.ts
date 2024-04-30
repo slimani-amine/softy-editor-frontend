@@ -5,10 +5,11 @@ import {
   successInterceptor,
 } from './interceptors';
 import { getTokens } from './utils/token';
+import { BASE_URL } from 'shared/config';
 const { access_token } = getTokens();
 
 const axiosRequestConfig: AxiosRequestConfig = {
-  baseURL: import.meta.env.VITE_API_END_POINT,
+  baseURL: BASE_URL,
   responseType: 'json',
   headers: {
     'Content-Type': 'application/json',

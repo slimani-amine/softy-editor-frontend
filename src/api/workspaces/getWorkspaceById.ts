@@ -1,4 +1,4 @@
-import { BASE_URL } from 'constants/api';
+import { BASE_URL } from 'shared/config';
 
 export const getWorkspaceById = async function ({
   workspaceId,
@@ -6,7 +6,7 @@ export const getWorkspaceById = async function ({
   workspaceId: string;
 }) {
   try {
-    const jwtToken = localStorage.getItem('token');
+    const jwtToken = localStorage.getItem('access_token');
     const res = await fetch(`${BASE_URL}/workspaces/${workspaceId}`, {
       method: 'GET',
       headers: {

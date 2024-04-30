@@ -18,8 +18,6 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from '@/components/ui/popover';
-import { useSearch } from '@/hooks/use-search';
-import { useSettings } from '@/hooks/use-settings';
 
 import { UserItem } from './user-item';
 import { Item } from './item';
@@ -31,6 +29,8 @@ import toast from 'react-hot-toast';
 import { createDocument } from 'api/documents/createDocument';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { DocumentItemPropsType, DocumentPropsType } from '@/types/Propstypes';
+import { useSettings } from 'shared/hooks/use-settings';
+import { useSearch } from 'shared/hooks/use-search';
 
 export const Navigation = () => {
   const queryClient = useQueryClient();

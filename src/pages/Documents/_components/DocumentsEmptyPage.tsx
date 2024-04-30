@@ -11,9 +11,9 @@ import { useNavigate, useParams } from 'react-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createDocument } from 'api/documents/createDocument';
 import { getDocumentsofWorkspace } from 'api/documents/getDocumentsofWorkspace';
-import Spinner from '@/components/Spinner';
 import { useEffect } from 'react';
 import { getWorkspaceById } from 'api/workspaces/getWorkspaceById';
+import Spinner from '@/components/Shared/Spinner';
 
 const DocumentsEmptyPage = () => {
   const navigate = useNavigate();

@@ -1,26 +1,26 @@
 import { create } from 'zustand';
 import { logger } from './logger';
 import { clearItem, setItem } from '../lib/localStorage';
- 
+
 interface AuthState {
   isInitialised: boolean;
   isAuthenticated: boolean;
-  user: User | null;
+  user: any | null;
 }
- 
+
 export interface AuthStore extends AuthState {
   setIsAuthenticated: (args: AuthState['isAuthenticated']) => void;
   setUser: (args: AuthState['user']) => void;
   setToken: (args: string) => void;
   clearToken: () => void;
 }
- 
+
 const initialState: Pick<AuthStore, keyof AuthState> = {
   isAuthenticated: false,
   isInitialised: false,
   user: null,
 };
- 
+
 const useAuthStore = create<AuthStore>()(
   logger<AuthStore>(
     (set) => ({
@@ -29,7 +29,7 @@ const useAuthStore = create<AuthStore>()(
         set(() => ({ isAuthenticated }));
         set(() => ({ isInitialised: true }));
       },
- 
+
       setToken: (token: string) => {
         setItem('token', token);
       },
@@ -40,8 +40,8 @@ const useAuthStore = create<AuthStore>()(
         clearItem('token');
       },
     }),
-    'authStore'
-  )
+    'authStore',
+  ),
 );
- 
+
 export default useAuthStore;

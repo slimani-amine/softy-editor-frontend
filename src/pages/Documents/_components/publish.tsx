@@ -8,18 +8,17 @@ import {
   Popover,
   PopoverContent,
 } from '@/components/ui/popover';
-import { useOrigin } from '@/hooks/use-origin';
 // import { api } from "@/convex/_generated/api";
 import { Button } from '@/components/ui/button';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateDocument } from 'api/documents/updateDocument';
 import { DocumentItemPropsType } from '@/types/Propstypes';
 import toast from 'react-hot-toast';
+import { useOrigin } from 'shared/hooks/use-origin';
 
 export const Publish = ({ document }: DocumentItemPropsType) => {
   const origin = useOrigin();
   const queryClient = useQueryClient();
-  // const update = useMutation(api.documents.update);
 
   const [copied, setCopied] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);

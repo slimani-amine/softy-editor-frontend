@@ -5,14 +5,13 @@
 
 // import { Navigation } from "./_components/navigation";
 // import { Spinner } from "@/components/spinner";
-import Header from '@/components/Header';
-import Spinner from '@/components/Spinner';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { Navigation } from './_components/navigation';
 import { SearchCommand } from '@/components/search-command';
 import DocumentsPage from './_components/DocumentsEmptyPage';
 import { useQuery } from '@tanstack/react-query';
 import { getWorkspaceById } from 'api/workspaces/getWorkspaceById';
+import Spinner from '@/components/Shared/Spinner';
 
 export default function Documents() {
   // const { isAuthenticated, isLoading } = useConvexAuth();

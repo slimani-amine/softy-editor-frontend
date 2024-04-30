@@ -1,4 +1,4 @@
-import { BASE_URL } from 'constants/api';
+import { BASE_URL } from 'shared/config';
 
 export const getDocumentById = async function ({
   documentId,
@@ -6,7 +6,7 @@ export const getDocumentById = async function ({
   documentId: string | undefined;
 }) {
   try {
-    const jwtToken = localStorage.getItem('token');
+    const jwtToken = localStorage.getItem('access_token');
     const res = await fetch(`${BASE_URL}/documents/${documentId}`, {
       method: 'GET',
       headers: {

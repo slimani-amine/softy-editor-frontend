@@ -14,7 +14,7 @@ import {
 } from '@udecode/plate-floating';
 import { set } from 'date-fns';
 import { useFocused } from 'slate-react';
-import { useScrollBlock } from './useScrollBlock';
+import { useScrollBlock } from '../../shared/hooks/useScrollBlock';
 
 export type FloatingToolbarState = {
   floatingOptions?: UseVirtualFloatingOptions;

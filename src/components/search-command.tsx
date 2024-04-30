@@ -12,11 +12,11 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
-import { useSearch } from '@/hooks/use-search';
 import { useNavigate, useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
 import { getDocumentsofWorkspace } from 'api/documents/getDocumentsofWorkspace';
 import { DocumentItemPropsType, DocumentPropsType } from '@/types/Propstypes';
+import { useSearch } from 'shared/hooks/use-search';
 // import { api } from "@/convex/_generated/api";
 
 export const SearchCommand = () => {

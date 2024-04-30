@@ -30,7 +30,6 @@ import {
 import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
 import { ELEMENT_TABLE, insertTable } from '@udecode/plate-table';
 
-import { useFloatingToolbar } from '@/hooks/useFloatingSlash';
 import { Icons } from '@/components/icons';
 
 import {
@@ -43,7 +42,7 @@ import {
   useOpenState,
 } from './dropdown-menu';
 import { ToolbarButton } from './toolbar';
-import { useScrollBlock } from '@/hooks/useScrollBlock';
+import { useScrollBlock } from 'shared/hooks/useScrollBlock';
 
 const items = [
   {

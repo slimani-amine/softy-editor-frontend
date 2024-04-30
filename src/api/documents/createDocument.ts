@@ -1,8 +1,8 @@
-import { BASE_URL } from 'constants/api';
+import { BASE_URL } from 'shared/config';
 
 export const createDocument = async function (body: any) {
   try {
-    const jwtToken = localStorage.getItem('token');
+    const jwtToken = localStorage.getItem('access_token');
     const res = await fetch(`${BASE_URL}/documents`, {
       method: 'POST',
       headers: {

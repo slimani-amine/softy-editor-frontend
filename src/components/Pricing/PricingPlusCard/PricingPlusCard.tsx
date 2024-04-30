@@ -29,7 +29,6 @@ const details = [
   },
 ];
 
-
 const PricingPlusCard = ({ className, billingPeriod, ...props }: any) => {
   const navigate = useNavigate();
 
@@ -41,7 +40,7 @@ const PricingPlusCard = ({ className, billingPeriod, ...props }: any) => {
     <Card
       className={cn(
         'w-[380px] bg-[#F6F5F4] flex flex-col rounded-2xl border-none mx-auto ',
-        className
+        className,
       )}
       {...props}
     >
@@ -55,7 +54,8 @@ const PricingPlusCard = ({ className, billingPeriod, ...props }: any) => {
         </CardTitle>
       </CardHeader>
       <Button
-        className=" bg-black text-white flex justify-center w-[80%] mx-auto rounded-[7px] font-semibold hover:opacity-80 shadow-sm"
+        variant={'ghost'}
+        className=" bg-black  text-white flex justify-center w-[80%] mx-auto rounded-[7px] font-semibold hover:opacity-80 shadow-sm"
         onClick={handleGetStarted}
       >
         Get started
