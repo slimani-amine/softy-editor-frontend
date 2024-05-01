@@ -1,10 +1,4 @@
-export default function Header({
-  title,
-  subTitle,
-}: {
-  title: string;
-  subTitle: string;
-}) {
+export default function Header({ title, subTitle }: any) {
   return (
     <div className="flex flex-col items-center gap-1">
       <h1
@@ -27,7 +21,7 @@ export default function Header({
           color: 'rgba(55, 53, 47, 0.65)',
         }}
       >
-        {subTitle}
+       {subTitle}
       </h2>
     </div>
   );

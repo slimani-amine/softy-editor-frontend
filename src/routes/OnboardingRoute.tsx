@@ -7,13 +7,13 @@ interface Props {
 }
 
 const OnboardingRoute: React.FC<Props> = ({ children }) => {
-  const { isAuthenticated, user, myWorkspaces } = useAuthStore(
-    (state) => state,
-  );
-  console.log('🚀 ~ isAuthenticated:', myWorkspaces);
-  console.log('🚀 ~ user:', user);
+  const { user, myWorkspaces } = useAuthStore((state) => state);
 
-  if ((user && user.status.id === 2) || !myWorkspaces || myWorkspaces.length === 0) {
+  if (
+    (user && user.status.id === 2) ||
+    !myWorkspaces ||
+    myWorkspaces.length === 0
+  ) {
     return children;
   }
 };

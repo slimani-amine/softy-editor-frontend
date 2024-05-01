@@ -1,22 +1,15 @@
-import React from 'react';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import UncheckedIcon from '@/components/Shared/Icons/UncheckedIcon';
-import CheckedIcon from '@/components/Shared/Icons/CheckedIcon';
 import ForSchoolIcon from '@/components/Shared/Icons/ForSchoolIcon';
 import ForTeamIcon from '@/components/Shared/Icons/ForTeamIcon';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import UncheckedIcon from '@/components/Shared/Icons/UncheckedIcon';
+import CheckedIcon from '@/components/Shared/Icons/CheckedIcon';
 import ForPersonalIcon from '@/components/Shared/Icons/ForPersonalIcon';
-
 interface Props {
   selectedId: number;
   handleClick: (id: number) => void;
 }
 
-export default function PlanningToUse({ selectedId, handleClick }: Props) {
+export default function PlanningToUse({ selectedId, handleClick }: { selectedId:number, handleClick:any }) {
   const cardStyle =
     'w-[230px] h-full bg-white flex flex-col rounded-[5px] border-gray-300 relative p-auto';
   const boxShadow1 =
@@ -25,12 +18,12 @@ export default function PlanningToUse({ selectedId, handleClick }: Props) {
     'rgba(55, 53, 47, 0.16) 0px 0px 0px 1px, rgba(167, 167, 167, 0.25) 0px 1px 2px';
 
   return (
-    <div className="flex gap-5 items-center justify-center mb-5">
+    <div className="flex gap-5 items-center justify-center  mb-5  ">
       <Card
         className={`${cardStyle} ${
           selectedId === 1 ? 'opacity-100' : 'opacity-60 hover:opacity-100'
         } transition-all`}
-        onClick={() => handleClick(1)}
+        onClick={handleClick(1)}
         style={{
           boxShadow: selectedId === 1 ? boxShadow1 : boxShadow2,
         }}
@@ -57,7 +50,7 @@ export default function PlanningToUse({ selectedId, handleClick }: Props) {
         className={`${cardStyle} ${
           selectedId === 2 ? 'opacity-100' : 'opacity-60 hover:opacity-100'
         } transition-all`}
-        onClick={() => handleClick(2)}
+        onClick={handleClick(2)}
         style={{
           boxShadow: selectedId === 2 ? boxShadow1 : boxShadow2,
         }}
@@ -84,7 +77,7 @@ export default function PlanningToUse({ selectedId, handleClick }: Props) {
         className={`${cardStyle} ${
           selectedId === 3 ? 'opacity-100' : 'opacity-60 hover:opacity-100'
         } transition-all`}
-        onClick={() => handleClick(3)}
+        onClick={handleClick(3)}
         style={{
           boxShadow: selectedId === 3 ? boxShadow1 : boxShadow2,
         }}

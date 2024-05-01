@@ -29,6 +29,12 @@ export const createWorkspaceSchema = yup.object().shape({
   title: yup.string().required('Name is required'),
 });
 
+export const inviteMembersSchema = yup.object().shape({
+  email_01: yup.string().email().optional(),
+  email_02: yup.string().email().optional(),
+  email_03: yup.string().email().optional(),
+});
+
 export const ResetPasswordSchema = yup.object().shape({
   password: yup.string().min(8).required('Password is required'),
   confirmPassword: yup

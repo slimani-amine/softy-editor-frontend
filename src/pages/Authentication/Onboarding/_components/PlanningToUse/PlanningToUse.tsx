@@ -10,7 +10,7 @@ export default function PlanningToUse({
   setIsHaveAPlan,
 }: {
   user: User;
-  setIsHaveAPlan: any;
+  setIsHaveAPlan: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [selectedId, setSelectedId] = useState<number>(0);
 
