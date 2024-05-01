@@ -25,7 +25,7 @@ import { DocumentItemPropsType } from '@/types/Propstypes';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateDocumentContent } from 'api/documents/updateDocumentContent';
 import { useLocation, useParams } from 'react-router';
-import { formatDocContent } from 'helpers/formatDocContent';
+import { formatDocContent } from 'shared/helpers/formatDocContent';
 import toast from 'react-hot-toast';
 
 export default function PlateEditor({ document }: DocumentItemPropsType) {

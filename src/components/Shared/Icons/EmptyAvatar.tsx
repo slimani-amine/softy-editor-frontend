@@ -1,4 +1,4 @@
-const EmptyAvatar = ({ selectedFileUrl }: any) => {
+const EmptyAvatar = ({ selectedFileUrl }: { selectedFileUrl: string }) => {
   return (
     <img
       src={!selectedFileUrl ? `/empty-avatar.png` : selectedFileUrl}

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { Ability, AbilityTuple, MongoAbility, MongoQuery } from '@casl/ability'
-import { useAppSelector } from '../store'
 import { defineAbilitiesFor } from '../utils/defineAbilitiesFor'
 
 type AbilityContextType = {

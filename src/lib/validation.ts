@@ -22,7 +22,7 @@ export const SendMailSchema = yup.object().shape({
 
 export const profileSchema = yup.object().shape({
   userName: yup.string().required('UserName is required'),
-  password: yup.string().required('Password is required'),
+  password: yup.string().required('Password is required').min(6),
 });
 
 export const createWorkspaceSchema = yup.object().shape({

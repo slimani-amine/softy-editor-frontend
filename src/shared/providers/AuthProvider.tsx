@@ -23,7 +23,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     mutateAsync: getMyWorkspaces,
     isError: isErrorForGetMyWorkspaces,
     error: errorForGetMyWorkspaces,
-  }: any = useGetMyWorkSpacesQuery();
+  } = useGetMyWorkSpacesQuery();
 
   const { isInitialised, setUser, setIsAuthenticated, setMyWorkspaces } =
     useAuthStore();
@@ -47,10 +47,9 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         const response = await api.get(`${BASE_URL}/auth/me`);
         const user = response?.data;
         const myWorkspaces = await getMyWorkspaces(access_token);
-        console.log(myWorkspaces);
+
         setIsAuthenticated(true);
         if (myWorkspaces) {
-          console.log('step3');
           setMyWorkspaces(myWorkspaces);
         }
         setIsAuthenticated(true);

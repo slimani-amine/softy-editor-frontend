@@ -7,11 +7,9 @@ interface Props {
 }
 
 const PublicRoute: React.FC<Props> = ({ children }) => {
-  // Replace with your auth condition
   const { isAuthenticated, myWorkspaces } = useAuthStore((state) => state);
-  console.log('🚀 ~ myWorkspaces:', myWorkspaces);
 
-  return isAuthenticated ? (
+  return isAuthenticated && myWorkspaces && myWorkspaces.length > 0 ? (
     <Navigate to={`/workspaces/${myWorkspaces[0].id}/documents`} />
   ) : (
     children

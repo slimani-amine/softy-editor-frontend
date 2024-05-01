@@ -1,22 +1,20 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Documents from '../pages/Documents';
-import Home from '../pages/Home';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
-import Login from '@/pages/Login';
 import DocumentsPage from '@/pages/Documents/_components/DocumentsEmptyPage';
 import DocumentsEmptyPage from '@/pages/Documents/_components/DocumentsEmptyPage';
 import DocumentIdPage from '@/pages/Documents/_components/DocumentIdPage';
 import PageNotFound from '@/components/PageNotFound';
 import PreviewDocument from '@/pages/Preview/PreviewDocument';
-
-import Register from '@/pages/Register';
-import ResetPassword from '@/pages/ResetPassword';
-import ForgotPassword from '@/pages/ForgotPassword';
-import Pricing from '@/components/Pricing/Pricing';
+import ForgotPassword from '@/pages/Authentication/ForgotPassword';
 import NotFound from 'shared/features/NotFound/NotFound';
-import Onboarding from '@/pages/Onboarding';
 import OnboardingRoute from './OnboardingRoute';
+import Home from '@/pages/LandingPage/Home';
+import Login from '@/pages/Authentication/Login';
+import ResetPassword from '@/pages/Authentication/ResetPassword';
+import Pricing from '@/pages/Pricing';
+import Onboarding from '@/pages/Authentication/Onboarding';
 const Router = () => (
   <BrowserRouter>
     <Routes>
@@ -33,14 +31,6 @@ const Router = () => (
         element={
           <PublicRoute>
             <Login />
-          </PublicRoute>
-        }
-      />
-      <Route
-        path="/register"
-        element={
-          <PublicRoute>
-            <Register />
           </PublicRoute>
         }
       />

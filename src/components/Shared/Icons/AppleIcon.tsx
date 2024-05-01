@@ -1,4 +1,4 @@
-const GoogleIcon = () => (
+const AppleIcon = () => (
   <svg
     fill="#000000"
     className="w-4 h-4 flex-shrink-0 mr-2"
@@ -9,4 +9,4 @@ const GoogleIcon = () => (
   </svg>
 );
 
-export default GoogleIcon;
+export default AppleIcon;

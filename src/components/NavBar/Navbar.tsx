@@ -1,13 +1,12 @@
 // import { useConvexAuth } from "convex/react";
 // import { Button, UserButton } from "@clerk/clerk-react";
 
-import { useScrollTop } from '@/hooks/use-scroll-top';
 // import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import Spinner from '../Spinner';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import Spinner from '../Shared/Spinner';
 
 // import { Logo } from "./logo";
 

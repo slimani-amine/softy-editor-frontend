@@ -1,4 +1,4 @@
-import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import {
   errorInterceptor,
   requestInterceptor,
@@ -6,21 +6,23 @@ import {
 } from './interceptors';
 import { getTokens } from './utils/token';
 import { BASE_URL } from 'shared/config';
-const { access_token } = getTokens();
-console.log('🚀 ~ access_token:', access_token);
-const axiosRequestConfig: AxiosRequestConfig = {
+
+const axiosInstance: AxiosInstance = axios.create({
   baseURL: BASE_URL,
   responseType: 'json',
-  headers: {
+});
+
+axiosInstance.interceptors.request.use((config) => {
+  const { access_token } = getTokens();
+  config.headers = {
+    ...(config.headers as any),
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
     Authorization: `Bearer ${access_token}`,
-  },
-};
+  };
+  return config;
+});
 
-const api: AxiosInstance = axios.create(axiosRequestConfig);
+axiosInstance.interceptors.response.use(successInterceptor, errorInterceptor);
 
-api.interceptors.request.use(requestInterceptor);
-api.interceptors.response.use(successInterceptor, errorInterceptor);
-
-export { api };
+export { axiosInstance as api };

@@ -28,7 +28,7 @@ import { Link } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateDocument } from 'api/documents/updateDocument';
 import toast from 'react-hot-toast';
-import { formatDate } from 'helpers/formatDate';
+import { formatDate } from 'shared/helpers/formatDate';
 
 export default function DocumentItem({ document }: DocumentItemPropsType) {
   const { workspaceId, documentId } = useParams();

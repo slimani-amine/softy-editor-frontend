@@ -21,9 +21,13 @@ import Spinner from '@/components/Shared/Spinner';
 import { clearTokens } from '@/lib/utils/token';
 
 export const UserItem = () => {
-  const { isAuthenticated, setIsAuthenticated, myWorkspaces } = useAuthStore(
-    (state) => state,
+  const { isAuthenticated, setIsAuthenticated, myWorkspaces , setMyWorkspaces } = useAuthStore(
+    (state) => state
   );
+  
+  // Check if myWorkspaces is an empty object
+
+  
 
   const params = useParams();
   const { workspaceId } = params;
@@ -33,7 +37,7 @@ export const UserItem = () => {
   //   data: myWorkspaces,
   //   error,
   // } = useQuery({
-  console.log('🚀 ~ UserItem ~ myWorkspaces:', myWorkspaces);
+  console.log("🚀 ~ UserItem ~ myWorkspaces:", myWorkspaces)
   //   queryKey: ['workspaces'],
   //   queryFn: async () => await getMyWorkspaces(),
   // });
@@ -53,6 +57,7 @@ export const UserItem = () => {
   const handleLogout = () => {
     clearTokens();
     setIsAuthenticated(false);
+    setMyWorkspaces([])
   };
 
   if (!wantedWorkspace) return <Navigate to={'/'} />;

@@ -2,11 +2,12 @@ import { create } from 'zustand';
 import { logger } from './logger';
 import { clearItem, setItem } from '../lib/localStorage';
 import { WorkspaceBoxInNavigationPropsType } from '@/types/Propstypes';
+import { User } from '@/types/user';
 
 interface AuthState {
   isInitialised: boolean;
   isAuthenticated: boolean;
-  user: any | null;
+  user: User | null;
   myWorkspaces: any | null;
 }
 
@@ -41,9 +42,14 @@ const useAuthStore = create<AuthStore>()(
         set(() => ({ user }));
       },
       setMyWorkspaces: (myWorkspaces: any) => {
-        console.log('🚀 ~ myWorkspaces:', myWorkspaces);
-        set(() => ({ myWorkspaces }));
+        if (myWorkspaces.constructor === Object) {
+          const myWorkspacesArray = [myWorkspaces];
+          set(() => ({ myWorkspaces: myWorkspacesArray }));
+        } else {
+          set(() => ({ myWorkspaces }));
+        }
       },
+      
       clearToken: () => {
         clearItem('token');
       },

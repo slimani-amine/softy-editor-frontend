@@ -3,8 +3,7 @@ import { Suspense, Fragment } from 'react'
 import { Routes, Route, RouteProps } from 'react-router-dom'
 
 import pages from './routes'
-import LazyLoad from '../components/LazyLoad/LazyLoad'
-import ModalsProvider from '../providers/ModalProvider'
+import LazyLoad from '@/components/Shared/LazyLoad'
 
 type RouteConfig = {
   exact: boolean | null
@@ -37,7 +36,6 @@ export const renderRoutes = (routes: RouteConfig[] = []) => (
         )
       })}
     </Routes>
-    <ModalsProvider />
   </Suspense>
 )
 
