@@ -13,20 +13,19 @@ import useAuthStore from '@/store/useAuthStore';
 import { useNavigate } from 'react-router';
 import { User } from '@/types/user';
 import { Plus } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 export default function InviteMembers({
   user,
   setIsInviteTeam,
 }: {
-  user: User;
+  user: User | null;
   setIsInviteTeam: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const { myWorkspaces } = useAuthStore((state) => state);
-  console.log('🚀 ~ myWorkspaces:', myWorkspaces);
+  const { myWorkspaces,setUser } = useAuthStore((state) => state);
   const navigate = useNavigate();
 
   const [invite, setInvite] = useState<boolean>(false);
-  console.log('🚀 ~ invite:', invite);
 
   const {
     register,
@@ -37,6 +36,13 @@ export default function InviteMembers({
   } = useForm<InviteMembersBody>({
     resolver: yupResolver(inviteMembersSchema),
   });
+
+  const {
+    isLoading,
+    mutateAsync: update,
+    isError,
+    error,
+  }: any = useUpdateUserQuery();
 
   const handleInputChange = (e: any) => {
     const values = getValues();
@@ -55,14 +61,16 @@ export default function InviteMembers({
       '🚀 ~ constonSubmit:SubmitHandler<InviteMembersBody>= ~ workspaceId:',
       workspaceId,
     );
+    const body = { id: user?.id, status: { id: 1 } };
     try {
-      if (invite) {
-        console.log(data);
-      } else {
-        setIsInviteTeam(true)
-        // navigate(`/workspaces/${workspaceId}/documents`);
-      }
-    } catch (error) {}
+      const res = await update(body);
+      console.log("🚀 ~ constonSubmit:SubmitHandler<InviteMembersBody>= ~ res:", res)
+      setIsInviteTeam(true);
+      setUser(res)
+      navigate("/pricing")
+    } catch (error) {
+      toast.error('error');
+    }
   };
 
   return (

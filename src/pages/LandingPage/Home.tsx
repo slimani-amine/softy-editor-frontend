@@ -14,7 +14,7 @@ const Home = () => {
           <Heading />
           <Heroes />
         </div>
-        <Pricing id="pricing" />
+        <Pricing />
       </div>
     </div>
   );

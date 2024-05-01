@@ -1,18 +1,15 @@
 import WelcomeIcon from '@/components/Shared/Icons/WelcomeIcon';
 import useAuthStore from '@/store/useAuthStore';
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { Navigate, useNavigate } from 'react-router';
 import Header from './_components/WelcomeProfileHeader/WelcomeProfile';
 import WelcomeProfileForm from './_components/WelcomeProfile/WelcomeProfileForm';
 import PlanningToUse from './_components/PlanningToUse';
 import CreateWorkspace from './_components/CreateWorkspace';
 import InviteMembers from './_components/InviteMembers';
-import Checkout from './_components/Checkout';
 
 const Onboarding = () => {
   const { user, myWorkspaces, setToken } = useAuthStore();
-  console.log("🚀 ~ Onboarding ~ user:", user)
-  console.log("🚀 ~ Onboarding ~ myWorkspaces:", myWorkspaces)
 
   const navigate = useNavigate();
   if (!user) {
@@ -28,7 +25,9 @@ const Onboarding = () => {
   const [isHaveAWorkspace, setIsHaveAWorkspace] = useState<boolean>(
     myWorkspaces && myWorkspaces.length > 0 ? true : false,
   );
-  const [isInviteTeam, setIsInviteTeam] = useState<boolean>(myWorkspaces && myWorkspaces?.members?.length > 1 ? true : false,);
+  const [isInviteTeam, setIsInviteTeam] = useState<boolean>(
+    myWorkspaces && myWorkspaces?.length > 0 ? true : false,
+  );
 
   return (
     <div className="h-full flex flex-col justify-center bg-[#F7F6F3] relative">
@@ -76,11 +75,7 @@ const Onboarding = () => {
           </div>
         </section>
       ) : (
-        <section className="px-4 w-[28rem] h-full m-auto overflow-visible flex flex-col justify-center ">
-        <div className="w-full  mx-auto flex flex-col gap-10 ">
-          <Checkout user={user} setIsInviteTeam={setIsInviteTeam} />
-        </div>
-      </section>
+        <Navigate to="/pricing" />
       )}
     </div>
   );

@@ -41,7 +41,7 @@ const details: Detail[] = [
 
 interface PricingFreeCardProps {
   className?: string;
-}
+  billingPeriod: 'monthly' | 'yearly';}
 
 const PricingFreeCard: React.FC<PricingFreeCardProps> = ({ className }) => {
   const navigate = useNavigate();

@@ -8,11 +8,10 @@ import { ProfileBody } from '@/types/auth';
 import { profileSchema } from '@/lib/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useUpdateUserQuery } from '@/services/queries/auth.query';
-import toast from 'react-hot-toast';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import { User } from '@/types/user';
 interface Props {
-  user: User;
+  user: User | null;
   setIsHaveProfile: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

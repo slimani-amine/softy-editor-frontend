@@ -3,21 +3,39 @@ import { Card } from '@/components/ui/card';
 import PricingFreeCard from './_components/PricingFreeCard';
 import PricingPlusCard from './_components/PricingPlusCard';
 import PricingBusinessCard from './_components/PricingBusinessCard';
+import { User } from '@/types/user';
+import Button from '@/components/Shared/Button';
+import useAuthStore from '@/store/useAuthStore';
+import { useNavigate } from 'react-router';
 
-type CardProps = React.ComponentProps<typeof Card>;
+type CardProps = {
+  className?: string;
+  user?: User | null;
+};
 
 const Pricing = ({ className, ...props }: CardProps) => {
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>(
-    'monthly'
+    'monthly',
   );
+
+  const { myWorkspaces } = useAuthStore((state) => state);
 
   const handleSwitch = (period: 'monthly' | 'yearly') => {
     setBillingPeriod(period);
   };
 
+  const navigate = useNavigate()
+
+  const onSubmit = async () => {
+    const workspaceId = myWorkspaces[0].id;
+    console.log("🚀 ~ onSubmit ~ workspaceId:", workspaceId)
+
+    navigate(`/workspaces/${workspaceId}/documents`);
+  };
+
   return (
     <section className="bg-white dark:bg-gray-900 scroll-smooth " id="pricing">
-      <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+      <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 flex flex-col items-center gap-4">
         <div className="mx-auto max-w-screen-md text-center mb-8 lg:mb-12 flex flex-col items-center gap-4">
           <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
             One tool for your whole company. <br /> Free for teams to try.
@@ -64,6 +82,11 @@ const Pricing = ({ className, ...props }: CardProps) => {
           <PricingPlusCard billingPeriod={billingPeriod} />
           <PricingBusinessCard billingPeriod={billingPeriod} />
         </div>
+        <Button
+          text={`Take me to E-ditor`}
+          className="w-1/4 flex items-center justify-center h-8 rounded-[5px] text-white text-sm font-medium bg-blue-500 hover:bg-blue-600 shadow-inner md:shadow-md disabled:opacity-40 mt-4 "
+          onClick={onSubmit}
+        />
       </div>
     </section>
   );

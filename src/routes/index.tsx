@@ -53,9 +53,9 @@ const Router = () => (
       <Route
         path="/pricing"
         element={
-          <PublicRoute>
+          <PrivateRoute>
             <Pricing />
-          </PublicRoute>
+          </PrivateRoute>
         }
       />
       <Route

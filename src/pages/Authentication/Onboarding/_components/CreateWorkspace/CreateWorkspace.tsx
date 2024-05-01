@@ -18,7 +18,7 @@ export default function CreateWorkspace({
   user,
   setIsHaveAWorkspace,
 }: {
-  user: User;
+  user: User | null;
   setIsHaveAWorkspace: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const { setUser, setIsAuthenticated, setMyWorkspaces } = useAuthStore(

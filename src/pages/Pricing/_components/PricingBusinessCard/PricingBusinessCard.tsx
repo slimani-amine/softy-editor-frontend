@@ -18,8 +18,7 @@ interface Detail {
 
 interface PricingBusinessCardProps {
   className?: string;
-  billingPeriod: 'monthly' | 'annual';
-}
+  billingPeriod: 'monthly' | 'yearly';}
 
 const details: Detail[] = [
   {
