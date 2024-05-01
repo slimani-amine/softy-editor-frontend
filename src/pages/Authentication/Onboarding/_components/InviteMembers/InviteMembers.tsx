@@ -57,14 +57,9 @@ export default function InviteMembers({
 
   const onSubmit: SubmitHandler<InviteMembersBody> = async (data) => {
     const workspaceId = myWorkspaces[0].id;
-    console.log(
-      '🚀 ~ constonSubmit:SubmitHandler<InviteMembersBody>= ~ workspaceId:',
-      workspaceId,
-    );
     const body = { id: user?.id, status: { id: 1 } };
     try {
       const res = await update(body);
-      console.log("🚀 ~ constonSubmit:SubmitHandler<InviteMembersBody>= ~ res:", res)
       setIsInviteTeam(true);
       setUser(res)
       navigate("/pricing")

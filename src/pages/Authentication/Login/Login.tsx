@@ -134,7 +134,6 @@ const Login = () => {
           setToken(token);
           setIsAuthenticated(true);
           const myWorkspaces = await getMyWorkspaces(token);
-          console.log(myWorkspaces);
           if (myWorkspaces) {
             setMyWorkspaces(myWorkspaces);
             navigate(`/workspaces/${myWorkspaces[0]?.id}/documents`);

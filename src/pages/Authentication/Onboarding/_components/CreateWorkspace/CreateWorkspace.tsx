@@ -102,7 +102,6 @@ export default function CreateWorkspace({
               {' '}
               <EmojiPicker
                 onEmojiClick={(e) => {
-                  console.log(e.imageUrl);
                   setSelectedFileUrl(e.imageUrl);
                 }}
                 height={'300px'}

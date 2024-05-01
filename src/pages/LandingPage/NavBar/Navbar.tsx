@@ -24,31 +24,18 @@ const Navbar = () => {
         {isLoading && <Spinner />}
         {!isAuthenticated && !isLoading && (
           <>
-            <Button  >
+            <Button variant={"empty"} >
               <Link
                 to="/login"
-                className="text-lg text-white "
+                className="text-lg text-black"
               >
                 Log in
               </Link>
             </Button>
-            <Button variant={'empty'}>
-              <HashLink
-                to="#pricing"
-                className="text-lg text-black scroll-smooth"
-              >
-                pricing
-              </HashLink>
-            </Button>
+
           </>
         )}
-        {isAuthenticated && !isLoading && (
-          <>
-            <Button asChild>
-              <Link to="/documents">Enter E-ditor</Link>
-            </Button>
-          </>
-        )}
+
       </div>
     </div>
   );

@@ -28,8 +28,6 @@ const Pricing = ({ className, ...props }: CardProps) => {
 
   const onSubmit = async () => {
     const workspaceId = myWorkspaces[0].id;
-    console.log("🚀 ~ onSubmit ~ workspaceId:", workspaceId)
-
     navigate(`/workspaces/${workspaceId}/documents`);
   };
 

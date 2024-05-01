@@ -3,6 +3,7 @@ import PlanningCards from '../PlanningCards';
 import { useUpdateUserQuery } from '@/services/queries/auth.query';
 import { useState } from 'react';
 import { User } from '@/types/user';
+import useAuthStore from '@/store/useAuthStore';
 
 export default function PlanningToUse({
   user,
@@ -11,6 +12,8 @@ export default function PlanningToUse({
   user: User | null;
   setIsHaveAPlan: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const { setUser } = useAuthStore((state) => state);
+
   const [selectedId, setSelectedId] = useState<number>(0);
 
   const handleClick = (id: number) => () => {
@@ -28,7 +31,9 @@ export default function PlanningToUse({
     try {
       const res = await update(data);
       if (res) {
+        setUser(res)
         setIsHaveAPlan(true);
+
       }
     } catch (error) {}
   };

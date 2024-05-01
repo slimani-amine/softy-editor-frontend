@@ -8,14 +8,17 @@ import { ProfileBody } from '@/types/auth';
 import { profileSchema } from '@/lib/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useUpdateUserQuery } from '@/services/queries/auth.query';
-import {  useState } from 'react';
+import { useState } from 'react';
 import { User } from '@/types/user';
+import useAuthStore from '@/store/useAuthStore';
 interface Props {
   user: User | null;
   setIsHaveProfile: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function WelcomeProfileForm({ user, setIsHaveProfile }: Props) {
+  const { setUser } = useAuthStore((state) => state);
+
   const [selectedFileUrl, setSelectedFileUrl] = useState<string>(
     user?.photo || '',
   );
@@ -42,6 +45,7 @@ export default function WelcomeProfileForm({ user, setIsHaveProfile }: Props) {
     try {
       const res = await update(data);
       if (res) {
+        setUser(res);
         setIsHaveProfile(true);
       }
     } catch (error) {}

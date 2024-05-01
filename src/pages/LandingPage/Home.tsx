@@ -1,4 +1,3 @@
-import Pricing from '../Pricing';
 import Heading from './Heading';
 import Heroes from './Heroes';
 import Navbar from './NavBar/Navbar';
@@ -14,7 +13,6 @@ const Home = () => {
           <Heading />
           <Heroes />
         </div>
-        <Pricing />
       </div>
     </div>
   );
