@@ -15,7 +15,9 @@ import { useQuery } from '@tanstack/react-query';
 import { getMyWorkspaces } from 'api/workspaces/getMyWorkspaces';
 
 export default function CreateWorkspace({ user, setIsHaveAWorkspace }: any) {
-  const { setUser,setIsAuthenticated, setMyWorkspaces } = useAuthStore((state) => state);
+  const { setUser, setIsAuthenticated, setMyWorkspaces } = useAuthStore(
+    (state) => state,
+  );
   const navigate = useNavigate();
 
   const [selectedFileUrl, setSelectedFileUrl] = useState<string>();
@@ -69,14 +71,14 @@ export default function CreateWorkspace({ user, setIsHaveAWorkspace }: any) {
     data.emoji = selectedFileUrl;
 
     try {
-      const res = await CreateWorkspace(data);      
+      const res = await CreateWorkspace(data);
       const resArray = [res];
-      
+
       const updateUser = await update({ status: { id: 1 }, id: user.id });
       setMyWorkspaces(resArray);
       if (updateUser) {
         setUser(updateUser);
-        setIsAuthenticated(true)
+        setIsAuthenticated(true);
         navigate(`/workspaces/${res?.id}/documents`);
       }
       setMyWorkspaces(res);
@@ -135,7 +137,7 @@ export default function CreateWorkspace({ user, setIsHaveAWorkspace }: any) {
           <Button
             text={'Continue'}
             isLoading={isLoading}
-            disabled={!isValid} // here
+            disabled={!isValid}
             type="submit"
             className="w-full flex items-center justify-center h-8 rounded-[5px] text-white text-sm font-medium bg-blue-500 hover:bg-blue-600 shadow-inner md:shadow-md mt-2 disabled:opacity-40  "
           />
@@ -145,12 +147,10 @@ export default function CreateWorkspace({ user, setIsHaveAWorkspace }: any) {
               {errors?.title?.message && errors?.title?.message}
             </span>
           )}
-                    {isError && error && (
+          {isError && error && (
             <span className="text-red-500">
               {' '}
-              {error?.response?.data?.errors?.emoji
-                && "Please choose an icon"
-              }
+              {error?.response?.data?.errors?.emoji && 'Please choose an icon'}
             </span>
           )}
         </div>

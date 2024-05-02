@@ -18,7 +18,7 @@ interface Detail {
 
 interface PricingBusinessCardProps {
   className?: string;
-  billingPeriod: 'monthly' | 'annual';
+  billingPeriod: 'monthly' | 'yearly';
 }
 
 const details: Detail[] = [
@@ -62,7 +62,7 @@ const PricingBusinessCard: React.FC<PricingBusinessCardProps> = ({
     <Card
       className={cn(
         'w-[380px] bg-[#F6F5F4] flex flex-col  rounded-2xl border-none',
-        className
+        className,
       )}
     >
       <CardHeader className="flex flex-col ml-4">

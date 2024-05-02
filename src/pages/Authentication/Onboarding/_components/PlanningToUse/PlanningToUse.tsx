@@ -9,7 +9,7 @@ export default function PlanningToUse({
   user,
   setIsHaveAPlan,
 }: {
-  user: User;
+  user: User | null;
   setIsHaveAPlan: any;
 }) {
   const [selectedId, setSelectedId] = useState<number>(0);
@@ -25,7 +25,7 @@ export default function PlanningToUse({
   }: any = useUpdateUserQuery();
 
   const onSubmit = async () => {
-    const data = { id: user.id, plan: { id: selectedId } };
+    const data = { id: user?.id, plan: { id: selectedId } };
     try {
       const res = await update(data);
       console.log('🚀 ~ onSubmit ~ res:', res);

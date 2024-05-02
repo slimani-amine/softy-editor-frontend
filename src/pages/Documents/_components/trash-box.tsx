@@ -1,22 +1,15 @@
 import { useState } from 'react';
-// import { useParams, useRouter } from "next/navigation";
-// import { useQuery, useMutation } from "convex/react";
 import { Search, Trash, Undo } from 'lucide-react';
-
-// import { api } from "@/convex/_generated/api";
-// import { Id } from "@/convex/_generated/dataModel";
 import { Input } from '@/components/ui/input';
-import { ConfirmModal } from '@/components/modals/confirm-modal';
 import { useParams } from 'react-router';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getDocumentsofWorkspace } from 'api/documents/getDocumentsofWorkspace';
-import { DocumentItemPropsType, DocumentPropsType } from '@/types/Propstypes';
+import { DocumentPropsType } from '@/types/Propstypes';
 import DocumentItemInTrashBox from './DocumentItemInTrashBox';
 import Spinner from '@/components/Shared/Spinner';
 
 export const TrashBox = () => {
-  const navigate = useNavigate();
   const params = useParams();
   const [search, setSearch] = useState('');
 

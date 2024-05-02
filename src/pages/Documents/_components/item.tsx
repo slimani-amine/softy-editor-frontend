@@ -1,18 +1,12 @@
 import {
   ChevronDown,
   ChevronRight,
-  LucideIcon,
   MoreHorizontal,
   Plus,
   Trash,
 } from 'lucide-react';
-// import { useMutation } from "convex/react";
-// import { useUser } from "@clerk/clerk-react";
-
-// import { Id } from "@/convex/_generated/dataModel";
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
-// import { api } from "@/convex/_generated/api";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -21,19 +15,6 @@ import {
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { useNavigate } from 'react-router';
-
-// interface ItemProps {
-//   id?: Id<"documents">;
-//   documentIcon?: string;
-//   active?: boolean;
-//   expanded?: boolean;
-//   isSearch?: boolean;
-//   level?: number;
-//   onExpand?: () => void;
-//   label: string;
-//   onClick?: () => void;
-//   icon: LucideIcon;
-// };
 
 export const Item = ({
   id,
@@ -47,53 +28,7 @@ export const Item = ({
   onExpand,
   expanded,
 }: any) => {
-  // const { user } = useUser();
   const navigate = useNavigate();
-  // const create = useMutation(api.documents.create);
-  // const archive = useMutation(api.documents.archive);
-
-  // const onArchive = (
-  //   event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  // ) => {
-  //   event.stopPropagation();
-  //   if (!id) return;
-  //   const promise = archive({ id })
-  //     .then(() => router.push("/documents"))
-
-  //   toast.promise(promise, {
-  //     loading: "Moving to trash...",
-  //     success: "Note moved to trash!",
-  //     error: "Failed to archive note."
-  //   });
-  // };
-
-  // const handleExpand = (
-  //   event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  // ) => {
-  //   event.stopPropagation();
-  //   onExpand?.();
-  // };
-
-  // const onCreate = (
-  //   event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  // ) => {
-  //   event.stopPropagation();
-  //   if (!id) return;
-  //   const promise = create({ title: "Untitled", parentDocument: id })
-  //     .then((documentId) => {
-  //       if (!expanded) {
-  //         onExpand?.();
-  //       }
-  //       router.push(`/documents/${documentId}`);
-  //     });
-
-  //   toast.promise(promise, {
-  //     loading: "Creating a new note...",
-  //     success: "New note created!",
-  //     error: "Failed to create a new note."
-  //   });
-  // };
-
   let user = {
     fullName: 'John Doe',
   };
@@ -115,7 +50,6 @@ export const Item = ({
         <div
           role="button"
           className="h-full rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 mr-1"
-          // onClick={handleExpand}
         >
           <ChevronIcon className="h-4 w-4 shrink-0 text-muted-foreground/50" />
         </div>
@@ -149,7 +83,6 @@ export const Item = ({
               forceMount
             >
               <DropdownMenuItem
-              //  onClick={onArchive}
               >
                 <Trash className="h-4 w-4 mr-2" />
                 Delete
@@ -162,7 +95,6 @@ export const Item = ({
           </DropdownMenu>
           <div
             role="button"
-            // onClick={onCreate}
             className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
           >
             <Plus className="h-4 w-4 text-muted-foreground" />

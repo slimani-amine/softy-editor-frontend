@@ -1,13 +1,9 @@
-import { useState } from 'react';
-import { FileIcon } from 'lucide-react';
-
 import { cn } from '@/lib/utils';
-
 import { Item } from './item';
-import { useNavigate, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
 import { getDocumentsofWorkspace } from 'api/documents/getDocumentsofWorkspace';
-import { DocumentItemPropsType, DocumentPropsType } from '@/types/Propstypes';
+import { DocumentPropsType } from '@/types/Propstypes';
 import DocumentItem from './DocumentItem';
 
 export const DocumentList = ({ parentDocumentId, level = 0 }: any) => {

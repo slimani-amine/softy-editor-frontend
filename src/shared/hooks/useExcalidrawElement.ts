@@ -26,8 +26,6 @@ export const useExcalidrawElement = ({
 
   const _excalidrawRef = React.useRef<ExcalidrawImperativeAPI>(null);
 
-  // const editor = useEditorRef();
-
   const excalidrawProps: any = {
     excalidrawRef: _excalidrawRef,
     initialData: {
@@ -37,13 +35,6 @@ export const useExcalidrawElement = ({
       libraryItems,
     },
     autoFocus: false,
-    // onChange: (elements: readonly ExcalidrawElementType[], state: AppState) => {
-    // const path = findNodePath(editor, element);
-
-    // FIXME: setNodes triggers render loop as onChange is triggered on rerender
-    // in the meantime, the prop can be used to save the data outside slate
-    // setNodes(editor, { data: { elements, state } }, { at: path });
-    // },
   };
 
   return {

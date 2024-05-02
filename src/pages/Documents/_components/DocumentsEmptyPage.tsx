@@ -1,11 +1,5 @@
-// import Image from "next/image";
-// import { useUser } from "@clerk/clerk-react";
 import { PlusCircle } from 'lucide-react';
-// import { useMutation } from "convex/react";
 import { toast } from 'sonner';
-// import { useRouter } from "next/navigation";
-
-// import { api } from "@/convex/_generated/api";
 import { Button } from '@/components/ui/button';
 import { useNavigate, useParams } from 'react-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -23,16 +17,6 @@ const DocumentsEmptyPage = () => {
 
   const queryClient = useQueryClient();
   const { workspaceId } = useParams();
-  // if (!workspaceId) return;
-  // const { isLoading: isLoadingWorkspace, data: workspace } = useQuery({
-  //   queryKey: ['workspaces', workspaceId],
-  //   queryFn: async () => await getWorkspaceById({ workspaceId }),
-  // });
-  // console.log(workspace);
-  // if (isLoadingWorkspace) return null;
-  // if (workspace === null || workspace?.statusCode === 404) {
-  //   navigate('/');
-  // }
 
   const { mutateAsync: createDocApi } = useMutation({
     mutationFn: async () => {
@@ -54,11 +38,7 @@ const DocumentsEmptyPage = () => {
   });
 
   const isTemporarilyDeleted = false;
-  const {
-    isLoading,
-    data: documents,
-    error,
-  } = useQuery({
+  const { isLoading, data: documents } = useQuery({
     queryKey: ['documents', workspaceId],
     queryFn: async () =>
       await getDocumentsofWorkspace({ workspaceId, isTemporarilyDeleted }),
@@ -96,10 +76,7 @@ const DocumentsEmptyPage = () => {
       <h2 className="text-lg font-medium">
         Welcome to {user?.firstName || 'Anonymous'}&apos;s Jotion
       </h2>
-      <Button
-        // onClick={onCreate}
-        onClick={() => createDocApi()}
-      >
+      <Button onClick={() => createDocApi()}>
         <PlusCircle className="h-4 w-4 mr-2" />
         Create a note
       </Button>

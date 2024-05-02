@@ -1,15 +1,7 @@
-// import { useMutation, useQuery } from 'convex/react';
-// import dynamic from 'next/dynamic';
-import { useMemo } from 'react';
-
-// import { api } from '@/convex/_generated/api';
-// import { Id } from '@/convex/_generated/dataModel';
 import { Toolbar } from '@/components/toolbar';
 import { Cover } from '@/components/cover';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useParams } from 'react-router-dom';
-import { title } from 'process';
-import Editor from '@/components/editor';
 import PlateEditor from '@/components/plate-editor';
 import { useQuery } from '@tanstack/react-query';
 import { getDocumentById } from 'api/documents/getDocumentById';

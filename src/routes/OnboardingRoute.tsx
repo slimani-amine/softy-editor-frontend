@@ -13,7 +13,11 @@ const OnboardingRoute: React.FC<Props> = ({ children }) => {
   console.log('🚀 ~ isAuthenticated:', myWorkspaces);
   console.log('🚀 ~ user:', user);
 
-  if ((user && user.status.id === 2) || !myWorkspaces || myWorkspaces.length === 0) {
+  if (
+    (user && user.status && user.status.id === 2) ||
+    !myWorkspaces ||
+    myWorkspaces.length === 0
+  ) {
     return children;
   }
 };

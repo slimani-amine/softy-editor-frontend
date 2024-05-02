@@ -1,29 +1,17 @@
-// import { useConvexAuth } from "convex/react";
-// import { Button, UserButton } from "@clerk/clerk-react";
-
-// import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Spinner from '../Shared/Spinner';
-
-// import { Logo } from "./logo";
-
 const Navbar = () => {
-  // const { isAuthenticated, isLoading } = useConvexAuth();
   const [isAuthenticated, setIsAuthentication] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  // const scrolled = useScrollTop();
-
   return (
     <div
       className={cn(
         'bg-background dark:bg-[#191919] fixed top-0 flex items-center w-full p-6',
-        // scrolled && 'border-b shadow-sm'
       )}
     >
-      {/* <Logo /> */}
       <a href="#" className="flex items-center w-full">
         <span className="font-semibold text-gray-500 text-lg">
           Softy-Editor
@@ -38,11 +26,6 @@ const Navbar = () => {
                 Log in
               </Link>
             </Button>
-            {/* <Button>
-              <Link to="/" className="text-sm hover:text-black ">
-                Get Softy-Editor free
-              </Link>
-            </Button> */}
           </>
         )}
         {isAuthenticated && !isLoading && (

@@ -52,7 +52,7 @@ export const Navbar = ({ isCollapsed, onResetWidth }: NavbarProps) => {
         <div className="flex items-center justify-between w-full">
           <Title document={document} />
           <div className="flex items-center gap-x-2">
-            <Publish document={document} />
+            {!document?.isTemporarilyDeleted && <Publish document={document} />}
             <ModeToggle />
             <Menu document={document} />
           </div>

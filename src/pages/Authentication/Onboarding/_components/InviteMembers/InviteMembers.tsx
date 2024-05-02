@@ -17,8 +17,8 @@ export default function CreateWorkspace({
   user,
   setIsHaveProfile,
 }: {
-  user: User;
-  setIsHaveProfile: any;
+  user: User | null;
+  setIsHaveProfile?: any;
 }) {
   const { setUser } = useAuthStore((state) => state);
   const navigate = useNavigate();
@@ -75,13 +75,10 @@ export default function CreateWorkspace({
 
     try {
       const res = await CreateWorkspace(data);
-      console.log(res);
-
-      console.log(data);
       if (res) {
         setIsHaveProfile(true);
       }
-      const updateUser = await update({ status: { id: 1 }, id: user.id });
+      const updateUser = await update({ status: { id: 1 }, id: user?.id });
       if (updateUser) {
         setUser(updateUser);
         navigate(`/workspaces/${res?.id}/documents`);
@@ -141,7 +138,7 @@ export default function CreateWorkspace({
           <Button
             text={'Continue'}
             isLoading={isLoading}
-            disabled={!isValid} // here
+            disabled={!isValid}
             type="submit"
             className="w-full flex items-center justify-center h-8 rounded-[5px] text-white text-sm font-medium bg-blue-500 hover:bg-blue-600 shadow-inner md:shadow-md mt-2 disabled:opacity-40  "
           />

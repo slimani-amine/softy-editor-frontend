@@ -1,20 +1,6 @@
 import React from 'react';
-import {
-  ChevronDown,
-  ChevronRight,
-  FileIcon,
-  LucideIcon,
-  MoreHorizontal,
-  Plus,
-  Trash,
-} from 'lucide-react';
-// import { useMutation } from "convex/react";
-// import { useUser } from "@clerk/clerk-react";
-
-// import { Id } from "@/convex/_generated/dataModel";
+import { FileIcon, MoreHorizontal, Trash } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Skeleton } from '@/components/ui/skeleton';
-// import { api } from "@/convex/_generated/api";
 import {
   DropdownMenu,
   DropdownMenuTrigger,

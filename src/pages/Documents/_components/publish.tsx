@@ -1,14 +1,10 @@
 import { useState } from 'react';
-// import { useMutation } from "convex/react";
 import { Check, Copy, Globe } from 'lucide-react';
-
-// import { Doc } from "@/convex/_generated/dataModel";
 import {
   PopoverTrigger,
   Popover,
   PopoverContent,
 } from '@/components/ui/popover';
-// import { api } from "@/convex/_generated/api";
 import { Button } from '@/components/ui/button';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateDocument } from 'api/documents/updateDocument';

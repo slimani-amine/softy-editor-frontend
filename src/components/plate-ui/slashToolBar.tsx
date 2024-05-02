@@ -1,4 +1,3 @@
-import React from 'react';
 import { cn, withRef } from '@udecode/cn';
 import { PortalBody, useComposedRef } from '@udecode/plate-common';
 import { flip, FloatingToolbarState, offset } from '@udecode/plate-floating';

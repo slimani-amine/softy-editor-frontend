@@ -12,7 +12,7 @@ import toast from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import { User } from '@/types/user';
 interface Props {
-  user: User;
+  user: User | null;
   setIsHaveProfile: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -99,7 +99,7 @@ export default function WelcomeProfileForm({ user, setIsHaveProfile }: Props) {
           <Button
             text={'Continue'}
             isLoading={isLoading}
-            disabled={!isValid} // here
+            disabled={!isValid}
             type="submit"
             className="w-full flex items-center justify-center h-8 rounded-[5px] text-white text-sm font-medium bg-blue-500 hover:bg-blue-600 shadow-inner md:shadow-md mt-2 disabled:opacity-40  "
           />

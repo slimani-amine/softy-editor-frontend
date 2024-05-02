@@ -12,7 +12,6 @@ import {
   useVirtualFloating,
   UseVirtualFloatingOptions,
 } from '@udecode/plate-floating';
-import { set } from 'date-fns';
 import { useFocused } from 'slate-react';
 import { useScrollBlock } from '../../shared/hooks/useScrollBlock';
 
@@ -64,23 +63,15 @@ export const useFloatingToolbarState = ({
     floating,
   };
 };
-
 export const useFloatingToolbar = ({
-  editorId,
   selectionExpanded,
-  selectionText,
-  waitForCollapsedSelection,
   setWaitForCollapsedSelection,
   open,
   setOpen,
   focused,
-  focusedEditorId,
   floating,
   ignoreReadOnly,
-  hideToolbar,
 }: ReturnType<typeof useFloatingToolbarState>) => {
-  // On refocus, the editor keeps the previous selection,
-  // so we need to wait it's collapsed at the new position before displaying the floating toolbar.
   const [blockScroll, allowScroll] = useScrollBlock();
 
   React.useEffect(() => {

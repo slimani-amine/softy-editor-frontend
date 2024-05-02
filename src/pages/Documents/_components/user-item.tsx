@@ -1,55 +1,32 @@
-import { ChevronsLeftRight } from 'lucide-react';
-// import { useUser, SignOutButton } from "@clerk/clerk-react";
-
-import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import useAuthStore from '@/store/useAuthStore';
 import { useQuery } from '@tanstack/react-query';
-import { getMyWorkspaces } from 'api/workspaces/getMyWorkspaces';
 import { getMe } from 'api/users/getMe';
 import { Navigate, useParams } from 'react-router-dom';
 import WorkSpaceBoxInNavigation from './WorkSpaceBoxInNavigation';
 import WorkspaceBoxInDropDown from './WorkspaceBoxInDropDown';
 import Spinner from '@/components/Shared/Spinner';
 import { clearTokens } from '@/lib/utils/token';
+import { ChevronsLeftRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { UserItemMenu } from './user-item-menu';
 
 export const UserItem = () => {
-  const { isAuthenticated, setIsAuthenticated, myWorkspaces , setMyWorkspaces } = useAuthStore(
-    (state) => state
-  );
-  
-  // Check if myWorkspaces is an empty object
-
-  
-
+  const {
+    isAuthenticated,
+    setIsAuthenticated,
+    myWorkspaces,
+    setMyWorkspaces,
+    user,
+  } = useAuthStore((state) => state);
   const params = useParams();
   const { workspaceId } = params;
-  console.log(workspaceId);
-  // const {
-  //   isLoading,
-  //   data: myWorkspaces,
-  //   error,
-  // } = useQuery({
-  console.log("🚀 ~ UserItem ~ myWorkspaces:", myWorkspaces)
-  //   queryKey: ['workspaces'],
-  //   queryFn: async () => await getMyWorkspaces(),
-  // });
-
-  const {
-    isLoading: isLoadingMe,
-    data: me,
-    error: errorMe,
-  } = useQuery({
-    queryKey: ['me'],
-    queryFn: async () => await getMe(),
-  });
 
   const wantedWorkspace = myWorkspaces?.find(
     (workspace: any) => workspace?.id === Number(workspaceId),
@@ -57,7 +34,7 @@ export const UserItem = () => {
   const handleLogout = () => {
     clearTokens();
     setIsAuthenticated(false);
-    setMyWorkspaces([])
+    setMyWorkspaces([]);
   };
 
   if (!wantedWorkspace) return <Navigate to={'/'} />;
@@ -66,7 +43,7 @@ export const UserItem = () => {
       <DropdownMenuTrigger asChild>
         <div
           role="button"
-          className="flex items-center text-sm p-3 w-full hover:bg-primary/5"
+          className="flex  items-center text-sm p-3 w-full hover:bg-primary/5"
         >
           <WorkSpaceBoxInNavigation
             workspace={wantedWorkspace}
@@ -83,14 +60,12 @@ export const UserItem = () => {
         forceMount
       >
         <div className="flex flex-col space-y-4 py-2">
-          {isLoadingMe ? (
-            <Spinner />
-          ) : (
+          <div className="flex justify-between items-center px-2">
             <p className="text-xs font-medium leading-none text-muted-foreground">
-              {me?.email || 'unknown email'}
+              {user?.email || 'unknown email'}
             </p>
-          )}
-
+            <UserItemMenu />
+          </div>
           {myWorkspaces?.length > 0 &&
             myWorkspaces?.map((workspace: any) => (
               <WorkspaceBoxInDropDown
@@ -105,13 +80,9 @@ export const UserItem = () => {
           asChild
           className="w-full cursor-pointer text-muted-foreground"
         >
-          {/* <Button
-            text={'Log out'}
-            onClick={() => {
-              setIsAuthenticated(false);
-            }}
-          /> */}
-          <button onClick={handleLogout}>Logout</button>
+          <Button onClick={handleLogout} variant={'ghost'}>
+            Logout
+          </Button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

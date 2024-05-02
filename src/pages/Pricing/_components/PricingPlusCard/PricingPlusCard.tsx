@@ -37,7 +37,7 @@ const details: Detail[] = [
 
 interface PricingPlusCardProps {
   className?: string;
-  billingPeriod: 'monthly' | 'annual';
+  billingPeriod: 'monthly' | 'yearly';
 }
 
 const PricingPlusCard: React.FC<PricingPlusCardProps> = ({

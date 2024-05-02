@@ -16,7 +16,7 @@ const Onboarding = () => {
   }
 
   const [isHaveProfile, setIsHaveProfile] = useState<boolean>(
-    user.userName ? true : false,
+    user?.userName ? true : false,
   );
   const [isHaveAPlan, setIsHaveAPlan] = useState<boolean>(
     user?.plan ? true : false,

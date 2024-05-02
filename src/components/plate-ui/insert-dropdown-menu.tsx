@@ -196,13 +196,9 @@ export function InsertDropdownMenu(props: DropdownMenuProps) {
                           nextBlock: true,
                         });
 
-                        // if (settingsStore.get.checkedId(KEY_LIST_STYLE_TYPE)) {
                         toggleIndentList(editor, {
                           listStyleType: type === 'ul' ? 'disc' : 'decimal',
                         });
-                        // } else if (settingsStore.get.checkedId('list')) {
-                        // toggleList(editor, { type });
-                        // }
 
                         break;
                       }

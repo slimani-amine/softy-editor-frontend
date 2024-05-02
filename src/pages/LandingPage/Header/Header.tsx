@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 
 const Header = () => {
   const { isAuthenticated, setIsAuthenticated } = useAuthStore(
-    (state) => state
+    (state) => state,
   );
 
   const cookies = new Cookies();
@@ -23,7 +23,7 @@ const Header = () => {
             <div>
               <a href="#" className="flex items-center py-4 px-2">
                 <span className="font-semibold text-gray-500 text-lg">
-                E-ditor
+                  E-ditor
                 </span>
               </a>
             </div>
@@ -46,7 +46,7 @@ const Header = () => {
             {isAuthenticated && (
               <Button
                 className="py-3 px-3 font-medium text-white text-xs bg-blue-500 rounded hover:bg-blue-400 transition duration-300"
-                onClick={handleLogout} // Update onClick handler
+                onClick={handleLogout}
               >
                 Logout
               </Button>

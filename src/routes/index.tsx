@@ -2,7 +2,6 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Documents from '../pages/Documents';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
-import DocumentsPage from '@/pages/Documents/_components/DocumentsEmptyPage';
 import DocumentsEmptyPage from '@/pages/Documents/_components/DocumentsEmptyPage';
 import DocumentIdPage from '@/pages/Documents/_components/DocumentIdPage';
 import PageNotFound from '@/components/PageNotFound';
@@ -15,6 +14,8 @@ import Login from '@/pages/Authentication/Login';
 import ResetPassword from '@/pages/Authentication/ResetPassword';
 import Pricing from '@/pages/Pricing';
 import Onboarding from '@/pages/Authentication/Onboarding';
+import CreateWorkspacePage from '@/pages/CreateWorkspace/CreateWorkspacePage';
+
 const Router = () => (
   <BrowserRouter>
     <Routes>
@@ -92,6 +93,15 @@ const Router = () => (
         />
       </Route>
       <Route path="/preview/:documentId" element={<PreviewDocument />} />
+      <Route
+        path="/workspaces/createWorkspace"
+        element={
+          <PrivateRoute>
+            <CreateWorkspacePage />
+          </PrivateRoute>
+        }
+      />
+
       <Route path="*" element={<PageNotFound />} />
       <Route
         path="/onboarding"
