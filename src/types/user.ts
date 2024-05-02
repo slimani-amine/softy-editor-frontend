@@ -12,6 +12,12 @@ export interface Role {
   name?: string;
 }
 
+
+export interface Offer {
+  id: number;
+  name?: string;
+}
+
 export interface User {
   id: number | string;
   email: string | null;
@@ -24,4 +30,5 @@ export interface User {
   role?: Role | null;
   status?: Status;
   plan?: Plan;
+  offer:Offer
 }

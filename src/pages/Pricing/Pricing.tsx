@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Card } from '@/components/ui/card';
 import PricingFreeCard from './_components/PricingFreeCard';
 import PricingPlusCard from './_components/PricingPlusCard';
 import PricingBusinessCard from './_components/PricingBusinessCard';
@@ -18,13 +17,13 @@ const Pricing = ({ className, ...props }: CardProps) => {
     'monthly',
   );
 
-  const { myWorkspaces } = useAuthStore((state) => state);
+  const { myWorkspaces, user } = useAuthStore((state) => state);
 
   const handleSwitch = (period: 'monthly' | 'yearly') => {
     setBillingPeriod(period);
   };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onSubmit = async () => {
     const workspaceId = myWorkspaces[0].id;
@@ -76,12 +75,24 @@ const Pricing = ({ className, ...props }: CardProps) => {
           </div>
         </div>
         <div className="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
-          <PricingFreeCard billingPeriod={billingPeriod} />
-          <PricingPlusCard billingPeriod={billingPeriod} />
-          <PricingBusinessCard billingPeriod={billingPeriod} />
+          <PricingFreeCard
+            billingPeriod={billingPeriod}
+            offer={user?.offer}
+            myWorkspaces={myWorkspaces}
+          />
+          <PricingPlusCard
+            billingPeriod={billingPeriod}
+            offer={user?.offer}
+            myWorkspaces={myWorkspaces}
+          />
+          <PricingBusinessCard
+            billingPeriod={billingPeriod}
+            offer={user?.offer}
+            myWorkspaces={myWorkspaces}
+          />
         </div>
         <Button
-          text={`Take me to E-ditor`}
+          text={`No thanks, take me to E-ditor`}
           className="w-1/4 flex items-center justify-center h-8 rounded-[5px] text-white text-sm font-medium bg-blue-500 hover:bg-blue-600 shadow-inner md:shadow-md disabled:opacity-40 mt-4 "
           onClick={onSubmit}
         />

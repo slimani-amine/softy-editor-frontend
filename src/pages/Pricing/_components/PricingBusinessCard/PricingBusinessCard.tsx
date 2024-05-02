@@ -10,6 +10,8 @@ import {
 } from '@/components/ui/card';
 import { useNavigate } from 'react-router';
 import BuisnessIcon from '@/components/Shared/Icons/BuisnessIcon';
+import { useCheckoutQuery } from '@/services/queries/payment.query';
+import { Offer } from '@/types/user';
 
 interface Detail {
   title: string;
@@ -18,7 +20,10 @@ interface Detail {
 
 interface PricingBusinessCardProps {
   className?: string;
-  billingPeriod: 'monthly' | 'yearly';}
+  billingPeriod: 'monthly' | 'yearly';
+  offer: Offer | undefined;
+  myWorkspaces?: any;
+}
 
 const details: Detail[] = [
   {
@@ -50,23 +55,38 @@ const details: Detail[] = [
 const PricingBusinessCard: React.FC<PricingBusinessCardProps> = ({
   className,
   billingPeriod,
+  offer,
+  myWorkspaces,
 }) => {
   const navigate = useNavigate();
+  const {
+    isLoading,
+    mutateAsync: checkout,
+    isError,
+    error,
+  }: any = useCheckoutQuery();
 
-  const handleGetStarted = () => {
-    navigate(`/login?plan=business&billingPeriod=${billingPeriod}`);
+  const handleGetStarted = async () => {
+    if (offer?.id !== 3) {
+      const res = await checkout({ id: 3, billingPeriod });
+      window.location.href = res?.url;
+    }
+    if (!myWorkspaces) {
+      navigate('/login');
+    } else {
+      navigate(`/workspaces/${myWorkspaces[0].id}/documents`);
+    }
   };
 
   return (
     <Card
       className={cn(
         'w-[380px] bg-[#F6F5F4] flex flex-col  rounded-2xl border-none',
-        className
+        className,
       )}
     >
       <CardHeader className="flex flex-col ml-4">
         <BuisnessIcon className="w-10 h-10" />
-
         <CardTitle>Business</CardTitle>
         <CardTitle className="text-3xl">
           ${billingPeriod === 'monthly' ? '18' : '15'}{' '}
@@ -77,7 +97,7 @@ const PricingBusinessCard: React.FC<PricingBusinessCardProps> = ({
         className=" bg-white text-black  flex justify-center w-[80%] mx-auto rounded-[7px] font-semibold hover:opacity-80 shadow-sm "
         onClick={handleGetStarted}
       >
-        Get started
+        {offer?.id === 3 ? 'Your plan' : 'Get started'}
       </Button>
       <CardContent className="grid gap-2 mt-4 ml-8">
         <span className="font-semibold">Everything in Plus +</span>

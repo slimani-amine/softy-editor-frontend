@@ -10,6 +10,8 @@ import {
 } from '@/components/ui/card';
 import { useNavigate } from 'react-router';
 import PlusIcon from '@/components/Shared/Icons/plusIcon';
+import { useCheckoutQuery } from '@/services/queries/payment.query';
+import { Offer } from '@/types/user';
 
 interface Detail {
   title: string;
@@ -38,16 +40,35 @@ const details: Detail[] = [
 interface PricingPlusCardProps {
   className?: string;
   billingPeriod: 'monthly' | 'yearly';
+  offer: Offer | undefined;
+  myWorkspaces?: any;
 }
 
 const PricingPlusCard: React.FC<PricingPlusCardProps> = ({
   className,
   billingPeriod,
+  offer,
+  myWorkspaces,
 }) => {
+  const {
+    isLoading,
+    mutateAsync: checkout,
+    isError,
+    error,
+  }: any = useCheckoutQuery();
+
   const navigate = useNavigate();
 
-  const handleGetStarted = () => {
-    navigate(`/login?plan=plus&billingPeriod=${billingPeriod}`);
+  const handleGetStarted = async () => {
+    if (offer?.id !== 2) {
+      const res = await checkout({ id: 2, billingPeriod });
+      window.location.href = res?.url;
+    }
+    if (!myWorkspaces) {
+      navigate('/login');
+    } else {
+      navigate(`/workspaces/${myWorkspaces[0].id}/documents`);
+    }
   };
 
   return (
@@ -70,7 +91,7 @@ const PricingPlusCard: React.FC<PricingPlusCardProps> = ({
         className=" bg-black  text-white flex justify-center w-[80%] mx-auto rounded-[7px] font-semibold hover:opacity-80 shadow-sm"
         onClick={handleGetStarted}
       >
-        Get started
+        {offer?.id === 2 ? 'Your plan' : 'Get started'}
       </Button>
       <CardContent className="grid gap-2 mt-4 ml-8">
         <span className="font-semibold">Everything in Free +</span>

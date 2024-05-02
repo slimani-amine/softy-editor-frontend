@@ -1,10 +1,10 @@
-import { CreateWorkspaceBody } from '@/types/workspace';
 import { useMutation } from '@tanstack/react-query';
-import { createWorkspace, getMyWorkspaces } from '../api/workspace.service';
+import { CheckoutBody } from '@/types/payment';
+import { checkout } from '../api/payment.service';
 
-export const useCreateWorkSpaceQuery = () =>
-  useMutation(['createWorkspace'], async (body: CreateWorkspaceBody) => {
-    const res = await createWorkspace(body);
+export const useCheckoutQuery = () =>
+  useMutation(['checkout'], async (body: CheckoutBody) => {
+    const res = await checkout(body);
     return res;
   });
 

@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/card';
 import FreeIcon from '@/components/Shared/Icons/FreeIcon';
 import { useNavigate } from 'react-router';
+import { Offer } from '@/types/user';
 
 interface Detail {
   title: string;
@@ -41,15 +42,22 @@ const details: Detail[] = [
 
 interface PricingFreeCardProps {
   className?: string;
-  billingPeriod: 'monthly' | 'yearly';}
+  billingPeriod: 'monthly' | 'yearly';
+  offer: Offer | undefined;
+  myWorkspaces?: any;
+}
 
-const PricingFreeCard: React.FC<PricingFreeCardProps> = ({ className }) => {
+const PricingFreeCard: React.FC<PricingFreeCardProps> = ({
+  className,
+  offer,
+  myWorkspaces
+}) => {
   const navigate = useNavigate();
   return (
     <Card
       className={cn(
         'w-[380px] bg-[#F6F5F4] flex flex-col rounded-2xl border-none ',
-        className
+        className,
       )}
     >
       <CardHeader className="flex flex-col ml-4">
@@ -60,9 +68,15 @@ const PricingFreeCard: React.FC<PricingFreeCardProps> = ({ className }) => {
       </CardHeader>
       <Button
         className=" bg-white text-black flex justify-center w-[80%] mx-auto rounded-[7px] font-semibold hover:opacity-80 shadow-sm"
-        onClick={() => navigate('/login')}
+        onClick={() => {
+          if (!myWorkspaces) {
+            navigate('/login');
+          } else {
+            navigate(`/workspaces/${myWorkspaces[0].id}/documents`);
+          }
+        }}
       >
-        Sign Up
+        {offer?.id === 1 ? 'Continue with free plan' : 'Sign Up'}
       </Button>
       <CardContent className="grid gap-2 mt-4 ml-8">
         {details.map((detail, index) => (

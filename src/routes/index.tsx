@@ -15,6 +15,7 @@ import Login from '@/pages/Authentication/Login';
 import ResetPassword from '@/pages/Authentication/ResetPassword';
 import Pricing from '@/pages/Pricing';
 import Onboarding from '@/pages/Authentication/Onboarding';
+import Success from '@/pages/payment/success';
 const Router = () => (
   <BrowserRouter>
     <Routes>
@@ -55,6 +56,14 @@ const Router = () => (
         element={
           <PrivateRoute>
             <Pricing />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/success"
+        element={
+          <PrivateRoute>
+            <Success />
           </PrivateRoute>
         }
       />

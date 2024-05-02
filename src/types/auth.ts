@@ -18,8 +18,10 @@ export interface LoginWithGoogleBody {
 export interface UpdateUserBody {
   id: number;
   photo?: string;
-  userName: string;
-  password: string;
+  userName?: string;
+  password?: string;
+  plan?: { id: number };
+  offer?: { id: number};
 }
 
 export interface SendMailBody {
