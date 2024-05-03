@@ -7,7 +7,8 @@ export const updateDocumentContent = async function ({
   documentId: string | undefined;
   content: any;
 }) {
-  console.log(content);
+  const replacer = (key: string, value: string) =>
+    key === 'text' && value.includes('"') ? value.replaceAll('"', '“') : value;
 
   try {
     const jwtToken = localStorage.getItem('access_token');
@@ -17,9 +18,12 @@ export const updateDocumentContent = async function ({
         'Content-Type': 'application/json',
         Authorization: `Bearer ${jwtToken}`,
       },
-      body: JSON.stringify({
-        content: content,
-      }),
+      body: JSON.stringify(
+        {
+          content: content,
+        },
+        replacer,
+      ),
     });
 
     const data = await res.json();
