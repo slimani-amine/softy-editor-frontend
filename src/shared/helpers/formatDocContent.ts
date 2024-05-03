@@ -6,7 +6,6 @@ interface SlateNode {
 
 export function formatDocContent(inputString: string): SlateNode[] {
   const parsedInput = JSON.parse(inputString);
-  console.log(parsedInput);
   const inputArray = Array.isArray(parsedInput) ? parsedInput : [parsedInput];
   const formattedArray: SlateNode[] = inputArray.map((obj: any) => {
     const children = Array.isArray(obj.children) ? obj.children : [];

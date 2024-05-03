@@ -30,15 +30,6 @@ export default function PlateEditor({ document }: DocumentItemPropsType) {
   const { pathname } = useLocation();
   const { documentId } = params;
 
-  // const test = `[${document?.content.slice(2, -2).replaceAll(`}","{`, `},{`)}]`;
-  // console.log(test);
-  // // console.log(`[${document?.content.slice(2, -2).replaceAll(`}","{`, `},{`)}]`);
-
-  // const parsedInput = JSON.parse(test);
-  // console.log(parsedInput);
-
-  //
-
   const initialValue =
     document?.content !== null
       ? formatDocContent(
@@ -54,15 +45,9 @@ export default function PlateEditor({ document }: DocumentItemPropsType) {
             ],
           },
         ];
-
-  // const x = `{"{\"type\":\"p\",\"children\":[{\"text\":\"desfqdfg\\\"\"}]}"}`;
-  // console.log(`[${x.slice(2, -2).replaceAll(`}","{`, `},{`)}]`);
-  // console.log(
-  //   formatDocContent(`[${x.slice(2, -2).replaceAll(`}","{`, `},{`)}]`),
-  // );
-
   const { mutateAsync: updateContent } = useMutation({
     mutationFn: async (content: any) => {
+      console.log(content);
       const { error, data }: any = await updateDocumentContent({
         documentId,
         content,
@@ -90,8 +75,9 @@ export default function PlateEditor({ document }: DocumentItemPropsType) {
           plugins={plugins}
           initialValue={initialValue}
           onChange={(e) => updateContent(e)}
-          key={documentId}
-          {...(pathname.split('/').includes('preview')
+          key={`${documentId} , ${document?.isTemporarilyDeleted}`}
+          {...(pathname.split('/').includes('preview') ||
+          document?.isTemporarilyDeleted
             ? { readOnly: true }
             : null)}
         >

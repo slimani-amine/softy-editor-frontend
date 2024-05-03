@@ -1,5 +1,3 @@
- 
-
 import React from 'react';
 import { cn } from '@udecode/cn';
 import {
@@ -14,7 +12,6 @@ import { inputVariants } from './input';
 
 export function CommentCreateForm() {
   const myUserId = useCommentsSelectors().myUserId();
-
   return (
     <div className="flex w-full space-x-2">
       <CommentAvatar userId={myUserId} />

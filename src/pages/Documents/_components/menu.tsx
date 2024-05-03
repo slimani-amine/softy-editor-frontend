@@ -19,7 +19,6 @@ export const Menu = ({ document }: DocumentItemPropsType) => {
 
   const { mutateAsync: updateDocIsPermanentlyDeleted } = useMutation({
     mutationFn: async ({ documentId }: { documentId: string }) => {
-      console.log(documentId);
       const { error, data }: any = await updateDocument({
         documentId,
         body: {

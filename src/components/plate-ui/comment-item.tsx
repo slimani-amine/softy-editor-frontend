@@ -1,5 +1,3 @@
- 
-
 import React from 'react';
 import {
   CommentProvider,
@@ -26,7 +24,14 @@ function CommentItemContent() {
     editingValue,
     commentText,
   } = useCommentItemContentState();
-
+  // console.log(
+  //   comment,
+  //   isMyComment,
+  //   isReplyComment,
+  //   user,
+  //   editingValue,
+  //   commentText,
+  // );
   return (
     <div>
       <div className="relative flex items-center gap-2">

@@ -7,6 +7,11 @@ const safeDocument: Document = document;
  * const [blockScroll, allowScroll] = useScrollBlock();
  */
 export const useScrollBlock = (): [() => void, () => void] => {
+  const navbarWidth: any = document.querySelector('.navbar')?.clientWidth;
+  const editorBodyWidth: any = document.querySelector('.scroll')?.clientWidth;
+
+  let isThereIsScollBar = navbarWidth > editorBodyWidth;
+
   const scrollBlocked = useRef(false);
 
   const editorContainer: any = document.querySelector('.blockScrollMain');
@@ -14,7 +19,7 @@ export const useScrollBlock = (): [() => void, () => void] => {
     if (document === undefined || editorContainer === null) return;
 
     editorContainer.style.overflow = 'hidden';
-    editorContainer.style.paddingRight = '14px';
+    editorContainer.style.paddingRight = isThereIsScollBar ? '15px' : '0px';
     scrollBlocked.current = true;
   };
 

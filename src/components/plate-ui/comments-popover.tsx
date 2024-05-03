@@ -1,5 +1,3 @@
- 
-
 import React from 'react';
 import { cn } from '@udecode/cn';
 import {
@@ -25,6 +23,8 @@ export function CommentsPopoverContent(props: FloatingCommentsContentProps) {
 
   const { ref, activeCommentId, hasNoComment, myUserId } =
     useFloatingCommentsContentState();
+
+  console.log(activeCommentId, hasNoComment);
 
   return (
     <CommentProvider

@@ -43,9 +43,9 @@ const DocumentIdPage = () => {
   }
 
   return (
-    <div className="pb-40">
+    <div className="pb-40 scroll ">
       <Cover url={document?.coverImageUrl} />
-      <div className=" mx-20">
+      <div className=" mx-20 ">
         <Toolbar initialData={document} />
         <PlateEditor document={document} />
       </div>

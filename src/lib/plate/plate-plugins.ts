@@ -85,6 +85,7 @@ import { createKbdPlugin, MARK_KBD } from '@udecode/plate-kbd';
 import { createLineHeightPlugin } from '@udecode/plate-line-height';
 import { createLinkPlugin, ELEMENT_LINK } from '@udecode/plate-link';
 import {
+  createListPlugin,
   createTodoListPlugin,
   ELEMENT_LI,
   ELEMENT_OL,
@@ -209,6 +210,7 @@ export const plugins = createPlugins(
     createFontBackgroundColorPlugin(),
     createFontSizePlugin(),
     createHighlightPlugin(),
+    createListPlugin(),
     createKbdPlugin(),
 
     // Block Style

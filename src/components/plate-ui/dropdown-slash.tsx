@@ -21,7 +21,11 @@ import {
   toggleIndentList,
 } from '@udecode/plate-indent-list';
 import { ELEMENT_LINK, triggerFloatingLink } from '@udecode/plate-link';
-import { toggleList } from '@udecode/plate-list';
+import {
+  ELEMENT_TODO_LI,
+  insertListItem,
+  insertTodoListItem,
+} from '@udecode/plate-list';
 import {
   ELEMENT_IMAGE,
   ELEMENT_MEDIA_EMBED,
@@ -43,6 +47,8 @@ import {
 } from './dropdown-menu';
 import { ToolbarButton } from './toolbar';
 import { useScrollBlock } from 'shared/hooks/useScrollBlock';
+import { TodoListElement } from './todo-list-element';
+import { Box, CheckSquare } from 'lucide-react';
 
 const items = [
   {
@@ -95,6 +101,12 @@ const items = [
         label: 'Numbered list',
         description: 'Numbered list',
         icon: Icons.ol,
+      },
+      {
+        value: ELEMENT_TODO_LI,
+        label: 'Todo list',
+        description: 'Todo list',
+        icon: CheckSquare,
       },
       {
         value: ELEMENT_HR,
@@ -206,6 +218,7 @@ export function DropdownSlash(props: DropdownMenuProps) {
 
                     break;
                   }
+
                   default: {
                     insertEmptyElement(editor, type, {
                       select: true,
