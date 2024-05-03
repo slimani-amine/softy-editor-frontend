@@ -23,6 +23,7 @@ const DocumentIdPage = () => {
     queryFn: async () => await getDocumentById({ documentId }),
   });
 
+  console.log("🚀 ~ DocumentIdPage ~ document:", document)
   if (isLoading) {
     return (
       <div>
