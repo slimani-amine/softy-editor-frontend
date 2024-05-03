@@ -92,7 +92,7 @@ export const UserItem = () => {
             </p>
           )}
 
-          {myWorkspaces?.length > 0 &&
+          {myWorkspaces && myWorkspaces?.length > 0 &&
             myWorkspaces?.map((workspace: Workspace) => (
               <WorkspaceBoxInDropDown
                 workspace={workspace}

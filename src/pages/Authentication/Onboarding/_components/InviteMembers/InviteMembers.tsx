@@ -116,7 +116,7 @@ export default function InviteMembers({
             `The following email(s) do not exist: ${invalidEmails.join(', ')}`,
           );
         } else {
-          const workspaceId = myWorkspaces[0].id;
+          const workspaceId = myWorkspaces && myWorkspaces[0].id;
           const usersIds: { id: number }[] = usersResponse.map(
             (user: User) => user.id,
           );
@@ -145,7 +145,7 @@ export default function InviteMembers({
     setEmails([]);
   };
   const copyInviteLink = () => {
-    const workspaceId = myWorkspaces[0].id;
+    const workspaceId =myWorkspaces && myWorkspaces[0].id;
     const inviteLink = `http://localhost:5173/workspaces/${workspaceId}/documents`;
     navigator.clipboard
       .writeText(inviteLink)
