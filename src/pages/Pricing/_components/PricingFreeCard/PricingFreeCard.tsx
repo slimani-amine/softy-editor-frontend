@@ -11,6 +11,7 @@ import {
 import FreeIcon from '@/components/Shared/Icons/FreeIcon';
 import { useNavigate } from 'react-router';
 import { Offer } from '@/types/user';
+import { Workspace } from '@/types/workspace';
 
 interface Detail {
   title: string;
@@ -44,7 +45,7 @@ interface PricingFreeCardProps {
   className?: string;
   billingPeriod: 'monthly' | 'yearly';
   offer: Offer | undefined;
-  myWorkspaces?: any;
+  myWorkspaces?: Workspace[];
 }
 
 const PricingFreeCard: React.FC<PricingFreeCardProps> = ({

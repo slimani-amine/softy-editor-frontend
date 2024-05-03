@@ -74,7 +74,7 @@ export const SearchCommand = () => {
   return (
     <CommandDialog open={isOpen} onOpenChange={onClose}>
       <CommandInput
-        placeholder={`Search ${user?.fullName || 'username'}'s Jotion...`}
+        placeholder={`Search ${user?.fullName || 'username'}'s E-ditor...`}
       />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>

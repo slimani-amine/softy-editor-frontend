@@ -17,7 +17,7 @@ const Navbar = () => {
     >
       <Link to="/" className="flex items-center w-full">
         <span className="font-semibold text-gray-700 text-lg">
-          Softy Editor{' '}
+        E-ditor{' '}
         </span>
       </Link>
       <div className="justify-end w-full flex items-center gap-x-2 font-semibold text-gray-700 text-lg">

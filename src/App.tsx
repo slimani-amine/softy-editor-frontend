@@ -6,7 +6,7 @@ import GoogleAuthProvider from 'shared/providers/google-auth-provider';
 import AuthProvider from 'shared/providers/AuthProvider';
 
 export const metadata = {
-  title: 'Jotion',
+  title: 'E-ditor',
   description: 'The connected workspace where better, faster work happens.',
   icons: {
     icon: [

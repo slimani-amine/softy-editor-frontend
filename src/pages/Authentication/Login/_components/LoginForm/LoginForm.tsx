@@ -1,10 +1,32 @@
 import Button from '@/components/Shared/Button';
 import Input from '@/components/Shared/Input';
 import { LoginBody } from '@/types/auth';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+interface LoginFormProps {
+  isNewUser: boolean;
+  onSubmit: (data: LoginBody) => void;
+  isLoading: boolean;
+  showCode: boolean;
+  setShowCode: () => void;
+  ShowPassword: boolean;
+  setShowPassword: () => void;
+  forgotPassword: boolean;
+  setForgotPassword: (value: boolean) => void;
+  mailSended: boolean;
+  defaultValues: { email: string };
+  resend: (email: string) => void;
+  setSendMailLogin: (value: boolean) => void;
+  allErrors: {
+    emailLoginError?: { response: { data: { errors: { password: string } } } };
+    validationError?: string;
+  };
+  setAllErrors: (errors: {
+    emailLoginError?: { response: { data: { errors: { password: string } } } };
+    validationError?: string;
+  }) => void;
+}
 export default function LoginForm({
   isNewUser,
   onSubmit,
@@ -21,7 +43,7 @@ export default function LoginForm({
   setSendMailLogin,
   allErrors,
   setAllErrors,
-}: any) {
+}: LoginFormProps) {
   const [resendTimer, setResendTimer] = useState<number | null>(null);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
   const [codeValue, setCodeValue] = useState('');

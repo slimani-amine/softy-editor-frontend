@@ -94,7 +94,7 @@ const DocumentsEmptyPage = () => {
         className="hidden dark:block"
       />
       <h2 className="text-lg font-medium">
-        Welcome to {user?.firstName || 'Anonymous'}&apos;s Jotion
+        Welcome to {user?.firstName || 'Anonymous'}&apos;s E-ditor
       </h2>
       <Button
         // onClick={onCreate}

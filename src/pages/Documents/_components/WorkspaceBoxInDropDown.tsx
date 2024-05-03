@@ -23,7 +23,7 @@ export default function WorkspaceBoxInDropDown({
       </div>
       <div className="flex flex-col gap-1">
         <p className="text-sm line-clamp-1">
-          {workspace?.title || 'Anonymous'}&apos;s Jotion
+          {workspace?.title || 'Anonymous'}&apos;s E-ditor
         </p>
         <div className="flex gap-2">
           <p className="text-xs font-light text-gray-300">Free Plan</p>

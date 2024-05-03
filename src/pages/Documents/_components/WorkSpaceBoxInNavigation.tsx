@@ -10,13 +10,13 @@ export default function WorkSpaceBoxInNavigation({
       <Avatar className="h-5 w-5">
         <AvatarImage
           src={
-            workspace?.imgUrl ||
+            workspace?.emoji ||
             'https://i.pinimg.com/236x/54/72/d1/5472d1b09d3d724228109d381d617326.jpg'
           }
         />
       </Avatar>
       <span className="text-start font-medium line-clamp-1">
-        {workspace?.title || 'Anonymous'}&apos;s Jotion
+        {workspace?.title || 'Anonymous'}&apos;s E-ditor
       </span>
     </div>
   );

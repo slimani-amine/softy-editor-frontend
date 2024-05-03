@@ -11,6 +11,16 @@ export interface InviteMembersBody {
 }
 
 export interface AddMembersBody {
-  id:number;
-  members?: { id: number }[]
+  id: number;
+  members?: { id: number }[];
+}
+
+export interface Workspace {
+  createdAt: string;
+  creator_id: null | number;
+  id: number;
+  emoji: string;
+  members: { id: number }[];
+  title: string;
+  updatedAt: string;
 }

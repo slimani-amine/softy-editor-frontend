@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router';
 import BuisnessIcon from '@/components/Shared/Icons/BuisnessIcon';
 import { useCheckoutQuery } from '@/services/queries/payment.query';
 import { Offer } from '@/types/user';
+import { Workspace } from '@/types/workspace';
 
 interface Detail {
   title: string;
@@ -22,7 +23,7 @@ interface PricingBusinessCardProps {
   className?: string;
   billingPeriod: 'monthly' | 'yearly';
   offer: Offer | undefined;
-  myWorkspaces?: any;
+  myWorkspaces?: Workspace[];
 }
 
 const details: Detail[] = [

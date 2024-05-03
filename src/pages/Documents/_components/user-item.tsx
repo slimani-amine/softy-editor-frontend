@@ -19,6 +19,7 @@ import WorkSpaceBoxInNavigation from './WorkSpaceBoxInNavigation';
 import WorkspaceBoxInDropDown from './WorkspaceBoxInDropDown';
 import Spinner from '@/components/Shared/Spinner';
 import { clearTokens } from '@/lib/utils/token';
+import { Workspace } from '@/types/workspace';
 
 export const UserItem = () => {
   const { isAuthenticated, setIsAuthenticated, myWorkspaces , setMyWorkspaces } = useAuthStore(
@@ -52,7 +53,7 @@ export const UserItem = () => {
   });
 
   const wantedWorkspace = myWorkspaces?.find(
-    (workspace: any) => workspace?.id === Number(workspaceId),
+    (workspace: Workspace) => workspace?.id === Number(workspaceId),
   );
   const handleLogout = () => {
     clearTokens();
@@ -92,7 +93,7 @@ export const UserItem = () => {
           )}
 
           {myWorkspaces?.length > 0 &&
-            myWorkspaces?.map((workspace: any) => (
+            myWorkspaces?.map((workspace: Workspace) => (
               <WorkspaceBoxInDropDown
                 workspace={workspace}
                 inWorkspaceId={workspaceId}

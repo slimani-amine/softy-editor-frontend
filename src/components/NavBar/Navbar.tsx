@@ -10,9 +10,7 @@ const Navbar = () => {
       )}
     >
       <a href="#" className="flex items-center w-full">
-        <span className="font-semibold text-gray-500 text-lg">
-          Softy-Editor
-        </span>
+        <span className="font-semibold text-gray-500 text-lg">E-ditor</span>
       </a>
       <>
         <Button className="hover:opacity-90 ">

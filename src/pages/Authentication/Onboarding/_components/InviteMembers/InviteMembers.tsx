@@ -77,9 +77,11 @@ export default function InviteMembers({
       if (textAreaValue) {
         const emailsFromTextArea = textAreaValue.split(/[\s,]+/);
         emailsFromTextArea.forEach((email) => newEmails.add(email));
-        if (emailsFromTextArea.length > (user?.offer.id === 1 ? 10 : 100)) {
-          toast.error('You can Invite 10 guests as maximum for your plan');
+        if (emailsFromTextArea.length > 10) {
+          toast.error('You can invite a maximum of 10 guests for your plan.');
         }
+
+        return;
       }
     } else {
       if (email_01) newEmails.add(email_01);
@@ -95,6 +97,7 @@ export default function InviteMembers({
         setUser(res);
         navigate('/pricing');
       } else {
+        setInvite(true)
         const usersResponse = await getUsersByEmails(Array.from(newEmails));
         const invalidEmails: string[] = [];
 
@@ -121,7 +124,7 @@ export default function InviteMembers({
             id: workspaceId,
             members: usersIds.map((id) => ({ id })),
           };
-          const res = await addMembers(body); //todo: this should be done in tomorrow :(
+          const res = await addMembers(body);
           setMyWorkspaces(res);
           toast.success(`Members added successfully`);
           const updateBody = { id: user?.id, status: { id: 1 } };

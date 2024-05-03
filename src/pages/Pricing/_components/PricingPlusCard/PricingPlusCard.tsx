@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router';
 import PlusIcon from '@/components/Shared/Icons/plusIcon';
 import { useCheckoutQuery } from '@/services/queries/payment.query';
 import { Offer } from '@/types/user';
+import { Workspace } from '@/types/workspace';
 
 interface Detail {
   title: string;
@@ -41,7 +42,7 @@ interface PricingPlusCardProps {
   className?: string;
   billingPeriod: 'monthly' | 'yearly';
   offer: Offer | undefined;
-  myWorkspaces?: any;
+  myWorkspaces?: Workspace[];
 }
 
 const PricingPlusCard: React.FC<PricingPlusCardProps> = ({

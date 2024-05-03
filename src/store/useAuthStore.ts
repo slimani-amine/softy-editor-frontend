@@ -3,12 +3,13 @@ import { logger } from './logger';
 import { clearItem, setItem } from '../lib/localStorage';
 import { WorkspaceBoxInNavigationPropsType } from '@/types/Propstypes';
 import { User } from '@/types/user';
+import { Workspace } from '@/types/workspace';
 
 interface AuthState {
   isInitialised: boolean;
   isAuthenticated: boolean;
   user: User | null;
-  myWorkspaces: any | null;
+  myWorkspaces: Workspace[] | null;
 }
 
 export interface AuthStore extends AuthState {
