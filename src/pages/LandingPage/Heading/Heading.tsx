@@ -12,8 +12,7 @@ const Heading = () => {
   return (
     <div className="max-w-3xl space-y-4">
       <h1 className="text-2xl sm:text-5xl md:text-6xl font-bold  ">
-        Your Ideas, Documents, & Plans. Unified. Welcome to{' '}
-        <span className=" animate-bounce">E-ditor</span>
+        Your Ideas, Documents, & Plans. Unified. <br /> Welcome to E-ditor
       </h1>
       <h3 className="text-base sm:text-xl md:text-2xl font-medium">
         E-ditor is the connected workspace where <br />
@@ -35,7 +34,7 @@ const Heading = () => {
       {!isAuthenticated && !isLoading && (
         <Link to="/login">
           <Button className=" mt-4">
-            <p >Enter Now</p>
+            <p>Enter Now</p>
             <ArrowRight className="h-4 w-4 ml-2 " />
           </Button>
         </Link>

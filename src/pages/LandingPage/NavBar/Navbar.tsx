@@ -20,7 +20,7 @@ const Navbar = () => {
           Softy Editor{' '}
         </span>
       </Link>
-      <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2 font-semibold text-gray-700 text-lg">
+      <div className="justify-end w-full flex items-center gap-x-2 font-semibold text-gray-700 text-lg">
         {isLoading && <Spinner />}
         {!isAuthenticated && !isLoading && (
           <>

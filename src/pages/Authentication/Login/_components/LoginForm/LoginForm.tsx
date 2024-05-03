@@ -112,12 +112,12 @@ export default function LoginForm({
                   }}
                   register={register}
                 />
-                <p className="text-sm text-[#ACABA9] font-light leading-4">
+                <p className="text-xs text-[#ACABA9] font-light leading-4">
                   We sent a login code to your inbox ·{' '}
                   <span
                     className={` font-medium cursor-pointer ${
                       isResendDisabled
-                        ? 'opacity-50 pointer-events-none text-[#ACABA9] text-sm'
+                        ? 'opacity-50 pointer-events-none text-[#ACABA9] text-xs'
                         : 'text-blue-500'
                     }`}
                     onClick={() => {

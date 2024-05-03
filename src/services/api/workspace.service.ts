@@ -1,5 +1,5 @@
 import { api } from '@/lib/api';
-import { CreateWorkspaceBody } from '@/types/workspace';
+import { AddMembersBody, CreateWorkspaceBody } from '@/types/workspace';
 
 import { BASE_URL } from 'shared/config';
 
@@ -34,5 +34,16 @@ export const getMyWorkspaces = async function ({ token }: { token: string }) {
     return data;
   } catch (err) {
     throw err;
+  }
+};
+
+export const addMembers = async (body: AddMembersBody) => {
+  try {
+    const { data } = await api.patch(`${BASE_URL}/workspaces/${body.id}`, {
+      members: body.members,
+    });
+    return data;
+  } catch (error: any) {
+    throw error;
   }
 };

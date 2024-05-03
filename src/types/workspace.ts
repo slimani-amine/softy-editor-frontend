@@ -9,3 +9,8 @@ export interface InviteMembersBody {
   email_02?: string;
   email_03?: string;
 }
+
+export interface AddMembersBody {
+  id:number;
+  members?: { id: number }[]
+}

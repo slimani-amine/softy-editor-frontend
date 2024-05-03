@@ -22,14 +22,7 @@ const Pricing = ({ className, ...props }: CardProps) => {
   const handleSwitch = (period: 'monthly' | 'yearly') => {
     setBillingPeriod(period);
   };
-
-  const navigate = useNavigate();
-
-  const onSubmit = async () => {
-    const workspaceId = myWorkspaces[0].id;
-    navigate(`/workspaces/${workspaceId}/documents`);
-  };
-
+  
   return (
     <section className="bg-white dark:bg-gray-900 scroll-smooth " id="pricing">
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 flex flex-col items-center gap-4">
@@ -91,11 +84,6 @@ const Pricing = ({ className, ...props }: CardProps) => {
             myWorkspaces={myWorkspaces}
           />
         </div>
-        <Button
-          text={`No thanks, take me to E-ditor`}
-          className="w-1/4 flex items-center justify-center h-8 rounded-[5px] text-white text-sm font-medium bg-blue-500 hover:bg-blue-600 shadow-inner md:shadow-md disabled:opacity-40 mt-4 "
-          onClick={onSubmit}
-        />
       </div>
     </section>
   );

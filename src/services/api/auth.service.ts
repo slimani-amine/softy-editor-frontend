@@ -1,5 +1,6 @@
 import { api } from '@/lib/api';
 import {
+  GetUsersByEmailsBody,
   LoginBody,
   LoginWithGoogleBody,
   RegisterBody,
@@ -87,3 +88,14 @@ export const resetPassword = async (body: ResetPasswordBody) => {
     throw error;
   }
 };
+
+export const getUsersByEmails = async (body: GetUsersByEmailsBody) => {
+  console.log("🚀 ~ getUsersByEmails ~ body:", body)
+  try {
+    const { data } = await api.post(`${BASE_URL}/users/emails`, body);
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+

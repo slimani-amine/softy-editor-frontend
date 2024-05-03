@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import {
+  GetUsersByEmailsBody,
   LoginWithGoogleBody,
   RegisterBody,
   ResetPasswordBody,
@@ -15,6 +16,7 @@ import {
   sendmail,
   emailLogin,
   updateUser,
+  getUsersByEmails,
 } from '../api/auth.service';
 
 export const useLoginQuery = () =>
@@ -57,3 +59,9 @@ export const useResetPasswordQuery = () =>
     const res = await resetPassword(body);
     return res;
   });
+
+  export const useGetUsersByEmails = () =>
+    useMutation(['getUsersByEmails'], async (body: GetUsersByEmailsBody) => {
+      const res = await getUsersByEmails(body);
+      return res;
+    });

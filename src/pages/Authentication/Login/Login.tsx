@@ -84,9 +84,7 @@ const Login = () => {
   };
 
   const onSubmit: SubmitHandler<LoginBody> = async (data) => {
-    // if (!data.email) {
-    //   setAllErrors({ ...allErrors, validationError: 'Email is required' });
-    // }
+
     if (forgotPassword) {
       await sendMail(data);
       setMailSended(true);

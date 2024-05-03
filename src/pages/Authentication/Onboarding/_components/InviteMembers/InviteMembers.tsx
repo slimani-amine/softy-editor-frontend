@@ -4,16 +4,23 @@ import { SubmitHandler, useForm, UseFormRegister } from 'react-hook-form';
 import { InviteMembersBody } from '@/types/workspace';
 import { inviteMembersSchema } from '@/lib/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useUpdateUserQuery } from '@/services/queries/auth.query';
+import {
+  useGetUsersByEmails,
+  useUpdateUserQuery,
+} from '@/services/queries/auth.query';
 import EmojiPicker from 'emoji-picker-react';
 import { useState, useEffect } from 'react';
-import { useCreateWorkSpaceQuery } from '@/services/queries/workspace.query';
+import {
+  useAddMembers,
+  useCreateWorkSpaceQuery,
+} from '@/services/queries/workspace.query';
 import EmptyWorkspaceIcon from '@/components/Shared/Icons/EmptyWorkspaceIcon';
 import useAuthStore from '@/store/useAuthStore';
 import { useNavigate } from 'react-router';
 import { User } from '@/types/user';
 import { Plus } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { TextareaForm } from '@/components/ui/TextareaForm';
 
 export default function InviteMembers({
   user,
@@ -22,10 +29,15 @@ export default function InviteMembers({
   user: User | null;
   setIsInviteTeam: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const { myWorkspaces,setUser } = useAuthStore((state) => state);
+  const { myWorkspaces, setUser, setMyWorkspaces } = useAuthStore(
+    (state) => state,
+  );
   const navigate = useNavigate();
 
   const [invite, setInvite] = useState<boolean>(false);
+  const [more, setMore] = useState<boolean>(false);
+  const [textAreaValue, setTextAreaValue] = useState<string>('');
+  const [emails, setEmails] = useState<string[]>([]);
 
   const {
     register,
@@ -44,30 +56,98 @@ export default function InviteMembers({
     error,
   }: any = useUpdateUserQuery();
 
-  const handleInputChange = (e: any) => {
-    const values = getValues();
-    const isAnyEmailFilled =
-      values?.email_01 ||
-      values?.email_02 ||
-      values?.email_03 ||
-      e?.target ||
-      e?.target?.value;
-    setInvite(isAnyEmailFilled);
-  };
+  const {
+    isLoading: getUsersByEmailsLoading,
+    mutateAsync: getUsersByEmails,
+    isError: isGetUsersByEmailsError,
+    error: getetUsersByEmailsError,
+  }: any = useGetUsersByEmails();
+
+  const {
+    isLoading: addMembersLoading,
+    mutateAsync: addMembers,
+    isError: isaddMembersError,
+    error: addMembersError,
+  }: any = useAddMembers();
 
   const onSubmit: SubmitHandler<InviteMembersBody> = async (data) => {
-    const workspaceId = myWorkspaces[0].id;
-    const body = { id: user?.id, status: { id: 1 } };
+    const { email_01, email_02, email_03 } = data;
+    const newEmails: Set<string> = new Set(emails);
+    if (more) {
+      if (textAreaValue) {
+        const emailsFromTextArea = textAreaValue.split(/[\s,]+/);
+        emailsFromTextArea.forEach((email) => newEmails.add(email));
+      }
+    } else {
+      if (email_01) newEmails.add(email_01);
+      if (email_02) newEmails.add(email_02);
+      if (email_03) newEmails.add(email_03);
+    }
+
     try {
-      const res = await update(body);
-      setIsInviteTeam(true);
-      setUser(res)
-      navigate("/pricing")
+      if (newEmails.size === 0) {
+        const body = { id: user?.id, status: { id: 1 } };
+        const res = await update(body);
+        setIsInviteTeam(true);
+        setUser(res);
+        navigate('/pricing');
+      } else {
+        const usersResponse = await getUsersByEmails(Array.from(newEmails));
+        const invalidEmails: string[] = [];
+
+        const validUsers = usersResponse.filter(
+          (user: User | null, index: number) => {
+            if (user === null) {
+              invalidEmails.push(Array.from(newEmails)[index]);
+              return false;
+            }
+            return true;
+          },
+        );
+
+        if (invalidEmails.length > 0) {
+          toast.error(
+            `The following email(s) do not exist: ${invalidEmails.join(', ')}`,
+          );
+        } else {
+          const workspaceId = myWorkspaces[0].id;
+          const usersIds: { id: number }[] = usersResponse.map(
+            (user: User) => user.id,
+          );
+          const body = { id: workspaceId, members: usersIds };
+          const res = await addMembers(body); //todo: this should be done in tomorrow :(
+          setMyWorkspaces(res);
+          toast.success(`Members added successfully`);
+          const updateBody = { id: user?.id, status: { id: 1 } };
+          const updateRes = await update(updateBody);
+          setIsInviteTeam(true);
+          setUser(updateRes);
+          navigate('/pricing');
+        }
+      }
     } catch (error) {
-      toast.error('error');
+      toast.error('Error occurred while inviting members');
+      console.error('Error:', error);
     }
   };
 
+  const handleSetMore = () => {
+    setMore(true);
+    setEmails([]);
+  };
+  const copyInviteLink = () => {
+    const workspaceId = myWorkspaces[0].id;
+    const inviteLink = `http://localhost:5173/workspaces/${workspaceId}/documents`;
+    navigator.clipboard
+      .writeText(inviteLink)
+      .then(() => {
+        toast.success('Invite link copied to clipboard!');
+      })
+      .catch((err) => {
+        toast.error('Failed to copy invite link. Please try again.');
+        console.error('Error copying invite link:', err);
+      });
+  };
   return (
     <>
       <div className="flex flex-col items-center gap-1">
@@ -102,45 +182,51 @@ export default function InviteMembers({
 
         <div className="flex flex-col gap-4 w-full">
           <div className="flex flex-col gap-1">
-            <Input
-              placeholder="Email"
-              type="text"
-              label="Invite people"
-              aria-label="email"
-              className="w-full outline-none border border-gray-200 h-8 rounded-[5px] px-2  placeholder:text-sm placeholder:font-extralight placeholder:bg-[#FFFEFC]"
-              name="email_01"
-              register={register}
-              onChange={(e) => handleInputChange(e)}
-            />
-            <Input
-              placeholder="Email"
-              type="text"
-              aria-label="email"
-              className="w-full outline-none border border-gray-200 h-8 rounded-[5px] px-2  placeholder:text-sm placeholder:font-extralight placeholder:bg-[#FFFEFC]"
-              name="email_02"
-              register={register}
-              onChange={(e) => handleInputChange(e)}
-            />
-            <Input
-              placeholder="Email"
-              type="text"
-              aria-label="email"
-              className="w-full outline-none border border-gray-200 h-8 rounded-[5px] px-2 placeholder:text-sm placeholder:font-extralight placeholder:bg-[#FFFEFC]"
-              name="email_03"
-              register={register}
-              onChange={(e) => handleInputChange(e)}
-            />
-            <div className="flex gap-1 items-center text-sm font-normal text-[#949493] pl-2 pt-4">
-              <Plus className="fill-[#37352F80] w-5 h-5" /> Add more or bulk
-              invite
-            </div>
+            {!more ? (
+              <>
+                <Input
+                  placeholder="Email"
+                  type="text"
+                  label="Invite people"
+                  aria-label="email"
+                  className="w-full outline-none border border-gray-200 h-8 rounded-[5px] px-2  placeholder:text-sm placeholder:font-extralight placeholder:bg-[#FFFEFC]"
+                  name="email_01"
+                  register={register}
+                />
+                <Input
+                  placeholder="Email"
+                  type="text"
+                  aria-label="email"
+                  className="w-full outline-none border border-gray-200 h-8 rounded-[5px] px-2  placeholder:text-sm placeholder:font-extralight placeholder:bg-[#FFFEFC]"
+                  name="email_02"
+                  register={register}
+                />
+                <Input
+                  placeholder="Email"
+                  type="text"
+                  aria-label="email"
+                  className="w-full outline-none border border-gray-200 h-8 rounded-[5px] px-2 placeholder:text-sm placeholder:font-extralight placeholder:bg-[#FFFEFC]"
+                  name="email_03"
+                  register={register}
+                />
+                <div
+                  className="flex gap-1 items-center text-sm font-normal text-[#949493] pl-2 mt-2 cursor-pointer hover:bg-gray-200 px-2 py-1 hover:rounded-[4px]"
+                  onClick={handleSetMore}
+                >
+                  <Plus className="fill-[#37352F80] w-5 h-5" /> Add more or bulk
+                  invite
+                </div>
+                <hr className="h-2 w-full " />
+              </>
+            ) : (
+              <TextareaForm setValue={setTextAreaValue} />
+            )}
           </div>
 
-          <hr className="h-2 w-full " />
           <div className="flex flex-col justify-center items-center gap-1 w-full">
             <Button
               text={''}
-              disabled={!isValid}
+              onClick={copyInviteLink}
               type="button"
               className="w-full flex items-center justify-center gap-1 h-8 rounded-[5px] text-[#2383E2] text-sm font-medium bg-[#E9F0F7] hover:opacity-75 shadow-inner md:shadow-md mt-2 disabled:opacity-40   "
             >
@@ -157,7 +243,9 @@ export default function InviteMembers({
               text={
                 !invite ? `Take me to E-ditor` : `Invite and Take me to E-ditor`
               }
-              // isLoading={isLoading}
+              isLoading={
+                isLoading || getUsersByEmailsLoading || addMembersLoading
+              }
               disabled={!isValid}
               type="submit"
               className="w-full flex items-center justify-center h-8 rounded-[5px] text-white text-sm font-medium bg-blue-500 hover:bg-blue-600 shadow-inner md:shadow-md mt-2 disabled:opacity-40  "

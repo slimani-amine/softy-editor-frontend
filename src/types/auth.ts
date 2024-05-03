@@ -21,7 +21,11 @@ export interface UpdateUserBody {
   userName?: string;
   password?: string;
   plan?: { id: number };
-  offer?: { id: number};
+  offer?: { id: number };
+}
+
+export interface GetUsersByEmailsBody {
+  emails: string[];
 }
 
 export interface SendMailBody {

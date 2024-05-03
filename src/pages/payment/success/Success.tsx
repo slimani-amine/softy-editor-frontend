@@ -6,7 +6,8 @@ import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'; // Ch
 import useAuthStore from '@/store/useAuthStore';
 import { useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import { JwtPayload } from 'shared/utils/isValidToken';
+import { JwtPayload, isValidToken } from 'shared/utils/isValidToken';
+import Spinner from '@/components/Shared/Spinner';
 
 const Success = () => {
   const { user, setUser, myWorkspaces } = useAuthStore((state) => state);
@@ -14,11 +15,7 @@ const Success = () => {
 
   const token = searchParams.get('token');
 
-  const isValidToken = (token: string) => {
-    const decoded: JwtPayload = jwtDecode(token);
-    const currentTime = Date.now() / 1000;
-    return decoded.exp > currentTime;
-  };
+
   if (!token || !isValidToken(token)) {
     return <Navigate to="/login" />;
   }
@@ -50,7 +47,7 @@ const Success = () => {
 
   return (
     <>
-      <p>Loading...</p>
+      <Spinner />
     </>
   );
 };

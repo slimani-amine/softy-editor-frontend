@@ -29,6 +29,10 @@ const Onboarding = () => {
     myWorkspaces && myWorkspaces?.length > 0 ? true : false,
   );
 
+  console.log('🚀 ~ Onboarding ~ isInviteTeam:', isInviteTeam);
+
+  if (user?.status?.id === 1) {
+  }
   return (
     <div className="h-full flex flex-col justify-center bg-[#F7F6F3] relative">
       <WelcomeIcon className="absolute bottom-2 left-7 w-[10.5rem]" />
@@ -69,13 +73,15 @@ const Onboarding = () => {
           </div>
         </section>
       ) : !isInviteTeam ? (
-        <section className="px-4 w-[28rem] h-full m-auto overflow-visible flex flex-col justify-center ">
+        <section className="px-4 w-[30rem] h-full m-auto overflow-visible flex flex-col justify-center ">
           <div className="w-full  mx-auto flex flex-col gap-10 ">
             <InviteMembers user={user} setIsInviteTeam={setIsInviteTeam} />
           </div>
         </section>
-      ) : (
+      ) : user?.status?.id === 1 ? (
         <Navigate to="/pricing" />
+      ) : (
+        <>{setIsInviteTeam(false)}</>
       )}
     </div>
   );

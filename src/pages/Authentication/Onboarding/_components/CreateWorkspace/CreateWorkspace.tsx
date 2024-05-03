@@ -77,7 +77,7 @@ export default function CreateWorkspace({
       setMyWorkspaces(res);
       setIsHaveAWorkspace(true);
     } catch (error) {
-      toast.error('Something went wrong. Please try again');
+      console.error('Something went wrong. Please try again');
     }
   };
 
@@ -104,7 +104,7 @@ export default function CreateWorkspace({
                 onEmojiClick={(e) => {
                   setSelectedFileUrl(e.imageUrl);
                 }}
-                height={'300px'}
+                height={'350px'}
                 width={'400px'}
                 searchDisabled={true}
               />

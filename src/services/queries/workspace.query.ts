@@ -1,6 +1,6 @@
-import { CreateWorkspaceBody } from '@/types/workspace';
+import { AddMembersBody, CreateWorkspaceBody } from '@/types/workspace';
 import { useMutation } from '@tanstack/react-query';
-import { createWorkspace, getMyWorkspaces } from '../api/workspace.service';
+import { addMembers, createWorkspace, getMyWorkspaces } from '../api/workspace.service';
 
 export const useCreateWorkSpaceQuery = () =>
   useMutation(['createWorkspace'], async (body: CreateWorkspaceBody) => {
@@ -11,5 +11,12 @@ export const useCreateWorkSpaceQuery = () =>
 export const useGetMyWorkSpacesQuery = () =>
   useMutation(['getMyWorkspaces'], async (token: string) => {
     const res = await getMyWorkspaces({ token });
+    return res;
+  });
+
+
+export const useAddMembers = () =>
+  useMutation(['addMembers'], async (body:AddMembersBody) => {
+    const res = await addMembers(body);
     return res;
   });
