@@ -121,9 +121,9 @@ export default function LoginForm({
                     isNewUser ? 'Paste signup code' : `Paste login code`
                   }
                   type="text"
-                  label={isNewUser ? 'Signup code' : `Login code`}
+                  label={isNewUser ? 'Signup code' : `Verification code`}
                   aria-label={
-                    isNewUser ? 'Paste signup code' : `Paste login code`
+                    isNewUser ? 'Paste signup code' : `Paste verification code`
                   }
                   className="w-full outline-none border border-gray-200 h-9 rounded-[5px] px-2 placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
                   name="code"

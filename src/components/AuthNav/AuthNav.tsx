@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Logo from '../Shared/Icons/Logo';
 
 const AuthNav: React.FC = () => (
   <div
     className={
-      'bg-background dark:bg-[#1F1F1F] fixed top-0 flex items-center w-full p-6'
+      'bg-background dark:bg-[#1F1F1F] fixed top-0 flex items-center w-full px-6'
     }
   >
-    <Link to="/" className="flex items-center w-full ml-52">
-      <span className="font-semibold text-gray-700 text-lg">E-ditor</span>
+    <Link to="/">
+      <Logo />
     </Link>
   </div>
 );

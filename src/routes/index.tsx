@@ -1,21 +1,20 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Documents from '../pages/Documents';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
-import DocumentsPage from '@/pages/Documents/_components/DocumentsEmptyPage';
+import OnboardingRoute from './OnboardingRoute';
 import DocumentsEmptyPage from '@/pages/Documents/_components/DocumentsEmptyPage';
 import DocumentIdPage from '@/pages/Documents/_components/DocumentIdPage';
 import PageNotFound from '@/components/PageNotFound';
 import PreviewDocument from '@/pages/Preview/PreviewDocument';
 import ForgotPassword from '@/pages/Authentication/ForgotPassword';
 import NotFound from 'shared/features/NotFound/NotFound';
-import OnboardingRoute from './OnboardingRoute';
 import Home from '@/pages/LandingPage/Home';
 import Login from '@/pages/Authentication/Login';
 import ResetPassword from '@/pages/Authentication/ResetPassword';
 import Pricing from '@/pages/Pricing';
-import Onboarding from '@/pages/Authentication/Onboarding';
 import Success from '@/pages/payment/success';
+import Onboarding from '@/pages/Onboarding';
 const Router = () => (
   <BrowserRouter>
     <Routes>

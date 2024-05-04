@@ -11,10 +11,10 @@ import Spinner from '@/components/Shared/Spinner';
 
 const Success = () => {
   const { user, setUser, myWorkspaces } = useAuthStore((state) => state);
+  console.log("🚀 ~ Success ~ myWorkspaces:", myWorkspaces)
   let [searchParams, setSearchParams] = useSearchParams();
 
   const token = searchParams.get('token');
-
 
   if (!token || !isValidToken(token)) {
     return <Navigate to="/login" />;
@@ -39,7 +39,8 @@ const Success = () => {
       console.log('🚀 ~ updateUser ~ res:', res);
       if (res) {
         setUser(res);
-        navigate(`/workspaces/${myWorkspaces[0].id}/documents`);
+        
+        navigate(`/workspaces/${myWorkspaces && myWorkspaces[0].id}/documents`);
       }
     };
     updateUser();

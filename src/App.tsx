@@ -12,13 +12,13 @@ export const metadata = {
     icon: [
       {
         media: '(prefers-color-scheme: light)',
-        url: '/logo.svg',
-        href: '/logo.svg',
+        url: '/e-ditor-logo.png',
+        href: '/e-ditor-logo.png',
       },
       {
         media: '(prefers-color-scheme: dark)',
-        url: '/logo.svg',
-        href: '/logo.svg',
+        url: '/e-ditor-logo.png',
+        href: '/e-ditor-logo.png',
       },
     ],
   },

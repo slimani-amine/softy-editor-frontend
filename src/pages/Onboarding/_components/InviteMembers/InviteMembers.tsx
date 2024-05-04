@@ -1,6 +1,6 @@
 import Button from '@/components/Shared/Button';
 import Input from '@/components/Shared/Input';
-import { SubmitHandler, useForm, UseFormRegister } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { InviteMembersBody } from '@/types/workspace';
 import { inviteMembersSchema } from '@/lib/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,13 +8,10 @@ import {
   useGetUsersByEmails,
   useUpdateUserQuery,
 } from '@/services/queries/auth.query';
-import EmojiPicker from 'emoji-picker-react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   useAddMembers,
-  useCreateWorkSpaceQuery,
 } from '@/services/queries/workspace.query';
-import EmptyWorkspaceIcon from '@/components/Shared/Icons/EmptyWorkspaceIcon';
 import useAuthStore from '@/store/useAuthStore';
 import { useNavigate } from 'react-router';
 import { User } from '@/types/user';
@@ -97,7 +94,7 @@ export default function InviteMembers({
         setUser(res);
         navigate('/pricing');
       } else {
-        setInvite(true)
+        setInvite(true);
         const usersResponse = await getUsersByEmails(Array.from(newEmails));
         const invalidEmails: string[] = [];
 
@@ -120,6 +117,7 @@ export default function InviteMembers({
           const usersIds: { id: number }[] = usersResponse.map(
             (user: User) => user.id,
           );
+          usersIds.push(user?.id as any);
           const body = {
             id: workspaceId,
             members: usersIds.map((id) => ({ id })),
@@ -145,7 +143,7 @@ export default function InviteMembers({
     setEmails([]);
   };
   const copyInviteLink = () => {
-    const workspaceId =myWorkspaces && myWorkspaces[0].id;
+    const workspaceId = myWorkspaces && myWorkspaces[0].id;
     const inviteLink = `http://localhost:5173/workspaces/${workspaceId}/documents`;
     navigator.clipboard
       .writeText(inviteLink)
