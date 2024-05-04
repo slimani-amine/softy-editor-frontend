@@ -1,6 +1,8 @@
+import toast from 'react-hot-toast';
+
 export const uplaodImage = async (
   e: React.ChangeEvent<HTMLInputElement>,
-  setSelectedFileUrl: any
+  setSelectedFileUrl: any,
 ) => {
   if (e.target.files && e.target.files.length > 0) {
     const selectedFile = e.target.files[0];
@@ -19,26 +21,25 @@ export const uplaodImage = async (
           {
             method: 'post',
             body: form,
-          }
+          },
         );
 
         if (response.ok) {
           const data = await response.json();
           setSelectedFileUrl(data.url);
         } else {
-          console.log(
-            'Erreur lors du téléchargement du fichier. Veuillez réessayer.'
+          toast.error(
+            'Erreur lors du téléchargement du fichier. Veuillez réessayer.',
           );
         }
       } catch (error) {
-        console.log(
-          'Une erreur est survenue lors du téléchargement du fichier. Veuillez réessayer.'
+        toast.error(
+          'Une erreur est survenue lors du téléchargement du fichier. Veuillez réessayer.',
         );
-        console.error(error);
       }
     } else {
-      console.log(
-        'Format ou taille de fichier invalide. Veuillez choisir un fichier image valide (max 2 Mo).'
+      toast.error(
+        'Format ou taille de fichier invalide. Veuillez choisir un fichier image valide (max 2 Mo).',
       );
     }
   }

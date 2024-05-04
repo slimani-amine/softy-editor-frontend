@@ -90,7 +90,6 @@ export const resetPassword = async (body: ResetPasswordBody) => {
 };
 
 export const getUsersByEmails = async (body: GetUsersByEmailsBody) => {
-  console.log("🚀 ~ getUsersByEmails ~ body:", body)
   try {
     const { data } = await api.post(`${BASE_URL}/users/emails`, body);
     return data;

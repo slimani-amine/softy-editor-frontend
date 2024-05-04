@@ -24,7 +24,6 @@ const Editor = ({ onChange, initialContent, editable }: EditorProps) => {
   // };
 
   const handleUpload = async (file: File) => {
-    console.log('uploaded');
     return 'url.com';
   };
 

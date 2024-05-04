@@ -32,13 +32,11 @@ export const UserItem = () => {
 
   const params = useParams();
   const { workspaceId } = params;
-  console.log(workspaceId);
   // const {
   //   isLoading,
   //   data: myWorkspaces,
   //   error,
   // } = useQuery({
-  console.log("🚀 ~ UserItem ~ myWorkspaces:", myWorkspaces)
   //   queryKey: ['workspaces'],
   //   queryFn: async () => await getMyWorkspaces(),
   // });

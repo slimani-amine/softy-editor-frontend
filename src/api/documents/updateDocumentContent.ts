@@ -7,7 +7,6 @@ export const updateDocumentContent = async function ({
   documentId: string | undefined;
   content: any;
 }) {
-  console.log(content);
 
   try {
     const jwtToken = localStorage.getItem('access_token');

@@ -11,7 +11,6 @@ import Spinner from '@/components/Shared/Spinner';
 
 const Success = () => {
   const { user, setUser, myWorkspaces } = useAuthStore((state) => state);
-  console.log("🚀 ~ Success ~ myWorkspaces:", myWorkspaces)
   let [searchParams, setSearchParams] = useSearchParams();
 
   const token = searchParams.get('token');
@@ -36,7 +35,6 @@ const Success = () => {
         offer: { id: Number(decoded.offerId) },
       };
       const res = await update(data);
-      console.log('🚀 ~ updateUser ~ res:', res);
       if (res) {
         setUser(res);
         

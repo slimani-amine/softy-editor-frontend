@@ -29,7 +29,6 @@ const Onboarding = () => {
     myWorkspaces && myWorkspaces?.length > 0 ? true : false,
   );
 
-  console.log('🚀 ~ Onboarding ~ isInviteTeam:', isInviteTeam);
 
   if (user?.status?.id === 1) {
   }

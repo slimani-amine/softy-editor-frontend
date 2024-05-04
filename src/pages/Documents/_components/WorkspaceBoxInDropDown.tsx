@@ -1,11 +1,14 @@
 import { WorkspaceBoxInDropDownPropsType } from '@/types/Propstypes';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Link } from 'react-router-dom';
+import useAuthStore from '@/store/useAuthStore';
 
 export default function WorkspaceBoxInDropDown({
   workspace,
   inWorkspaceId,
 }: WorkspaceBoxInDropDownPropsType) {
+  const { user } = useAuthStore((state) => state);
+
   return (
     <Link
       to={`/workspaces/${workspace?.id}/documents`}
@@ -26,7 +29,13 @@ export default function WorkspaceBoxInDropDown({
           {workspace?.title || 'Anonymous'}&apos;s E-ditor
         </p>
         <div className="flex gap-2">
-          <p className="text-xs font-light text-gray-300">Free Plan</p>
+          <p className="text-xs font-light text-gray-300">
+            {user && user?.offer && user?.offer.id === 1
+              ? 'Free Plan'
+              : user?.offer.id === 2
+                ? 'Plus Plan'
+                : 'Buisness Plan'}
+          </p>
           <p className="text-xs font-light text-gray-300">
             {workspace?.members.length} Member
           </p>
