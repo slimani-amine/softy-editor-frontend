@@ -13,8 +13,9 @@ import Home from '@/pages/LandingPage/Home';
 import Login from '@/pages/Authentication/Login';
 import ResetPassword from '@/pages/Authentication/ResetPassword';
 import Pricing from '@/pages/Pricing';
-import Success from '@/pages/payment/success';
+import Success from '@/pages/Payment/Success';
 import Onboarding from '@/pages/Onboarding';
+import Canceled from '@/pages/Payment/Canceled';
 const Router = () => (
   <BrowserRouter>
     <Routes>
@@ -63,6 +64,14 @@ const Router = () => (
         element={
           <PrivateRoute>
             <Success />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/canceled"
+        element={
+          <PrivateRoute>
+            <Canceled />
           </PrivateRoute>
         }
       />
