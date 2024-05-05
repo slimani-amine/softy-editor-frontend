@@ -2,20 +2,20 @@ import Button from '@/components/Shared/Button';
 import Input from '@/components/Shared/Input';
 import { LoginBody } from '@/types/auth';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 interface LoginFormProps {
   isNewUser: boolean;
-  onSubmit: (data: LoginBody) => void;
+  onSubmit: SubmitHandler<LoginBody>; // Adjusted type
   isLoading: boolean;
   showCode: boolean;
-  setShowCode: () => void;
+  setShowCode: (value: boolean) => void;
   ShowPassword: boolean;
-  setShowPassword: () => void;
   forgotPassword: boolean;
   setForgotPassword: (value: boolean) => void;
+  setShowPassword: (value: boolean) => void;
   mailSended: boolean;
-  defaultValues: { email: string };
+  defaultValues: { email: string | undefined };
   resend: (email: string) => void;
   setSendMailLogin: (value: boolean) => void;
   allErrors: {
@@ -102,8 +102,8 @@ export default function LoginForm({
               register={register}
               onChange={() => {
                 if (showCode || ShowPassword) {
-                  setShowCode();
-                  setShowPassword();
+                  setShowCode(false);
+                  setShowPassword(false);
                   setCodeValue('');
                   setPasswordValue('');
                   setSendMailLogin(false);
@@ -144,7 +144,7 @@ export default function LoginForm({
                     }`}
                     onClick={() => {
                       if (!isResendDisabled) {
-                        resend(defaultValues.email);
+                        resend(defaultValues?.email || '');
                         setIsResendDisabled(true);
                       }
                     }}

@@ -30,9 +30,9 @@ export default function WorkspaceBoxInDropDown({
         </p>
         <div className="flex gap-2">
           <p className="text-xs font-light text-gray-300">
-            {user && user?.offer && user?.offer.id === 1
+            {user && user?.offer && user?.offer?.id === 1
               ? 'Free Plan'
-              : user?.offer.id === 2
+              : user?.offer?.id === 2
                 ? 'Plus Plan'
                 : 'Buisness Plan'}
           </p>

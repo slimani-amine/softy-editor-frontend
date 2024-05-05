@@ -26,11 +26,11 @@ const Login = () => {
   const [token, setToken] = useState();
   const [refreshToken, setRefreshToken] = useState();
   const [isNewUser, setIseNewUser] = useState<boolean>(false);
-  const [showCode, setShowCode] = useState<boolean>();
-  const [ShowPassword, setShowPassword] = useState<boolean>();
-  const [forgotPassword, setForgotPassword] = useState<boolean>();
-  const [mailSended, setMailSended] = useState<boolean>();
-  const [sendMailLogin, setSendMailLogin] = useState<boolean>();
+  const [showCode, setShowCode] = useState<boolean>(false);
+  const [ShowPassword, setShowPassword] = useState<boolean>(false);
+  const [forgotPassword, setForgotPassword] = useState<boolean>(false);
+  const [mailSended, setMailSended] = useState<boolean>(false);
+  const [sendMailLogin, setSendMailLogin] = useState<boolean>(false);
   const [email, setEmail] = useState<string | undefined>();
   const [allErrors, setAllErrors] = useState<any>({});
 
