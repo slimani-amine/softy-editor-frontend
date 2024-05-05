@@ -4,7 +4,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useParams } from 'react-router';
-import { updateDocument } from 'api/documents/updateDocument';
+import { updateDocument } from '@/services/api/documents/updateDocument';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 

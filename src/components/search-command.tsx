@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/command';
 import { useNavigate, useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
-import { getDocumentsofWorkspace } from 'api/documents/getDocumentsofWorkspace';
+import { getDocumentsofWorkspace } from '@/services/api/documents/getDocumentsofWorkspace';
 import { DocumentItemPropsType, DocumentPropsType } from '@/types/Propstypes';
 import { useSearch } from 'shared/hooks/use-search';
 // import { api } from "@/convex/_generated/api";

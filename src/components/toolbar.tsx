@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { IconPicker } from './icon-picker';
 import { DocumentPropsType } from '@/types/Propstypes';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateDocument } from 'api/documents/updateDocument';
+import { updateDocument } from '@/services/api/documents/updateDocument';
 import toast from 'react-hot-toast';
 
 interface ToolbarProps {

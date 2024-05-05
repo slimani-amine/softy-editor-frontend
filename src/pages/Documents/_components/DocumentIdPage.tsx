@@ -12,7 +12,7 @@ import { title } from 'process';
 import Editor from '@/components/editor';
 import PlateEditor from '@/components/plate-editor';
 import { useQuery } from '@tanstack/react-query';
-import { getDocumentById } from 'api/documents/getDocumentById';
+import { getDocumentById } from '@/services/api/documents/getDocumentById';
 
 const DocumentIdPage = () => {
   const params = useParams();

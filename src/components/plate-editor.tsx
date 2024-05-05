@@ -23,7 +23,7 @@ import { SlashToolbar } from './plate-ui/slashToolBar';
 import { TooltipProvider } from './plate-ui/tooltip';
 import { DocumentItemPropsType } from '@/types/Propstypes';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateDocumentContent } from 'api/documents/updateDocumentContent';
+import { updateDocumentContent } from '@/services/api/documents/updateDocumentContent';
 import { useLocation, useParams } from 'react-router';
 import { formatDocContent } from 'shared/helpers/formatDocContent';
 import toast from 'react-hot-toast';

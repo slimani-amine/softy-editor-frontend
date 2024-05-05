@@ -12,8 +12,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import useAuthStore from '@/store/useAuthStore';
 import { useQuery } from '@tanstack/react-query';
-import { getMyWorkspaces } from 'api/workspaces/getMyWorkspaces';
-import { getMe } from 'api/users/getMe';
+import { getMyWorkspaces } from '@/services/api/workspaces/getMyWorkspaces';
+import { getMe } from '@/services/api/users/getMe';
 import { Navigate, useParams } from 'react-router-dom';
 import WorkSpaceBoxInNavigation from './WorkSpaceBoxInNavigation';
 import WorkspaceBoxInDropDown from './WorkspaceBoxInDropDown';

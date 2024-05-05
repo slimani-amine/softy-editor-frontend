@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import { Item } from './item';
 import { useNavigate, useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
-import { getDocumentsofWorkspace } from 'api/documents/getDocumentsofWorkspace';
+import { getDocumentsofWorkspace } from '@/services/api/documents/getDocumentsofWorkspace';
 import { DocumentItemPropsType, DocumentPropsType } from '@/types/Propstypes';
 import DocumentItem from './DocumentItem';
 

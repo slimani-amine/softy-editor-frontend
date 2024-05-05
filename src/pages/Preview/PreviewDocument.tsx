@@ -3,7 +3,7 @@ import PlateEditor from '@/components/plate-editor';
 import { Toolbar } from '@/components/toolbar';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useQuery } from '@tanstack/react-query';
-import { getDocumentById } from 'api/documents/getDocumentById';
+import { getDocumentById } from '@/services/api/documents/getDocumentById';
 import React from 'react';
 import { useParams } from 'react-router';
 

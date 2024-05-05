@@ -10,7 +10,7 @@ import { Navigation } from './_components/navigation';
 import { SearchCommand } from '@/components/search-command';
 import DocumentsPage from './_components/DocumentsEmptyPage';
 import { useQuery } from '@tanstack/react-query';
-import { getWorkspaceById } from 'api/workspaces/getWorkspaceById';
+import { getWorkspaceById } from '@/services/api/workspaces/getWorkspaceById';
 import Spinner from '@/components/Shared/Spinner';
 
 export default function Documents() {

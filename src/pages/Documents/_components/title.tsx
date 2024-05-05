@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateDocument } from 'api/documents/updateDocument';
+import { updateDocument } from '@/services/api/documents/updateDocument';
 import { DocumentItemPropsType } from '@/types/Propstypes';
 import toast from 'react-hot-toast';
 

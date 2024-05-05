@@ -6,7 +6,7 @@ import { Publish } from './publish';
 import { ModeToggle } from '@/components/mode-toggle';
 import { useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
-import { getDocumentById } from 'api/documents/getDocumentById';
+import { getDocumentById } from '@/services/api/documents/getDocumentById';
 
 interface NavbarProps {
   isCollapsed: boolean;

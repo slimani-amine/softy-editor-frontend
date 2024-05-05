@@ -26,7 +26,7 @@ import { TrashBox } from './trash-box';
 import { Navbar } from './navbar';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import toast from 'react-hot-toast';
-import { createDocument } from 'api/documents/createDocument';
+import { createDocument } from '@/services/api/documents/createDocument';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { DocumentItemPropsType, DocumentPropsType } from '@/types/Propstypes';
 import { useSettings } from 'shared/hooks/use-settings';

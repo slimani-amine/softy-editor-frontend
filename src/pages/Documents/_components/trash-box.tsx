@@ -10,7 +10,7 @@ import { ConfirmModal } from '@/components/modals/confirm-modal';
 import { useParams } from 'react-router';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getDocumentsofWorkspace } from 'api/documents/getDocumentsofWorkspace';
+import { getDocumentsofWorkspace } from '@/services/api/documents/getDocumentsofWorkspace';
 import { DocumentItemPropsType, DocumentPropsType } from '@/types/Propstypes';
 import DocumentItemInTrashBox from './DocumentItemInTrashBox';
 import Spinner from '@/components/Shared/Spinner';

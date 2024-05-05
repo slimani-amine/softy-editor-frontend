@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useNavigate, useParams } from 'react-router';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateDocument } from 'api/documents/updateDocument';
+import { updateDocument } from '@/services/api/documents/updateDocument';
 import toast from 'react-hot-toast';
 import { formatDate } from 'shared/helpers/formatDate';
 import { DocumentItemPropsType, DocumentPropsType } from '@/types/Propstypes';

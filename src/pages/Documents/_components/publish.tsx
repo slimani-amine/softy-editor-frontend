@@ -11,7 +11,7 @@ import {
 // import { api } from "@/convex/_generated/api";
 import { Button } from '@/components/ui/button';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateDocument } from 'api/documents/updateDocument';
+import { updateDocument } from '@/services/api/documents/updateDocument';
 import { DocumentItemPropsType } from '@/types/Propstypes';
 import toast from 'react-hot-toast';
 import { useOrigin } from 'shared/hooks/use-origin';

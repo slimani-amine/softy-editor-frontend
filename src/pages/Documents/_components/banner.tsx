@@ -7,8 +7,8 @@ import { ConfirmModal } from '@/components/modals/confirm-modal';
 import { useNavigate, useParams } from 'react-router';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateDocument } from 'api/documents/updateDocument';
-import { deleteDocument } from 'api/documents/deleteDocument';
+import { updateDocument } from '@/services/api/documents/updateDocument';
+import { deleteDocument } from '@/services/api/documents/deleteDocument';
 
 interface BannerProps {
   documentId: string;
