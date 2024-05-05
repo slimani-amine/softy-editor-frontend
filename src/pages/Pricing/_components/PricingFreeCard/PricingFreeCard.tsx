@@ -1,14 +1,14 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
+import { Button } from 'shared/components/ui/button';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import FreeIcon from '@/components/Shared/Icons/FreeIcon';
+} from 'shared/components/ui/card';
+import FreeIcon from 'shared/components/Shared/Icons/FreeIcon';
 import { useNavigate } from 'react-router';
 import { Offer } from '@/types/user';
 import { Workspace } from '@/types/workspace';

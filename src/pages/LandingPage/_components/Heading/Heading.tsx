@@ -1,9 +1,9 @@
 import { ArrowRight } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
+import { Button } from 'shared/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import Spinner from '@/components/Shared/Spinner';
+import Spinner from 'shared/components/Shared/Spinner';
 
 const Heading = () => {
   const [isAuthenticated, setIsAuthentication] = useState(false);

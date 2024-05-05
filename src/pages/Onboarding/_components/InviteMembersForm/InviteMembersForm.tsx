@@ -1,5 +1,5 @@
-import Button from '@/components/Shared/Button';
-import { TextareaForm } from '@/components/ui/TextareaForm';
+import Button from 'shared/components/Shared/Button';
+import { TextareaForm } from 'shared/components/ui/TextareaForm';
 import InviteMembersInputs from '../InviteMembersInputs';
 import { useEffect } from 'react';
 

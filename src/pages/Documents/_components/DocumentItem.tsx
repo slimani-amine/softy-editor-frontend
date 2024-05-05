@@ -13,7 +13,7 @@ import {
 
 // import { Id } from "@/convex/_generated/dataModel";
 import { cn } from '@/lib/utils';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Skeleton } from 'shared/components/ui/skeleton';
 // import { api } from "@/convex/_generated/api";
 import {
   DropdownMenu,
@@ -21,7 +21,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu';
+} from 'shared/components/ui/dropdown-menu';
 import { useNavigate, useParams } from 'react-router';
 import { DocumentItemPropsType } from '@/types/Propstypes';
 import { Link } from 'react-router-dom';

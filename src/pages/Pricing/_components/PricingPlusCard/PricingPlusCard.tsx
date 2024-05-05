@@ -1,15 +1,15 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
+import { Button } from 'shared/components/ui/button';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from 'shared/components/ui/card';
 import { useNavigate } from 'react-router';
-import PlusIcon from '@/components/Shared/Icons/plusIcon';
+import PlusIcon from 'shared/components/Shared/Icons/plusIcon';
 import { useCheckoutQuery } from '@/services/queries/payment.query';
 import { Offer } from '@/types/user';
 import { Workspace } from '@/types/workspace';

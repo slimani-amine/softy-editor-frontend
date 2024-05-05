@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 
 import { api } from '@/lib/api';
-import LazyLoad from '@/components/Shared/LazyLoad';
+import LazyLoad from 'shared/components/Shared/LazyLoad';
 import { clearTokens, getTokens } from '@/lib/utils/token';
 import useAuthStore from '@/store/useAuthStore';
 import useIsMountedRef from 'shared/hooks/useIsMountedRef';

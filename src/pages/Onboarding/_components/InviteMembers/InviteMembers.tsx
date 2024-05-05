@@ -1,7 +1,6 @@
-import Button from '@/components/Shared/Button';
-import Input from '@/components/Shared/Input';
+import Button from 'shared/components/Shared/Button';
+import Input from 'shared/components/Shared/Input';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { InviteMembersBody } from '@/types/workspace';
 import { inviteMembersSchema } from '@/lib/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
@@ -12,13 +11,14 @@ import { useState } from 'react';
 import { useAddMembers } from '@/services/queries/workspace.query';
 import useAuthStore from '@/store/useAuthStore';
 import { useNavigate } from 'react-router';
-import { User } from '@/types/user';
 import { Plus } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { TextareaForm } from '@/components/ui/TextareaForm';
+import { TextareaForm } from 'shared/components/ui/TextareaForm';
 import InviteMembersInputs from '../InviteMembersInputs';
 import InviteMembersHeader from '../InviteMembersHeader';
 import InviteMembersForm from '../InviteMembersForm';
+import { User } from 'shared/types/user';
+import { InviteMembersBody } from 'shared/types/workspace';
 
 export default function InviteMembers({
   user,
@@ -58,16 +58,19 @@ export default function InviteMembers({
     useAddMembers();
 
   const onSubmit: SubmitHandler<InviteMembersBody> = async (data) => {
+    console.log("🚀 ~ constonSubmit:SubmitHandler<InviteMembersBody>= ~ data:", data)
     const { email_01, email_02, email_03 } = data;
     const newEmails: Set<string> = new Set(emails);
     if (more) {
+      console.log("ghbjkn");
+      
       if (textAreaValue) {
         const emailsFromTextArea = textAreaValue.split(/[\s,]+/);
+        console.log("🚀 ~ constonSubmit:SubmitHandler<InviteMembersBody>= ~ emailsFromTextArea:", emailsFromTextArea)
         emailsFromTextArea.forEach((email) => newEmails.add(email));
         if (emailsFromTextArea.length > 10) {
           toast.error('You can invite a maximum of 10 guests for your plan.');
         }
-        return;
       }
     } else {
       if (email_01) newEmails.add(email_01);

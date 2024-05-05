@@ -1,5 +1,5 @@
-import SingleAuthIcon from '@/components/Shared/Icons/SingleAuthIcon';
-import { Button } from '@/components/ui/button';
+import SingleAuthIcon from 'shared/components/Shared/Icons/SingleAuthIcon';
+import { Button } from 'shared/components/ui/button';
 
 const SingleAuthButton: React.FC = () => {
   return (

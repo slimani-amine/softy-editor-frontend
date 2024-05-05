@@ -7,7 +7,7 @@ import useAuthStore from '@/store/useAuthStore';
 import { useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { JwtPayload, isValidToken } from 'shared/utils/isValidToken';
-import Spinner from '@/components/Shared/Spinner';
+import Spinner from 'shared/components/Shared/Spinner';
 
 const Success = () => {
   const { user, setUser, myWorkspaces } = useAuthStore((state) => state);

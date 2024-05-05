@@ -1,6 +1,6 @@
-import AuthNav from '@/components/AuthNav';
-import NotFoundIcon from '@/components/Shared/Icons/NotFoundIcon';
-import { Button } from '@/components/ui/button';
+import AuthNav from 'shared/components/AuthNav';
+import NotFoundIcon from 'shared/components/Shared/Icons/NotFoundIcon';
+import { Button } from 'shared/components/ui/button';
 import { useNavigate } from 'react-router';
 
 const NotFound = () => {

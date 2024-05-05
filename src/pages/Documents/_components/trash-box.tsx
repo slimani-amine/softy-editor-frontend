@@ -5,15 +5,15 @@ import { Search, Trash, Undo } from 'lucide-react';
 
 // import { api } from "@/convex/_generated/api";
 // import { Id } from "@/convex/_generated/dataModel";
-import { Input } from '@/components/ui/input';
-import { ConfirmModal } from '@/components/modals/confirm-modal';
+import { Input } from 'shared/components/ui/input';
+import { ConfirmModal } from 'shared/components/modals/confirm-modal';
 import { useParams } from 'react-router';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getDocumentsofWorkspace } from '@/services/api/documents/getDocumentsofWorkspace';
 import { DocumentItemPropsType, DocumentPropsType } from '@/types/Propstypes';
 import DocumentItemInTrashBox from './DocumentItemInTrashBox';
-import Spinner from '@/components/Shared/Spinner';
+import Spinner from 'shared/components/Shared/Spinner';
 
 export const TrashBox = () => {
   const navigate = useNavigate();

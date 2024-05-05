@@ -3,7 +3,7 @@ import { Title } from './title';
 import { Banner } from './banner';
 import { Menu } from './menu';
 import { Publish } from './publish';
-import { ModeToggle } from '@/components/mode-toggle';
+import { ModeToggle } from 'shared/components/mode-toggle';
 import { useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
 import { getDocumentById } from '@/services/api/documents/getDocumentById';

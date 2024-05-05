@@ -1,5 +1,5 @@
-import Input from '@/components/Shared/Input/Input';
-import Button from '@/components/Shared/Button';
+import Input from 'shared/components/Shared/Input/Input';
+import Button from 'shared/components/Shared/Button';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
 

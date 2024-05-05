@@ -1,9 +1,9 @@
-import ForSchoolIcon from '@/components/Shared/Icons/ForSchoolIcon';
-import ForTeamIcon from '@/components/Shared/Icons/ForTeamIcon';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import UncheckedIcon from '@/components/Shared/Icons/UncheckedIcon';
-import CheckedIcon from '@/components/Shared/Icons/CheckedIcon';
-import ForPersonalIcon from '@/components/Shared/Icons/ForPersonalIcon';
+import ForSchoolIcon from 'shared/components/Shared/Icons/ForSchoolIcon';
+import ForTeamIcon from 'shared/components/Shared/Icons/ForTeamIcon';
+import { Card, CardContent, CardHeader, CardTitle } from 'shared/components/ui/card';
+import UncheckedIcon from 'shared/components/Shared/Icons/UncheckedIcon';
+import CheckedIcon from 'shared/components/Shared/Icons/CheckedIcon';
+import ForPersonalIcon from 'shared/components/Shared/Icons/ForPersonalIcon';
 interface Props {
   selectedId: number;
   handleClick: (id: number) => void;

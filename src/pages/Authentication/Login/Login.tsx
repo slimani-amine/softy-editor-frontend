@@ -9,7 +9,7 @@ import useAuthStore from '@/store/useAuthStore';
 import { LoginBody } from '@/types/auth';
 import toast from 'react-hot-toast';
 import LoginForm from './_components/LoginForm/LoginForm';
-import AuthNav from '@/components/AuthNav';
+import AuthNav from 'shared/components/AuthNav';
 import { generateUniqueCode } from '@/lib/utils/generateUniqueCode';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';

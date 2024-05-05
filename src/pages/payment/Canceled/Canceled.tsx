@@ -1,5 +1,5 @@
-import AuthNav from '@/components/AuthNav';
-import NotFoundIcon from '@/components/Shared/Icons/NotFoundIcon';
+import AuthNav from 'shared/components/AuthNav';
+import NotFoundIcon from 'shared/components/Shared/Icons/NotFoundIcon';
 import {  Undo2 } from 'lucide-react';
 import { useNavigate } from 'react-router';
 

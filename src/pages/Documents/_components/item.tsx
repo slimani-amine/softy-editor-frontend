@@ -11,7 +11,7 @@ import {
 
 // import { Id } from "@/convex/_generated/dataModel";
 import { cn } from '@/lib/utils';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Skeleton } from 'shared/components/ui/skeleton';
 // import { api } from "@/convex/_generated/api";
 import {
   DropdownMenu,
@@ -19,7 +19,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu';
+} from 'shared/components/ui/dropdown-menu';
 import { useNavigate } from 'react-router';
 
 // interface ItemProps {

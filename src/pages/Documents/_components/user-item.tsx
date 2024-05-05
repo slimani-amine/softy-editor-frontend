@@ -1,7 +1,7 @@
 import { ChevronsLeftRight } from 'lucide-react';
 // import { useUser, SignOutButton } from "@clerk/clerk-react";
 
-import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarImage } from 'shared/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,7 +9,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from 'shared/components/ui/dropdown-menu';
 import useAuthStore from '@/store/useAuthStore';
 import { useQuery } from '@tanstack/react-query';
 import { getMyWorkspaces } from '@/services/api/workspaces/getMyWorkspaces';
@@ -17,7 +17,7 @@ import { getMe } from '@/services/api/users/getMe';
 import { Navigate, useParams } from 'react-router-dom';
 import WorkSpaceBoxInNavigation from './WorkSpaceBoxInNavigation';
 import WorkspaceBoxInDropDown from './WorkspaceBoxInDropDown';
-import Spinner from '@/components/Shared/Spinner';
+import Spinner from 'shared/components/Shared/Spinner';
 import { clearTokens } from '@/lib/utils/token';
 import { Workspace } from '@/types/workspace';
 

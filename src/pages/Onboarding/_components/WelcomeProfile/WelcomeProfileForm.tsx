@@ -1,7 +1,7 @@
-import Button from '@/components/Shared/Button';
+import Button from 'shared/components/Shared/Button';
 import Marketing from '../Marketing';
-import Input from '@/components/Shared/Input';
-import EmptyAvatar from '@/components/Shared/Icons/EmptyAvatar';
+import Input from 'shared/components/Shared/Input';
+import EmptyAvatar from 'shared/components/Shared/Icons/EmptyAvatar';
 import { uplaodImage } from 'shared/utils/uploadImage';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ProfileBody } from '@/types/auth';

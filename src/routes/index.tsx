@@ -5,7 +5,7 @@ import PublicRoute from './PublicRoute';
 import OnboardingRoute from './OnboardingRoute';
 import DocumentsEmptyPage from '@/pages/Documents/_components/DocumentsEmptyPage';
 import DocumentIdPage from '@/pages/Documents/_components/DocumentIdPage';
-import PageNotFound from '@/components/PageNotFound';
+import PageNotFound from 'shared/components/PageNotFound';
 import PreviewDocument from '@/pages/Preview/PreviewDocument';
 import ForgotPassword from '@/pages/Authentication/ForgotPassword';
 import NotFound from 'shared/features/NotFound/NotFound';

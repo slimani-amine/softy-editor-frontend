@@ -1,11 +1,11 @@
-import { Cover } from '@/components/cover';
-import PlateEditor from '@/components/plate-editor';
-import { Toolbar } from '@/components/toolbar';
-import { Skeleton } from '@/components/ui/skeleton';
 import { useQuery } from '@tanstack/react-query';
 import { getDocumentById } from '@/services/api/documents/getDocumentById';
 import React from 'react';
 import { useParams } from 'react-router';
+import { Cover } from 'shared/components/cover';
+import { Skeleton } from 'shared/components/ui/skeleton';
+import { Toolbar } from 'shared/components/toolbar';
+import PlateEditor from 'shared/components/plate-editor';
 
 export default function PreviewDocument() {
   const params = useParams();

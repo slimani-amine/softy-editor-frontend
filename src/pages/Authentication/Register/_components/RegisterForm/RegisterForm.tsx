@@ -1,5 +1,5 @@
-import Button from '@/components/Shared/Button';
-import Input from '@/components/Shared/Input';
+import Button from 'shared/components/Shared/Button';
+import Input from 'shared/components/Shared/Input';
 import { Link } from 'react-router-dom';
 
 export default function RegisterForm({

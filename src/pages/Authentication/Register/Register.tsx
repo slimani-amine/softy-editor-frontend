@@ -7,7 +7,7 @@ import useAuthStore from '@/store/useAuthStore';
 import { RegisterBody } from '@/types/auth';
 import toast from 'react-hot-toast';
 
-import AuthNav from '@/components/AuthNav';
+import AuthNav from 'shared/components/AuthNav';
 import { setTokens } from '@/lib/utils/token';
 import RegisterForm from './_components/RegisterForm';
 import GoogleButton from '../Login/_components/GoogleButton';

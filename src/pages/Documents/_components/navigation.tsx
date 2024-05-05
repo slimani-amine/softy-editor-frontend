@@ -17,7 +17,7 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-} from '@/components/ui/popover';
+} from 'shared/components/ui/popover';
 
 import { UserItem } from './user-item';
 import { Item } from './item';

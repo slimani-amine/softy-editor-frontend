@@ -6,14 +6,14 @@ import { toast } from 'sonner';
 // import { useRouter } from "next/navigation";
 
 // import { api } from "@/convex/_generated/api";
-import { Button } from '@/components/ui/button';
+import { Button } from 'shared/components/ui/button';
 import { useNavigate, useParams } from 'react-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createDocument } from '@/services/api/documents/createDocument';
 import { getDocumentsofWorkspace } from '@/services/api/documents/getDocumentsofWorkspace';
 import { useEffect } from 'react';
 import { getWorkspaceById } from '@/services/api/workspaces/getWorkspaceById';
-import Spinner from '@/components/Shared/Spinner';
+import Spinner from 'shared/components/Shared/Spinner';
 
 const DocumentsEmptyPage = () => {
   const navigate = useNavigate();

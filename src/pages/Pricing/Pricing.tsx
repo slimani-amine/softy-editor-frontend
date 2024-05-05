@@ -3,7 +3,7 @@ import PricingFreeCard from './_components/PricingFreeCard';
 import PricingPlusCard from './_components/PricingPlusCard';
 import PricingBusinessCard from './_components/PricingBusinessCard';
 import { User } from '@/types/user';
-import Button from '@/components/Shared/Button';
+import Button from 'shared/components/Shared/Button';
 import useAuthStore from '@/store/useAuthStore';
 import { useNavigate } from 'react-router';
 

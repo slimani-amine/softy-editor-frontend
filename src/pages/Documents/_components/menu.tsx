@@ -6,9 +6,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
+} from 'shared/components/ui/dropdown-menu';
+import { Button } from 'shared/components/ui/button';
+import { Skeleton } from 'shared/components/ui/skeleton';
 import { useNavigate, useParams } from 'react-router';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateDocument } from '@/services/api/documents/updateDocument';

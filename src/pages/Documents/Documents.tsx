@@ -1,17 +1,17 @@
 // import { useConvexAuth } from "convex/react";
 // import { redirect } from "next/navigation";
 
-// import { SearchCommand } from "@/components/search-command";
+// import { SearchCommand } from "shared/components/search-command";
 
 // import { Navigation } from "./_components/navigation";
-// import { Spinner } from "@/components/spinner";
+// import { Spinner } from "shared/components/spinner";
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { Navigation } from './_components/navigation';
-import { SearchCommand } from '@/components/search-command';
+import { SearchCommand } from 'shared/components/search-command';
 import DocumentsPage from './_components/DocumentsEmptyPage';
 import { useQuery } from '@tanstack/react-query';
 import { getWorkspaceById } from '@/services/api/workspaces/getWorkspaceById';
-import Spinner from '@/components/Shared/Spinner';
+import Spinner from 'shared/components/Shared/Spinner';
 
 export default function Documents() {
   const isLoading = false;

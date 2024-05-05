@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
-import { Button } from '@/components/ui/button';
-import AppleIcon from '@/components/Shared/Icons/AppleIcon';
+import { Button } from 'shared/components/ui/button';
+import AppleIcon from 'shared/components/Shared/Icons/AppleIcon';
 
 const AppleButton: React.FC = () => {
   return (

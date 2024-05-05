@@ -1,4 +1,4 @@
-import WelcomeIcon from '@/components/Shared/Icons/WelcomeIcon';
+import WelcomeIcon from 'shared/components/Shared/Icons/WelcomeIcon';
 import useAuthStore from '@/store/useAuthStore';
 import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router';

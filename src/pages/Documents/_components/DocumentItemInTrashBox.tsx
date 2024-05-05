@@ -1,7 +1,7 @@
 import { DocumentItemPropsType, DocumentPropsType } from '@/types/Propstypes';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Trash, Undo } from 'lucide-react';
-import { ConfirmModal } from '@/components/modals/confirm-modal';
+import { ConfirmModal } from 'shared/components/modals/confirm-modal';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateDocument } from '@/services/api/documents/updateDocument';

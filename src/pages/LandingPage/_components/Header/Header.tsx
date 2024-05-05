@@ -1,7 +1,7 @@
 import useAuthStore from '@/store/useAuthStore';
 import Cookies from 'universal-cookie';
 import { clearTokens } from '@/lib/utils/token';
-import { Button } from '@/components/ui/button';
+import { Button } from 'shared/components/ui/button';
 
 const Header = () => {
   const { isAuthenticated, setIsAuthenticated } = useAuthStore(

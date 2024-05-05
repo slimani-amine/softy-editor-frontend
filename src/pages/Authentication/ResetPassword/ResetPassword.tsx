@@ -6,8 +6,8 @@ import { useResetPasswordQuery } from '@/services/queries/auth.query';
 import { ResetPasswordBody } from '@/types/auth';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import ResetPasswordIcon from '@/components/Shared/Icons/ResetPasswordIcon';
-import AuthNav from '@/components/AuthNav';
+import ResetPasswordIcon from 'shared/components/Shared/Icons/ResetPasswordIcon';
+import AuthNav from 'shared/components/AuthNav';
 import ResetPasswordForm from './_components/ResetPasswordForm/ResetPasswordForm';
 
 const ResetPassword = () => {

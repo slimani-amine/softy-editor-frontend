@@ -1,4 +1,4 @@
-import Button from '@/components/Shared/Button';
+import Button from 'shared/components/Shared/Button';
 import PlanningCards from '../PlanningCards';
 import { useUpdateUserQuery } from '@/services/queries/auth.query';
 import { useState } from 'react';

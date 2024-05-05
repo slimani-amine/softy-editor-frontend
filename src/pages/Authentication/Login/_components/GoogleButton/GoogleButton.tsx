@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { Button } from '@/components/ui/button';
+import { Button } from 'shared/components/ui/button';
 import { usegoogleLoginQuery } from '@/services/queries/auth.query';
 import toast from 'react-hot-toast';
 import { exchangeCodeForIdToken } from '@/services/api/auth.service';
 import useAuthStore from '@/store/useAuthStore';
 import { useGoogleLogin } from '@react-oauth/google';
 import { setTokens } from '@/lib/utils/token';
-import GoogleIcon from '@/components/Shared/Icons/googleIcon';
+import GoogleIcon from 'shared/components/Shared/Icons/googleIcon';
 import { useGetMyWorkSpacesQuery } from '@/services/queries/workspace.query';
 import { useNavigate } from 'react-router';
 

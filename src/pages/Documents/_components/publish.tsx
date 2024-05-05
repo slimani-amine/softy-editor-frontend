@@ -7,9 +7,9 @@ import {
   PopoverTrigger,
   Popover,
   PopoverContent,
-} from '@/components/ui/popover';
+} from 'shared/components/ui/popover';
 // import { api } from "@/convex/_generated/api";
-import { Button } from '@/components/ui/button';
+import { Button } from 'shared/components/ui/button';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateDocument } from '@/services/api/documents/updateDocument';
 import { DocumentItemPropsType } from '@/types/Propstypes';

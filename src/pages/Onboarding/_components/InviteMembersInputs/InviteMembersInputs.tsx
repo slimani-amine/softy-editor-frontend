@@ -1,4 +1,4 @@
-import Input from '@/components/Shared/Input';
+import Input from 'shared/components/Shared/Input';
 import { Plus } from 'lucide-react';
 
 export default function InviteMembersInputs({

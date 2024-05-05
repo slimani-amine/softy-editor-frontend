@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button';
+import { Button } from 'shared/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
-import Logo from '@/components/Shared/Icons/Logo';
+import Logo from 'shared/components/Shared/Icons/Logo';
 
 const Navbar = () => {
   return (
