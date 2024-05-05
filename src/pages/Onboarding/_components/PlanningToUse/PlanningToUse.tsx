@@ -2,8 +2,8 @@ import Button from 'shared/components/Shared/Button';
 import PlanningCards from '../PlanningCards';
 import { useUpdateUserQuery } from '@/services/queries/auth.query';
 import { useState } from 'react';
-import { User } from '@/types/user';
 import useAuthStore from '@/store/useAuthStore';
+import { User } from 'shared/types/user';
 
 export default function PlanningToUse({
   user,

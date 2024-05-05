@@ -1,4 +1,4 @@
-import { WorkspaceBoxInDropDownPropsType } from '@/types/Propstypes';
+import { WorkspaceBoxInDropDownPropsType } from 'shared/types/Propstypes';
 import { Avatar, AvatarImage } from 'shared/components/ui/avatar';
 import { Link } from 'react-router-dom';
 import useAuthStore from '@/store/useAuthStore';

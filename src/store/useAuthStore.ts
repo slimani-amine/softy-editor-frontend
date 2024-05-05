@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 import { logger } from './logger';
 import { clearItem, setItem } from '../lib/localStorage';
-import { WorkspaceBoxInNavigationPropsType } from '@/types/Propstypes';
-import { User } from '@/types/user';
-import { Workspace } from '@/types/workspace';
+import { WorkspaceBoxInNavigationPropsType } from 'shared/types/Propstypes';
+import { User } from 'shared/types/user';
+import { Workspace } from 'shared/types/workspace';
 
 interface AuthState {
   isInitialised: boolean;

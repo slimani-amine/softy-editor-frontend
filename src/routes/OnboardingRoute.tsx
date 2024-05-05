@@ -19,8 +19,8 @@ const OnboardingRoute: React.FC<Props> = ({ children }) => {
     myWorkspaces.length === 0
   ) {
     return children;
-  }else{
-    return <Navigate to="/login" />;
+  } else {
+    return <Navigate to="/pricing" />;
   }
 };
 

@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Input from 'shared/components/Shared/Input/Input';
 import { SendMailSchema } from '@/lib/validation';
 import { useSendMailQuery } from '@/services/queries/auth.query';
-import { SendMailBody } from '@/types/auth';
+import { SendMailBody } from 'shared/types/auth';
 import Button from 'shared/components/Shared/Button';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';

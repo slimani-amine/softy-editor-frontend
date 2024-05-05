@@ -6,7 +6,7 @@ import {
   useSendMailQuery,
 } from '@/services/queries/auth.query';
 import useAuthStore from '@/store/useAuthStore';
-import { LoginBody } from '@/types/auth';
+import { LoginBody } from 'shared/types/auth';
 import toast from 'react-hot-toast';
 import LoginForm from './_components/LoginForm/LoginForm';
 import AuthNav from 'shared/components/AuthNav';

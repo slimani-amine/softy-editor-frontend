@@ -4,7 +4,7 @@ import { Button } from 'shared/components/ui/button';
 import { Skeleton } from 'shared/components/ui/skeleton';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateDocument } from '@/services/api/documents/updateDocument';
-import { DocumentItemPropsType } from '@/types/Propstypes';
+import { DocumentItemPropsType } from 'shared/types/Propstypes';
 import toast from 'react-hot-toast';
 
 export const Title = ({ document }: DocumentItemPropsType) => {

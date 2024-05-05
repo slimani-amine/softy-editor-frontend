@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { CheckoutBody } from '@/types/payment';
+import { CheckoutBody } from 'shared/types/payment';
 import { checkout } from '../api/payment.service';
 
 export const useCheckoutQuery = () =>

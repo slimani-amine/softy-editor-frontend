@@ -14,7 +14,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateDocument } from '@/services/api/documents/updateDocument';
 import toast from 'react-hot-toast';
 import { formatDate } from 'shared/helpers/formatDate';
-import { DocumentItemPropsType, DocumentPropsType } from '@/types/Propstypes';
+import { DocumentItemPropsType, DocumentPropsType } from 'shared/types/Propstypes';
 
 export const Menu = ({ document }: DocumentItemPropsType) => {
   const queryClient = useQueryClient();

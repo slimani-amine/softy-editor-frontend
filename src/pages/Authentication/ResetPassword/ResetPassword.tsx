@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ResetPasswordSchema } from '@/lib/validation';
 import { useResetPasswordQuery } from '@/services/queries/auth.query';
-import { ResetPasswordBody } from '@/types/auth';
+import { ResetPasswordBody } from 'shared/types/auth';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import ResetPasswordIcon from 'shared/components/Shared/Icons/ResetPasswordIcon';

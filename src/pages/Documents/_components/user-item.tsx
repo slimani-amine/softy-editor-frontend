@@ -19,7 +19,7 @@ import WorkSpaceBoxInNavigation from './WorkSpaceBoxInNavigation';
 import WorkspaceBoxInDropDown from './WorkspaceBoxInDropDown';
 import Spinner from 'shared/components/Shared/Spinner';
 import { clearTokens } from '@/lib/utils/token';
-import { Workspace } from '@/types/workspace';
+import { Workspace } from 'shared/types/workspace';
 
 export const UserItem = () => {
   const { isAuthenticated, setIsAuthenticated, myWorkspaces , setMyWorkspaces } = useAuthStore(

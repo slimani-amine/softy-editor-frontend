@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { RegisterSchema } from '@/lib/validation';
 import { useRegisterQuery } from '@/services/queries/auth.query';
 import useAuthStore from '@/store/useAuthStore';
-import { RegisterBody } from '@/types/auth';
+import { RegisterBody } from 'shared/types/auth';
 import toast from 'react-hot-toast';
 
 import AuthNav from 'shared/components/AuthNav';

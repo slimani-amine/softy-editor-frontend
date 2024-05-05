@@ -11,7 +11,7 @@ import { useParams } from 'react-router';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getDocumentsofWorkspace } from '@/services/api/documents/getDocumentsofWorkspace';
-import { DocumentItemPropsType, DocumentPropsType } from '@/types/Propstypes';
+import { DocumentItemPropsType, DocumentPropsType } from 'shared/types/Propstypes';
 import DocumentItemInTrashBox from './DocumentItemInTrashBox';
 import Spinner from 'shared/components/Shared/Spinner';
 

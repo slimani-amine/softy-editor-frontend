@@ -1,6 +1,6 @@
 import { api } from '@/lib/api';
-import { CheckoutBody } from '@/types/payment';
 import { BASE_URL } from 'shared/config';
+import { CheckoutBody } from 'shared/types/payment';
 
 export const checkout = async (body: CheckoutBody) => {
   try {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cn } from '@udecode/cn';
 
-import { NavItem } from '@/types/nav';
+import { NavItem } from 'shared/types/nav';
 import { siteConfig } from '@/lib/site';
 import { Icons } from 'shared/components/icons';
 import { Link } from 'react-router-dom';

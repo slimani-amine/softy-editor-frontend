@@ -23,7 +23,7 @@ import {
   DropdownMenuSeparator,
 } from 'shared/components/ui/dropdown-menu';
 import { useNavigate, useParams } from 'react-router';
-import { DocumentItemPropsType } from '@/types/Propstypes';
+import { DocumentItemPropsType } from 'shared/types/Propstypes';
 import { Link } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateDocument } from '@/services/api/documents/updateDocument';

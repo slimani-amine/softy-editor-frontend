@@ -7,7 +7,7 @@ import {
   ResetPasswordBody,
   SendMailBody,
   UpdateUserBody,
-} from '@/types/auth';
+} from 'shared/types/auth';
 import axios from 'axios';
 import { BASE_URL, googleClientId, googleSecret } from 'shared/config';
 
@@ -42,7 +42,7 @@ export const updateUser = async (body: UpdateUserBody) => {
   try {
     const { data } = await api.patch(`${BASE_URL}/users/${body.id}`, body);
     return data;
-  } catch (error: any) {    
+  } catch (error: any) {
     throw error;
   }
 };
@@ -97,4 +97,3 @@ export const getUsersByEmails = async (body: GetUsersByEmailsBody) => {
     throw error;
   }
 };
-

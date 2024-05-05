@@ -1,4 +1,4 @@
-import { AddMembersBody, CreateWorkspaceBody } from '@/types/workspace';
+import { AddMembersBody, CreateWorkspaceBody } from 'shared/types/workspace';
 import { useMutation } from '@tanstack/react-query';
 import { addMembers, createWorkspace, getMyWorkspaces } from '../api/workspace.service';
 

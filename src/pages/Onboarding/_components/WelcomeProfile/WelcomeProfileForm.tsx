@@ -4,12 +4,12 @@ import Input from 'shared/components/Shared/Input';
 import EmptyAvatar from 'shared/components/Shared/Icons/EmptyAvatar';
 import { uplaodImage } from 'shared/utils/uploadImage';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { ProfileBody } from '@/types/auth';
+import { ProfileBody } from 'shared/types/auth';
 import { profileSchema } from '@/lib/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useUpdateUserQuery } from '@/services/queries/auth.query';
 import { useState } from 'react';
-import { User } from '@/types/user';
+import { User } from 'shared/types/user';
 import useAuthStore from '@/store/useAuthStore';
 interface Props {
   user: User | null;

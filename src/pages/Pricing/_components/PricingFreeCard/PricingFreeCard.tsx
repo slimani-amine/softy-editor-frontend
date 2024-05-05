@@ -10,8 +10,8 @@ import {
 } from 'shared/components/ui/card';
 import FreeIcon from 'shared/components/Shared/Icons/FreeIcon';
 import { useNavigate } from 'react-router';
-import { Offer } from '@/types/user';
-import { Workspace } from '@/types/workspace';
+import { Offer } from 'shared/types/user';
+import { Workspace } from 'shared/types/workspace';
 
 interface Detail {
   title: string;
@@ -45,7 +45,7 @@ interface PricingFreeCardProps {
   className?: string;
   billingPeriod: 'monthly' | 'yearly';
   offer: Offer | undefined;
-  myWorkspaces?: Workspace[];
+  myWorkspaces?: Workspace[] | null;
 }
 
 const PricingFreeCard: React.FC<PricingFreeCardProps> = ({

@@ -1,6 +1,6 @@
 import Button from 'shared/components/Shared/Button';
 import Input from 'shared/components/Shared/Input';
-import { LoginBody } from '@/types/auth';
+import { LoginBody } from 'shared/types/auth';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 

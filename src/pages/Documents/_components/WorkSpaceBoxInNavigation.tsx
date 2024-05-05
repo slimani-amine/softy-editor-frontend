@@ -1,6 +1,6 @@
 import { Avatar, AvatarImage } from 'shared/components/ui/avatar';
 
-import { WorkspaceBoxInNavigationPropsType } from '@/types/Propstypes';
+import { WorkspaceBoxInNavigationPropsType } from 'shared/types/Propstypes';
 
 export default function WorkSpaceBoxInNavigation({
   workspace,

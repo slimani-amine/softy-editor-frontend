@@ -1,4 +1,4 @@
-import { DocumentItemPropsType, DocumentPropsType } from '@/types/Propstypes';
+import { DocumentItemPropsType, DocumentPropsType } from 'shared/types/Propstypes';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Trash, Undo } from 'lucide-react';
 import { ConfirmModal } from 'shared/components/modals/confirm-modal';

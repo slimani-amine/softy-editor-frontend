@@ -7,7 +7,7 @@ import {
   SendMailBody,
   UpdateUserBody,
   type LoginBody,
-} from '@/types/auth';
+} from 'shared/types/auth';
 import {
   login,
   googleLogin,

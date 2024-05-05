@@ -1,5 +1,5 @@
 import { api } from '@/lib/api';
-import { AddMembersBody, CreateWorkspaceBody } from '@/types/workspace';
+import { AddMembersBody, CreateWorkspaceBody } from 'shared/types/workspace';
 
 import { BASE_URL } from 'shared/config';
 

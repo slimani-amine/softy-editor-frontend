@@ -1,5 +1,3 @@
-import Button from 'shared/components/Shared/Button';
-import Input from 'shared/components/Shared/Input';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { inviteMembersSchema } from '@/lib/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,10 +9,7 @@ import { useState } from 'react';
 import { useAddMembers } from '@/services/queries/workspace.query';
 import useAuthStore from '@/store/useAuthStore';
 import { useNavigate } from 'react-router';
-import { Plus } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { TextareaForm } from 'shared/components/ui/TextareaForm';
-import InviteMembersInputs from '../InviteMembersInputs';
 import InviteMembersHeader from '../InviteMembersHeader';
 import InviteMembersForm from '../InviteMembersForm';
 import { User } from 'shared/types/user';
@@ -58,15 +53,15 @@ export default function InviteMembers({
     useAddMembers();
 
   const onSubmit: SubmitHandler<InviteMembersBody> = async (data) => {
-    console.log("🚀 ~ constonSubmit:SubmitHandler<InviteMembersBody>= ~ data:", data)
     const { email_01, email_02, email_03 } = data;
     const newEmails: Set<string> = new Set(emails);
     if (more) {
-      console.log("ghbjkn");
-      
       if (textAreaValue) {
         const emailsFromTextArea = textAreaValue.split(/[\s,]+/);
-        console.log("🚀 ~ constonSubmit:SubmitHandler<InviteMembersBody>= ~ emailsFromTextArea:", emailsFromTextArea)
+        console.log(
+          '🚀 ~ constonSubmit:SubmitHandler<InviteMembersBody>= ~ emailsFromTextArea:',
+          emailsFromTextArea,
+        );
         emailsFromTextArea.forEach((email) => newEmails.add(email));
         if (emailsFromTextArea.length > 10) {
           toast.error('You can invite a maximum of 10 guests for your plan.');
@@ -82,8 +77,8 @@ export default function InviteMembers({
       if (newEmails.size === 0) {
         const body = { id: user?.id, status: { id: 1 } };
         const res = await update(body);
-        setIsInviteTeam(true);
         setUser(res);
+        setIsInviteTeam(true);
         navigate('/pricing');
       } else {
         setInvite(true);

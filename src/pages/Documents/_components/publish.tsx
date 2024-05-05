@@ -12,7 +12,7 @@ import {
 import { Button } from 'shared/components/ui/button';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateDocument } from '@/services/api/documents/updateDocument';
-import { DocumentItemPropsType } from '@/types/Propstypes';
+import { DocumentItemPropsType } from 'shared/types/Propstypes';
 import toast from 'react-hot-toast';
 import { useOrigin } from 'shared/hooks/use-origin';
 

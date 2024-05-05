@@ -5,7 +5,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { Button } from 'shared/components/ui/button';
 
 import { IconPicker } from './icon-picker';
-import { DocumentPropsType } from '@/types/Propstypes';
+import { DocumentPropsType } from 'shared/types/Propstypes';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateDocument } from '@/services/api/documents/updateDocument';
 import toast from 'react-hot-toast';
