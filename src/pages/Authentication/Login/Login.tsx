@@ -84,12 +84,13 @@ const Login = () => {
   };
 
   const onSubmit: SubmitHandler<LoginBody> = async (data) => {
-
     if (forgotPassword) {
+      // If user is trying to reset password, send mail
       await sendMail(data);
       setMailSended(true);
     }
     if (data.email && !sendMailLogin) {
+      // If email is provided and not already sent mail login
       setEmail(data.email);
       const res = await login(data);
       if (res) {
@@ -98,8 +99,10 @@ const Login = () => {
           user.provider === 'email' &&
           (user?.status?.id === 1 || user?.plan?.id)
         ) {
+          // If user's status is active or has a plan, show password input
           setShowPassword(true);
         } else if (user.provider === 'email' && user.status.id === 2) {
+          // If user is new and signed up with email, show verification code input
           const { token: accessToken, refreshToken } = res;
           setIseNewUser(true);
           setShowCode(true);
@@ -107,6 +110,7 @@ const Login = () => {
           setRefreshToken(refreshToken);
           setToken(accessToken);
         } else {
+          // If user is neither new nor active, show verification code input
           const { token: accessToken, refreshToken } = res;
           setShowCode(true);
           setUser(user);
@@ -116,18 +120,23 @@ const Login = () => {
       }
       setSendMailLogin(true);
     } else if (data.code && token) {
+      // If verification code is provided and token exists
       if (data.code.length !== 19) {
+        // Check if code length is valid
         setAllErrors({ ...allErrors, validationError: 'Code invalid' });
       }
       const hash = jwtDecode(token) as any;
       const decode = generateUniqueCode(hash.hash);
       if (data.code === decode) {
+        // If verification code is correct
         if (user?.status?.id === 2) {
+          // If user is new, navigate to onboarding
           setTokens(token, refreshToken);
           setToken(token);
           setIsAuthenticated(true);
           navigate('/onboarding');
         } else {
+          // If user is not new, fetch workspaces and navigate to the first workspace's documents page
           setTokens(token, refreshToken);
           setToken(token);
           setIsAuthenticated(true);
@@ -140,9 +149,11 @@ const Login = () => {
           }
         }
       } else {
+        // If verification code is incorrect, show error
         setAllErrors({ ...allErrors, validationError: 'Code invalid' });
       }
     } else if (data.password) {
+      // If password is provided, attempt email login
       const res = await emailLogin({
         email: data.email,
         password: data.password,
@@ -154,14 +165,17 @@ const Login = () => {
       const myWorkspaces = await getMyWorkspaces(accessToken);
       setIsAuthenticated(true);
       if (myWorkspaces && myWorkspaces.length > 0) {
+        // If user has workspaces, navigate to the first workspace's documents page
         setMyWorkspaces(myWorkspaces);
         navigate(`/workspaces/${myWorkspaces[0]?.id}/documents`);
       } else {
+        // If user has no workspaces, navigate to onboarding
         navigate('/onboarding');
       }
       setIsAuthenticated(true);
     }
   };
+
   return (
     <div className="h-full flex flex-col justify-center ">
       <AuthNav />
