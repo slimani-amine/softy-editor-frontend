@@ -19,11 +19,13 @@ interface LoginFormProps {
   resend: (email: string) => void;
   setSendMailLogin: (value: boolean) => void;
   allErrors: {
-    emailLoginError?: { response: { data: { errors: { password: string } } } };
+    loginError?: any;
+    emailLoginError?: any;
     validationError?: string;
   };
   setAllErrors: (errors: {
-    emailLoginError?: { response: { data: { errors: { password: string } } } };
+    loginError?: any;
+    emailLoginError?: any;
     validationError?: string;
   }) => void;
 }
@@ -44,6 +46,7 @@ export default function LoginForm({
   allErrors,
   setAllErrors,
 }: LoginFormProps) {
+  console.log('🚀 ~ allErrors:', allErrors.loginError?.message);
   const [resendTimer, setResendTimer] = useState<number | null>(null);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
   const [codeValue, setCodeValue] = useState('');
@@ -174,6 +177,7 @@ export default function LoginForm({
                   className="text-sm text-blue-500 font-semibold leading-4 cursor-pointer"
                   onClick={() => {
                     setForgotPassword(true);
+                    setAllErrors({})
                   }}
                 >
                   Forgot your password ?
@@ -190,9 +194,24 @@ export default function LoginForm({
               {allErrors.emailLoginError &&
                 allErrors.emailLoginError.response?.data?.errors?.password && (
                   <span className="text-red-500">
-                    {allErrors.emailLoginError.response.data.errors.password}
+                    {allErrors.emailLoginError.response.data.errors.password
+                      .replace(/([A-Z])/g, ' $1')
+                      .trim()}
                   </span>
                 )}
+              {allErrors.loginError &&
+                allErrors.loginError.response?.data?.errors?.email && (
+                  <span className="text-red-500">
+                    {allErrors.emailLoginError.response.data.errors.email
+                      .replace(/([A-Z])/g, ' $1')
+                      .trim()}
+                  </span>
+                )}
+              {allErrors.loginError?.message && (
+                <span className="text-red-500">
+                  {allErrors.loginError?.message}
+                </span>
+              )}
               {allErrors.validationError && (
                 <span className="text-red-500">
                   {allErrors.validationError}

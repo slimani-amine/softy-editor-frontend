@@ -8,6 +8,7 @@ interface Props {
 
 const OnboardingRoute: React.FC<Props> = ({ children }) => {
   const { user, myWorkspaces } = useAuthStore((state) => state);
+  console.log("🚀 ~ user:", user)
 
   if (!user) {
     return <Navigate to="/login" />;
@@ -19,6 +20,8 @@ const OnboardingRoute: React.FC<Props> = ({ children }) => {
     myWorkspaces.length === 0
   ) {
     return children;
+  }else{
+    return <Navigate to="/login" />;
   }
 };
 

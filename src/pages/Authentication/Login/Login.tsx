@@ -37,8 +37,8 @@ const Login = () => {
   const defaultValues = { email: email };
 
   const navigate = useNavigate();
-  const { isLoading, mutateAsync: login, isError, error } = useLoginQuery();
 
+  const { isLoading, mutateAsync: login, isError, error } = useLoginQuery();
   const {
     isLoading: emailLoginLoading,
     mutateAsync: emailLogin,
