@@ -3,10 +3,11 @@
 # React Query, Zustand, TypeScript & Vite Boilerplate
 
 E-ditor is a Notion clone project that aims to replicate some of the core features of Notion.
+![E-ditor Logo](<./public/Black%20And%20White%20Aesthetic%20Minimalist%20Modern%20Simple%20Typography%20Coconut%20Cosmetics%20Logo%20(1).png>)
 
 ## Stack
 
-![E-ditor Logo](<./public/Black%20And%20White%20Aesthetic%20Minimalist%20Modern%20Simple%20Typography%20Coconut%20Cosmetics%20Logo%20(1).png>)
+![My Tech Stack](https://github-readme-tech-stack.vercel.app/api/cards?align=center&titleAlign=center&lineCount=4&theme=github_dark&hideTitle=true&line1=react,react,61DAFB;react-query,react-query,FF4500;&line3=typescript,typescript,3178C6;vite,vite,646CFF;&line2=zustand,zustand,64D5CA;axios,axios,4183C4;&line4=eslint,eslint,4B32C3;prettier,prettier,F7B93E;)
 
 | Tool        | Purpose                                           |
 | ----------- | ------------------------------------------------- |
