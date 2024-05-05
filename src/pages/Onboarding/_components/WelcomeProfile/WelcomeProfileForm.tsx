@@ -56,20 +56,20 @@ export default function WelcomeProfileForm({ user, setIsHaveProfile }: Props) {
       className="flex flex-col items-center gap-3 "
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="flex flex-col items-center gap-4">
+      <label className="flex flex-col items-center gap-4">
+        <input
+          type="file"
+          className="hidden "
+          accept="image/*"
+          onChange={(e) => {
+            uplaodImage(e, setSelectedFileUrl);
+          }}
+        />
         <EmptyAvatar selectedFileUrl={selectedFileUrl} />
-        <label className="text-xs text-gray-500 cursor-pointer hover:bg-gray-200 px-2 py-1 hover:rounded-[4px]">
-          <input
-            type="file"
-            className="hidden"
-            accept="image/*"
-            onChange={(e) => {
-              uplaodImage(e, setSelectedFileUrl);
-            }}
-          />
+        <p className="text-xs text-gray-500 cursor-pointer hover:bg-gray-200 px-2 py-1 hover:rounded-[4px]">
           Add a photo
-        </label>
-      </div>
+        </p>
+      </label>
 
       <div className="flex flex-col gap-4 w-[80%]">
         <Input

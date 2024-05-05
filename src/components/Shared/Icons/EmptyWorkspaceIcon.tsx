@@ -4,7 +4,7 @@ const EmptyWorkspaceIcon = ({ selectedFileUrl }: any) => {
       <h1 className="text-2xl text-[#74736E]">A</h1>
     </div>
   ) : (
-    <img src={selectedFileUrl} alt="empty-avatar" className=" w-16 h-16 " />
+    <img src={selectedFileUrl} alt="empty-avatar" className=" w-16 h-16 cursor-pointer" />
   );
 };
 
