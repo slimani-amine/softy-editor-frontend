@@ -44,11 +44,8 @@ const details: Detail[] = [
 interface PricingFreeCardProps {
   className?: string;
   billingPeriod: 'monthly' | 'yearly';
-<<<<<<< HEAD
   offer: Offer | undefined;
   myWorkspaces?: Workspace[] | null;
-=======
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2
 }
 
 const PricingFreeCard: React.FC<PricingFreeCardProps> = ({
