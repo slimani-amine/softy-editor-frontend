@@ -12,7 +12,7 @@ export interface InviteMembersBody {
 
 export interface AddMembersBody {
   id: number;
-  members?: { id: number }[];
+  emails:string[]
 }
 
 export interface Workspace {

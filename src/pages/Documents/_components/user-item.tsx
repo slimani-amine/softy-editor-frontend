@@ -1,4 +1,3 @@
-import { ChevronsLeftRight } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,12 +6,15 @@ import {
   DropdownMenuTrigger,
 } from 'shared/components/ui/dropdown-menu';
 import useAuthStore from '@/store/useAuthStore';
+
 import { Navigate, useParams } from 'react-router-dom';
 import WorkSpaceBoxInNavigation from './WorkSpaceBoxInNavigation';
 import WorkspaceBoxInDropDown from './WorkspaceBoxInDropDown';
 import { clearTokens } from '@/lib/utils/token';
-import { Workspace } from 'shared/types/workspace';
+import { ChevronsLeftRight } from 'lucide-react';
 import { Button } from 'shared/components/ui/button';
+import { UserItemMenu } from './user-item-menu';
+import { Workspace } from 'shared/types/workspace';
 
 export const UserItem = () => {
   const {
@@ -61,11 +63,11 @@ export const UserItem = () => {
             <p className="text-xs font-medium leading-none text-muted-foreground">
               {user?.email || 'unknown email'}
             </p>
+            <UserItemMenu />
           </div>
-
           {myWorkspaces &&
             myWorkspaces?.length > 0 &&
-            myWorkspaces?.map((workspace: Workspace) => (
+            myWorkspaces?.map((workspace: any) => (
               <WorkspaceBoxInDropDown
                 workspace={workspace}
                 inWorkspaceId={workspaceId}

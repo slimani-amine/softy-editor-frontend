@@ -11,7 +11,7 @@ import toast from 'react-hot-toast';
 import LoginForm from './_components/LoginForm/LoginForm';
 import AuthNav from 'shared/components/AuthNav';
 import { generateUniqueCode } from '@/lib/utils/generateUniqueCode';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { setTokens } from '@/lib/utils/token';
 import { useGetMyWorkSpacesQuery } from '@/services/queries/workspace.query';
@@ -19,6 +19,8 @@ import GoogleButton from './_components/GoogleButton';
 import AppleButton from './_components/AppleButton';
 import SingleAuthButton from './_components/SingleAuthButton';
 import Terms from './_components/Terms';
+import { string } from 'slate';
+import { isValidToken } from 'shared/utils/isValidToken';
 
 const Login = () => {
   const { setIsAuthenticated, setUser, user, myWorkspaces, setMyWorkspaces } =
@@ -37,6 +39,22 @@ const Login = () => {
   const defaultValues = { email: email };
 
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [isAnInvitation, setIsAnInvitation] = useState(
+    searchParams.get('invite'),
+  );
+  const [emailInvitation, setEmailInvitation] = useState('');
+
+  useEffect(() => {
+    const inviteToken = searchParams.get('token') as string;
+    if (isAnInvitation) {
+      if (isValidToken(inviteToken)) {
+        const hash = jwtDecode(inviteToken) as any;
+        setEmail(hash.invitedEmail);
+        setEmailInvitation('zz');
+      }
+    }
+  }, [isAnInvitation]);
 
   const { isLoading, mutateAsync: login, isError, error } = useLoginQuery();
   const {
@@ -210,6 +228,8 @@ const Login = () => {
               setSendMailLogin={setSendMailLogin}
               allErrors={allErrors}
               setAllErrors={setAllErrors}
+              isAnInvitation={isAnInvitation}
+              emailInvitation={emailInvitation}
             />
             <Terms className="w-full text-xs text-[#62615c] text-center mt-16 font-normal" />
           </div>

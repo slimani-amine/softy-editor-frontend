@@ -29,8 +29,8 @@ export const getMyWorkspaces = async function ({ token }: { token: string }) {
 
 export const addMembers = async (body: AddMembersBody) => {
   try {
-    const { data } = await api.patch(`${BASE_URL}/workspaces/${body.id}`, {
-      members: body.members,
+    const { data } = await api.post(`${BASE_URL}/workspaces/${body.id}`, {
+      emails: body.emails,
     });
     return data;
   } catch (error: any) {

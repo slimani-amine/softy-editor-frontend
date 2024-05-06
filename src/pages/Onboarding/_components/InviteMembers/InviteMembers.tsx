@@ -58,10 +58,6 @@ export default function InviteMembers({
     if (more) {
       if (textAreaValue) {
         const emailsFromTextArea = textAreaValue.split(/[\s,]+/);
-        console.log(
-          '🚀 ~ constonSubmit:SubmitHandler<InviteMembersBody>= ~ emailsFromTextArea:',
-          emailsFromTextArea,
-        );
         emailsFromTextArea.forEach((email) => newEmails.add(email));
         if (emailsFromTextArea.length > 10) {
           toast.error('You can invite a maximum of 10 guests for your plan.');
@@ -105,9 +101,10 @@ export default function InviteMembers({
             (user: User) => user.id,
           );
           usersIds.push(user?.id as any);
+
           const body = {
             id: workspaceId,
-            members: usersIds.map((id) => ({ id })),
+            emails: Array.from(newEmails),
           };
           const res = await addMembers(body);
           setMyWorkspaces(res);

@@ -28,6 +28,8 @@ interface LoginFormProps {
     emailLoginError?: any;
     validationError?: string;
   }) => void;
+  isAnInvitation: boolean;
+  emailInvitation: string;
 }
 export default function LoginForm({
   isNewUser,
@@ -45,6 +47,8 @@ export default function LoginForm({
   setSendMailLogin,
   allErrors,
   setAllErrors,
+  isAnInvitation,
+  emailInvitation,
 }: LoginFormProps) {
   const [resendTimer, setResendTimer] = useState<number | null>(null);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
@@ -97,6 +101,7 @@ export default function LoginForm({
               type="email"
               label="Email"
               defaultValue={defaultValues?.email}
+              value={emailInvitation && emailInvitation}
               autoComplete="email"
               aria-label="Enter your email address..."
               className="w-full outline-none border border-gray-200 h-9 rounded-[5px] px-2 placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
@@ -112,6 +117,7 @@ export default function LoginForm({
                 }
                 resetErrors();
               }}
+              disabled={isAnInvitation}
             />
             <p className="text-sm text-[#ACABA9] font-light leading-4">
               Use an organization email to easily collaborate with teammates
