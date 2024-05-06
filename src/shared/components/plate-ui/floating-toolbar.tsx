@@ -20,7 +20,7 @@ export const FloatingToolbar = withRef<
   const floatingToolbarState = useFloatingToolbarState({
     ...state,
     floatingOptions: {
-      placement: 'top',
+      placement: 'top-start',
       middleware: [
         offset(12),
         flip({

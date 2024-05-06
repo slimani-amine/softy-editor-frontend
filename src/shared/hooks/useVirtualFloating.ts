@@ -49,7 +49,6 @@ export const useVirtualFloating = <RT extends ReferenceType = ReferenceType>({
   const [visible, setVisible] = React.useState(true);
 
   const floatingResult = useFloating<RT>({
-    // update on scroll and resize
     whileElementsMounted: autoUpdate,
     ...floatingOptions,
   });

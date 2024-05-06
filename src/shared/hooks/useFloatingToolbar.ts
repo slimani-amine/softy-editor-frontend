@@ -77,8 +77,6 @@ export const useFloatingToolbar = ({
   ignoreReadOnly,
   hideToolbar,
 }: ReturnType<typeof useFloatingToolbarState>) => {
-  // On refocus, the editor keeps the previous selection,
-  // so we need to wait it's collapsed at the new position before displaying the floating toolbar.
   React.useEffect(() => {
     if (!focused || ignoreReadOnly) {
       setWaitForCollapsedSelection(true);

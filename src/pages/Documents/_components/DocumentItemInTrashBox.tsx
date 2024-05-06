@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { DocumentItemPropsType, DocumentPropsType } from 'shared/types/Propstypes';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+=======
+import { DocumentItemPropsType, DocumentPropsType } from '@/types/Propstypes';
+import { useNavigate, useParams } from 'react-router-dom';
+>>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2
 import { Trash, Undo } from 'lucide-react';
 import { ConfirmModal } from 'shared/components/modals/confirm-modal';
 import toast from 'react-hot-toast';

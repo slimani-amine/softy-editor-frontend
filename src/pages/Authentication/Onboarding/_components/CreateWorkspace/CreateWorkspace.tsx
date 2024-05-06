@@ -1,36 +1,36 @@
-
+import Button from '@/components/Shared/Button';
+import Input from '@/components/Shared/Input';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { CreateWorkspaceBody } from '@/types/workspace';
 import { createWorkspaceSchema } from '@/lib/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useUpdateUserQuery } from '@/services/queries/auth.query';
 import EmojiPicker from 'emoji-picker-react';
 import { useState, useEffect, useRef } from 'react';
 import { useCreateWorkSpaceQuery } from '@/services/queries/workspace.query';
+import EmptyWorkspaceIcon from '@/components/Shared/Icons/EmptyWorkspaceIcon';
 import useAuthStore from '@/store/useAuthStore';
 import { useNavigate } from 'react-router';
-import { User } from 'shared/types/user';
-import EmptyWorkspaceIcon from 'shared/components/Shared/Icons/EmptyWorkspaceIcon';
-import { CreateWorkspaceBody } from 'shared/types/workspace';
-import Input from 'shared/components/Shared/Input';
-import Button from 'shared/components/Shared/Button';
+import { useQuery } from '@tanstack/react-query';
+import { getMyWorkspaces } from 'api/workspaces/getMyWorkspaces';
 
-export default function CreateWorkspace({
-  user,
-  setIsHaveAWorkspace,
-}: {
-  user: User | null;
-<<<<<<< HEAD:src/pages/Onboarding/_components/CreateWorkspace/CreateWorkspace.tsx
-  setIsHaveAWorkspace: React.Dispatch<React.SetStateAction<boolean>>;
-=======
-  setIsHaveProfile?: any;
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2:src/pages/Authentication/Onboarding/_components/InviteMembers/InviteMembers.tsx
-}) {
-  const { setMyWorkspaces } = useAuthStore((state) => state);
+export default function CreateWorkspace({ user, setIsHaveAWorkspace }: any) {
+  const { setUser, setIsAuthenticated, setMyWorkspaces } = useAuthStore(
+    (state) => state,
+  );
   const navigate = useNavigate();
 
   const [selectedFileUrl, setSelectedFileUrl] = useState<string>();
   const [open, setOpen] = useState<boolean>(false);
 
   const emojiPickerRef = useRef<HTMLDivElement>(null);
+
+  const {
+    isLoading: isUpdateLoading,
+    mutateAsync: update,
+    isError: isUpdateError,
+    error: updateError,
+  }: any = useUpdateUserQuery();
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -72,23 +72,17 @@ export default function CreateWorkspace({
 
     try {
       const res = await CreateWorkspace(data);
-<<<<<<< HEAD:src/pages/Onboarding/_components/CreateWorkspace/CreateWorkspace.tsx
-      setMyWorkspaces(res);
-      setIsHaveAWorkspace(true);
-    } catch (error) {
-      console.error('Something went wrong. Please try again');
-    }
-=======
-      if (res) {
-        setIsHaveProfile(true);
-      }
-      const updateUser = await update({ status: { id: 1 }, id: user?.id });
+      const resArray = [res];
+
+      const updateUser = await update({ status: { id: 1 }, id: user.id });
+      setMyWorkspaces(resArray);
       if (updateUser) {
         setUser(updateUser);
+        setIsAuthenticated(true);
         navigate(`/workspaces/${res?.id}/documents`);
       }
+      setMyWorkspaces(res);
     } catch (error) {}
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2:src/pages/Authentication/Onboarding/_components/InviteMembers/InviteMembers.tsx
   };
 
   return (
@@ -96,30 +90,32 @@ export default function CreateWorkspace({
       className="flex flex-col items-center cursor-pointer gap-3 relative "
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div ref={emojiPickerRef}>
-        <label
-          onClick={() => {
-            setOpen(!open);
-          }}
-          className="flex flex-col items-center gap-2"
-        >
-          <EmptyWorkspaceIcon selectedFileUrl={selectedFileUrl} />
-          <p className="text-xs text-gray-500 cursor-pointer hover:bg-gray-200 px-2 py-1 hover:rounded-[4px]">
+      <div className="flex flex-col items-center gap-2">
+        <EmptyWorkspaceIcon selectedFileUrl={selectedFileUrl} />
+        <div ref={emojiPickerRef}>
+          <label
+            className="text-xs text-gray-500 cursor-pointer hover:bg-gray-200 px-2 py-1 hover:rounded-[4px]"
+            onClick={() => {
+              setOpen(!open);
+            }}
+          >
             Choose icon
-          </p>
-        </label>
-        {open && (
-          <div className="absolute z-10">
-            <EmojiPicker
-              onEmojiClick={(e) => {
-                setSelectedFileUrl(e.imageUrl);
-              }}
-              height={'350px'}
-              width={'400px'}
-              searchDisabled={false}
-            />
-          </div>
-        )}
+          </label>
+          {open && (
+            <div className="absolute z-10">
+              {' '}
+              <EmojiPicker
+                onEmojiClick={(e) => {
+                  console.log(e.imageUrl);
+                  setSelectedFileUrl(e.imageUrl);
+                }}
+                height={'300px'}
+                width={'400px'}
+                searchDisabled={true}
+              />
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="flex flex-col gap-4 w-[80%]">

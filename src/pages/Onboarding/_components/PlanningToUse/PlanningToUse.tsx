@@ -10,7 +10,11 @@ export default function PlanningToUse({
   setIsHaveAPlan,
 }: {
   user: User | null;
+<<<<<<< HEAD:src/pages/Onboarding/_components/PlanningToUse/PlanningToUse.tsx
   setIsHaveAPlan: React.Dispatch<React.SetStateAction<boolean>>;
+=======
+  setIsHaveAPlan: any;
+>>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2:src/pages/Authentication/Onboarding/_components/PlanningToUse/PlanningToUse.tsx
 }) {
   const { setUser } = useAuthStore((state) => state);
 

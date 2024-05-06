@@ -6,7 +6,6 @@ const tiktokRegex =
 export const parseTikTokUrl = (url: string): EmbedUrlData | undefined => {
   const match = url.match(tiktokRegex);
   if (match) {
-    // Extract the video ID from the URL
     const videoId = match[1];
     return {
       provider: 'tiktok',

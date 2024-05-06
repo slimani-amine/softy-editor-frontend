@@ -1,9 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import {
-  errorInterceptor,
-  requestInterceptor,
-  successInterceptor,
-} from './interceptors';
+import { errorInterceptor, successInterceptor } from './interceptors';
 import { getTokens } from './utils/token';
 import { BASE_URL } from 'shared/config';
 

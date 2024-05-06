@@ -10,7 +10,6 @@ const Heroes = () => {
           />
           <img
             src="/documents-dark.png"
-            // fill
             className="object-contain dark:block hidden"
             alt="Documents"
           />
@@ -23,7 +22,6 @@ const Heroes = () => {
           />
           <img
             src="/reading-dark.png"
-            // fill
             className="object-contain hidden dark:block"
             alt="Reading"
           />

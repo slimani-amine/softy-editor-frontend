@@ -1,11 +1,12 @@
-import { MoreHorizontal, Trash } from 'lucide-react';
-
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
+<<<<<<< HEAD
 } from 'shared/components/ui/dropdown-menu';
 import { Button } from 'shared/components/ui/button';
 import { Skeleton } from 'shared/components/ui/skeleton';
@@ -15,10 +16,18 @@ import { updateDocument } from '@/services/api/documents/updateDocument';
 import toast from 'react-hot-toast';
 import { formatDate } from 'shared/helpers/formatDate';
 import { DocumentItemPropsType, DocumentPropsType } from 'shared/types/Propstypes';
+=======
+} from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { updateDocument } from 'api/documents/updateDocument';
+import { DocumentItemPropsType } from '@/types/Propstypes';
+import { MoreHorizontal, Trash } from 'lucide-react';
+import { formatDate } from 'shared/helpers/formatDate';
+>>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2
 
 export const Menu = ({ document }: DocumentItemPropsType) => {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   const { mutateAsync: updateDocIsPermanentlyDeleted } = useMutation({
     mutationFn: async ({ documentId }: { documentId: string }) => {

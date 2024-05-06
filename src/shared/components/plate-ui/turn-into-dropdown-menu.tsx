@@ -124,13 +124,9 @@ export function TurnIntoDropdownMenu(props: DropdownMenuProps) {
           value={value}
           onValueChange={(type) => {
             if (type === 'ul' || type === 'ol') {
-              //   if (settingsStore.get.checkedId(KEY_LIST_STYLE_TYPE)) {
               toggleIndentList(editor, {
                 listStyleType: type === 'ul' ? 'disc' : 'decimal',
               });
-              //   } else if (settingsStore.get.checkedId('list')) {
-              //     toggleList(editor, { type });
-              //   }
             } else {
               unwrapList(editor);
               toggleNodeType(editor, { activeType: type });

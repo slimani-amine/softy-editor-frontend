@@ -4,15 +4,11 @@ import {
   Plus,
   PlusCircle,
   Search,
-  Settings,
   Trash,
 } from 'lucide-react';
 import { ElementRef, useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
-// import { useMutation } from 'convex/react';
-
 import { cn } from '@/lib/utils';
-// import { api } from '@/convex/_generated/api';
 import {
   Popover,
   PopoverTrigger,
@@ -28,14 +24,16 @@ import { useLocation, useNavigate, useParams } from 'react-router';
 import toast from 'react-hot-toast';
 import { createDocument } from '@/services/api/documents/createDocument';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+<<<<<<< HEAD
 import { DocumentItemPropsType, DocumentPropsType } from 'shared/types/Propstypes';
 import { useSettings } from 'shared/hooks/use-settings';
+=======
+>>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2
 import { useSearch } from 'shared/hooks/use-search';
 
 export const Navigation = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const settings = useSettings();
   const search = useSearch();
   const params = useParams();
   const pathname = useLocation();
@@ -165,7 +163,6 @@ export const Navigation = () => {
         <div className=" mt-2">
           <UserItem />
           <Item label="Search" icon={Search} isSearch onClick={search.onOpen} />
-          {/* <Item label="Settings" icon={Settings} onClick={settings.onOpen} /> */}
           <Item onClick={createDocApi} label="New page" icon={PlusCircle} />
         </div>
         <div className="mt-4">

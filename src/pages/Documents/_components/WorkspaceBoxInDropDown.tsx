@@ -25,9 +25,13 @@ export default function WorkspaceBoxInDropDown({
         </Avatar>
       </div>
       <div className="flex flex-col gap-1">
+<<<<<<< HEAD
         <p className="text-sm line-clamp-1">
           {workspace?.title || 'Anonymous'}&apos;s E-ditor
         </p>
+=======
+        <p className="text-sm line-clamp-1">{workspace?.title || 'Untitled'}</p>
+>>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2
         <div className="flex gap-2">
           <p className="text-xs font-light text-gray-300">
             {user && user?.offer && user?.offer?.id === 1

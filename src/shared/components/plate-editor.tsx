@@ -4,10 +4,10 @@ import { CommentsProvider } from '@udecode/plate-comments';
 import { Plate } from '@udecode/plate-common';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-
 import { commentsUsers, myUserId } from '@/lib/plate/comments';
 import { MENTIONABLES } from '@/lib/plate/mentionables';
 import { plugins } from '@/lib/plate/plate-plugins';
+<<<<<<< HEAD:src/shared/components/plate-editor.tsx
 import { CommentsPopover } from 'shared/components/plate-ui/comments-popover';
 import { CursorOverlay } from 'shared/components/plate-ui/cursor-overlay';
 import { Editor } from 'shared/components/plate-ui/editor';
@@ -17,9 +17,16 @@ import { MentionCombobox } from 'shared/components/plate-ui/mention-combobox';
 // import { FixedToolbar } from 'shared/components/plate-ui/fixed-toolbar';
 // import { FixedToolbarButtons } from 'shared/components/plate-ui/fixed-toolbar-buttons';
 
+=======
+import { CommentsPopover } from '@/components/plate-ui/comments-popover';
+import { CursorOverlay } from '@/components/plate-ui/cursor-overlay';
+import { Editor } from '@/components/plate-ui/editor';
+import { FloatingToolbar } from '@/components/plate-ui/floating-toolbar';
+import { FloatingToolbarButtons } from '@/components/plate-ui/floating-toolbar-buttons';
+import { MentionCombobox } from '@/components/plate-ui/mention-combobox';
+>>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2:src/components/plate-editor.tsx
 import { DropdownSlash } from './plate-ui/dropdown-slash';
 import { SlashToolbar } from './plate-ui/slashToolBar';
-
 import { TooltipProvider } from './plate-ui/tooltip';
 import { DocumentItemPropsType } from 'shared/types/Propstypes';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -34,6 +41,15 @@ export default function PlateEditor({ document }: DocumentItemPropsType) {
   const queryClient = useQueryClient();
   const { pathname } = useLocation();
   const { documentId } = params;
+
+  // const test = `[${document?.content.slice(2, -2).replaceAll(`}","{`, `},{`)}]`;
+  // console.log(test);
+  // // console.log(`[${document?.content.slice(2, -2).replaceAll(`}","{`, `},{`)}]`);
+
+  // const parsedInput = JSON.parse(test);
+  // console.log(parsedInput);
+
+  //
 
   const initialValue =
     document?.content !== null
@@ -50,6 +66,12 @@ export default function PlateEditor({ document }: DocumentItemPropsType) {
             ],
           },
         ];
+
+  // const x = `{"{\"type\":\"p\",\"children\":[{\"text\":\"desfqdfg\\\"\"}]}"}`;
+  // console.log(`[${x.slice(2, -2).replaceAll(`}","{`, `},{`)}]`);
+  // console.log(
+  //   formatDocContent(`[${x.slice(2, -2).replaceAll(`}","{`, `},{`)}]`),
+  // );
 
   const { mutateAsync: updateContent } = useMutation({
     mutationFn: async (content: any) => {
@@ -90,14 +112,9 @@ export default function PlateEditor({ document }: DocumentItemPropsType) {
               ref={containerRef}
               className={cn(
                 'relative',
-                // Block selection
                 '[&_.slate-start-area-left]:!w-[64px] [&_.slate-start-area-right]:!w-[64px] [&_.slate-start-area-top]:!h-4',
               )}
             >
-              {/* <FixedToolbar>
-                <FixedToolbarButtons />
-              </FixedToolbar> */}
-
               <Editor
                 className="px-[96px] py-16 dark:bg-[#191919]"
                 autoFocus

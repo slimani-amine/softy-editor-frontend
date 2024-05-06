@@ -1,9 +1,5 @@
 import { useEffect, useState } from 'react';
 import { File } from 'lucide-react';
-// import { useQuery } from "convex/react";
-// import { useRouter } from "next/navigation";
-// import { useUser } from "@clerk/clerk-react";
-
 import {
   CommandDialog,
   CommandEmpty,
@@ -14,15 +10,17 @@ import {
 } from 'shared/components/ui/command';
 import { useNavigate, useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
+<<<<<<< HEAD:src/shared/components/search-command.tsx
 import { getDocumentsofWorkspace } from '@/services/api/documents/getDocumentsofWorkspace';
 import { DocumentItemPropsType, DocumentPropsType } from 'shared/types/Propstypes';
+=======
+import { getDocumentsofWorkspace } from 'api/documents/getDocumentsofWorkspace';
+import { DocumentPropsType } from '@/types/Propstypes';
+>>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2:src/components/search-command.tsx
 import { useSearch } from 'shared/hooks/use-search';
-// import { api } from "@/convex/_generated/api";
 
 export const SearchCommand = () => {
-  // const { user } = useUser();
   const navigate = useNavigate();
-  // const documents = useQuery(api.documents.getSearch);
   const [isMounted, setIsMounted] = useState(false);
 
   const toggle = useSearch((store) => store.toggle);

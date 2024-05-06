@@ -6,9 +6,7 @@ const instagramRegex =
 export const parseInstagramUrl = (url: string): EmbedUrlData | undefined => {
   const match = url.match(instagramRegex);
   if (match) {
-    // Extract the post ID from the URL
     const postId = match[1];
-    // Construct the embed URL
 
     return {
       provider: 'instagram',

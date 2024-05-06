@@ -11,16 +11,6 @@ export const createWorkspace = async (body: CreateWorkspaceBody) => {
     throw error;
   }
 };
-
-// export const getMyWorkspaces = async () => {
-//   try {
-//     const { data } = await api.get(`${BASE_URL}/workspaces`);
-//     return data;
-//   } catch (error: any) {
-//     throw error;
-//   }
-// };
-
 export const getMyWorkspaces = async function ({ token }: { token: string }) {
   try {
     const res = await fetch(`${BASE_URL}/workspaces`, {

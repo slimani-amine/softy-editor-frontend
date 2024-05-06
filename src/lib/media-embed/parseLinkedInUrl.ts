@@ -6,7 +6,6 @@ const linkedInRegex =
 export const parseLinkedInUrl = (url: string): EmbedUrlData | undefined => {
   const match = url.match(linkedInRegex);
   if (match) {
-    // Extract the post ID from the URL
     const postId = match[1];
 
     return {

@@ -1,11 +1,5 @@
 import * as yup from 'yup';
 
-// export const loginSchema = yup.object().shape({
-//   email: yup.string().email().required('Email is required'),
-//   // code: yup.string().min(8).required('Password is required'),
-//   // password: yup.string().min(19).required('Password is required'),
-// });
-
 export const RegisterSchema = yup.object().shape({
   userName: yup.string().min(3).required('Username is required'),
   email: yup.string().email().required('Email is required'),

@@ -48,7 +48,7 @@ export default function PreviewDocument() {
       </div>
     );
   return (
-    <div className="pb-40 ">
+    <div className="pb-40 dark:bg-[#191919]">
       <Cover url={document?.coverImageUrl} preview={document?.isPublished} />
       <div className=" mx-20">
         <Toolbar initialData={document} preview={document?.isPublished} />
