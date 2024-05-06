@@ -1,18 +1,16 @@
-import Button from '@/components/Shared/Button';
-import Input from '@/components/Shared/Input';
+import Button from 'shared/components/Shared/Button';
+import Input from 'shared/components/Shared/Input';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { CreateWorkspaceBody } from '@/types/workspace';
+import { CreateWorkspaceBody } from 'shared/types/workspace';
 import { createWorkspaceSchema } from '@/lib/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useUpdateUserQuery } from '@/services/queries/auth.query';
 import EmojiPicker from 'emoji-picker-react';
 import { useState, useEffect, useRef } from 'react';
 import { useCreateWorkSpaceQuery } from '@/services/queries/workspace.query';
-import EmptyWorkspaceIcon from '@/components/Shared/Icons/EmptyWorkspaceIcon';
+import EmptyWorkspaceIcon from 'shared/components/Shared/Icons/EmptyWorkspaceIcon';
 import useAuthStore from '@/store/useAuthStore';
 import { useNavigate } from 'react-router';
-import { useQuery } from '@tanstack/react-query';
-import { getMyWorkspaces } from 'api/workspaces/getMyWorkspaces';
 
 export default function CreateWorkspace({ user, setIsHaveAWorkspace }: any) {
   const { setUser, setIsAuthenticated, setMyWorkspaces } = useAuthStore(

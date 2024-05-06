@@ -21,6 +21,8 @@
     ]
   },
   "dependencies": {
+    "@blocknote/core": "^0.13.0",
+    "@blocknote/react": "^0.13.1",
     "@casl/ability": "^6.7.1",
     "@excalidraw/excalidraw": "^0.17.5",
     "@hookform/resolvers": "^3.1.0",

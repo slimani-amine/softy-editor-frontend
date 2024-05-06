@@ -1,13 +1,9 @@
 import { PlusCircle } from 'lucide-react';
 import { toast } from 'sonner';
-<<<<<<< HEAD
 // import { useRouter } from "next/navigation";
 
 // import { api } from "@/convex/_generated/api";
 import { Button } from 'shared/components/ui/button';
-=======
-import { Button } from '@/components/ui/button';
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2
 import { useNavigate, useParams } from 'react-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createDocument } from '@/services/api/documents/createDocument';

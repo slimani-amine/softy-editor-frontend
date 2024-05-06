@@ -4,9 +4,9 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
+} from 'shared/components/ui/dropdown-menu';
+import { Button } from 'shared/components/ui/button';
+import { Skeleton } from 'shared/components/ui/skeleton';
 import { MoreHorizontal, Plus } from 'lucide-react';
 
 export const UserItemMenu = () => {

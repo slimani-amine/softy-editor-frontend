@@ -2,16 +2,11 @@ import { cn } from '@/lib/utils';
 import { Item } from './item';
 import { useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
-<<<<<<< HEAD
 import { getDocumentsofWorkspace } from '@/services/api/documents/getDocumentsofWorkspace';
-import { DocumentItemPropsType, DocumentPropsType } from 'shared/types/Propstypes';
-=======
-import { getDocumentsofWorkspace } from 'api/documents/getDocumentsofWorkspace';
-import { DocumentPropsType } from '@/types/Propstypes';
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2
+import { DocumentPropsType } from 'shared/types/Propstypes';
 import DocumentItem from './DocumentItem';
 
-export const DocumentList = ({ parentDocumentId, level = 0 }: any) => {
+export const DocumentList = ({ level = 0 }: any) => {
   const params = useParams();
 
   const { workspaceId } = params;

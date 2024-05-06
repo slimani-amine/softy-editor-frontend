@@ -1,24 +1,10 @@
 import { useState } from 'react';
-import { Search, Trash, Undo } from 'lucide-react';
-<<<<<<< HEAD
-
-// import { api } from "@/convex/_generated/api";
-// import { Id } from "@/convex/_generated/dataModel";
+import { Search } from 'lucide-react';
 import { Input } from 'shared/components/ui/input';
-import { ConfirmModal } from 'shared/components/modals/confirm-modal';
-=======
-import { Input } from '@/components/ui/input';
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2
 import { useParams } from 'react-router';
-import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-<<<<<<< HEAD
 import { getDocumentsofWorkspace } from '@/services/api/documents/getDocumentsofWorkspace';
-import { DocumentItemPropsType, DocumentPropsType } from 'shared/types/Propstypes';
-=======
-import { getDocumentsofWorkspace } from 'api/documents/getDocumentsofWorkspace';
-import { DocumentPropsType } from '@/types/Propstypes';
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2
+import { DocumentPropsType } from 'shared/types/Propstypes';
 import DocumentItemInTrashBox from './DocumentItemInTrashBox';
 import Spinner from 'shared/components/Shared/Spinner';
 

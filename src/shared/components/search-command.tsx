@@ -10,13 +10,8 @@ import {
 } from 'shared/components/ui/command';
 import { useNavigate, useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
-<<<<<<< HEAD:src/shared/components/search-command.tsx
 import { getDocumentsofWorkspace } from '@/services/api/documents/getDocumentsofWorkspace';
 import { DocumentItemPropsType, DocumentPropsType } from 'shared/types/Propstypes';
-=======
-import { getDocumentsofWorkspace } from 'api/documents/getDocumentsofWorkspace';
-import { DocumentPropsType } from '@/types/Propstypes';
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2:src/components/search-command.tsx
 import { useSearch } from 'shared/hooks/use-search';
 
 export const SearchCommand = () => {

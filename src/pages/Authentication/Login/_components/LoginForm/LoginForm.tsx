@@ -46,7 +46,6 @@ export default function LoginForm({
   allErrors,
   setAllErrors,
 }: LoginFormProps) {
-  console.log('🚀 ~ allErrors:', allErrors.loginError?.message);
   const [resendTimer, setResendTimer] = useState<number | null>(null);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
   const [codeValue, setCodeValue] = useState('');
@@ -177,7 +176,7 @@ export default function LoginForm({
                   className="text-sm text-blue-500 font-semibold leading-4 cursor-pointer"
                   onClick={() => {
                     setForgotPassword(true);
-                    setAllErrors({})
+                    setAllErrors({});
                   }}
                 >
                   Forgot your password ?
@@ -207,11 +206,7 @@ export default function LoginForm({
                       .trim()}
                   </span>
                 )}
-              {allErrors.loginError?.message && (
-                <span className="text-red-500">
-                  {allErrors.loginError?.message}
-                </span>
-              )}
+
               {allErrors.validationError && (
                 <span className="text-red-500">
                   {allErrors.validationError}

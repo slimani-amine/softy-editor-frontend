@@ -7,7 +7,6 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { commentsUsers, myUserId } from '@/lib/plate/comments';
 import { MENTIONABLES } from '@/lib/plate/mentionables';
 import { plugins } from '@/lib/plate/plate-plugins';
-<<<<<<< HEAD:src/shared/components/plate-editor.tsx
 import { CommentsPopover } from 'shared/components/plate-ui/comments-popover';
 import { CursorOverlay } from 'shared/components/plate-ui/cursor-overlay';
 import { Editor } from 'shared/components/plate-ui/editor';
@@ -17,14 +16,6 @@ import { MentionCombobox } from 'shared/components/plate-ui/mention-combobox';
 // import { FixedToolbar } from 'shared/components/plate-ui/fixed-toolbar';
 // import { FixedToolbarButtons } from 'shared/components/plate-ui/fixed-toolbar-buttons';
 
-=======
-import { CommentsPopover } from '@/components/plate-ui/comments-popover';
-import { CursorOverlay } from '@/components/plate-ui/cursor-overlay';
-import { Editor } from '@/components/plate-ui/editor';
-import { FloatingToolbar } from '@/components/plate-ui/floating-toolbar';
-import { FloatingToolbarButtons } from '@/components/plate-ui/floating-toolbar-buttons';
-import { MentionCombobox } from '@/components/plate-ui/mention-combobox';
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2:src/components/plate-editor.tsx
 import { DropdownSlash } from './plate-ui/dropdown-slash';
 import { SlashToolbar } from './plate-ui/slashToolBar';
 import { TooltipProvider } from './plate-ui/tooltip';

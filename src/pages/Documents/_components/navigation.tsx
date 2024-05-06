@@ -14,7 +14,6 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from 'shared/components/ui/popover';
-
 import { UserItem } from './user-item';
 import { Item } from './item';
 import { DocumentList } from './document-list';
@@ -24,11 +23,6 @@ import { useLocation, useNavigate, useParams } from 'react-router';
 import toast from 'react-hot-toast';
 import { createDocument } from '@/services/api/documents/createDocument';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-<<<<<<< HEAD
-import { DocumentItemPropsType, DocumentPropsType } from 'shared/types/Propstypes';
-import { useSettings } from 'shared/hooks/use-settings';
-=======
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2
 import { useSearch } from 'shared/hooks/use-search';
 
 export const Navigation = () => {

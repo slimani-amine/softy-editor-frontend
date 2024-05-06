@@ -1,14 +1,9 @@
-<<<<<<< HEAD
 // import { useMutation } from "convex/react";
 
 // import { Id } from "@/convex/_generated/dataModel";
 // import { api } from "@/convex/_generated/api";
 import { Button } from 'shared/components/ui/button';
 import { ConfirmModal } from 'shared/components/modals/confirm-modal';
-=======
-import { Button } from '@/components/ui/button';
-import { ConfirmModal } from '@/components/modals/confirm-modal';
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2
 import { useNavigate, useParams } from 'react-router';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';

@@ -1,10 +1,4 @@
-<<<<<<< HEAD
 import { ChevronsLeftRight } from 'lucide-react';
-// import { useUser, SignOutButton } from "@clerk/clerk-react";
-
-import { Avatar, AvatarImage } from 'shared/components/ui/avatar';
-=======
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,25 +7,12 @@ import {
   DropdownMenuTrigger,
 } from 'shared/components/ui/dropdown-menu';
 import useAuthStore from '@/store/useAuthStore';
-import { useQuery } from '@tanstack/react-query';
-<<<<<<< HEAD
-import { getMyWorkspaces } from '@/services/api/workspaces/getMyWorkspaces';
-import { getMe } from '@/services/api/users/getMe';
-=======
-import { getMe } from 'api/users/getMe';
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2
 import { Navigate, useParams } from 'react-router-dom';
 import WorkSpaceBoxInNavigation from './WorkSpaceBoxInNavigation';
 import WorkspaceBoxInDropDown from './WorkspaceBoxInDropDown';
-import Spinner from 'shared/components/Shared/Spinner';
 import { clearTokens } from '@/lib/utils/token';
-<<<<<<< HEAD
 import { Workspace } from 'shared/types/workspace';
-=======
-import { ChevronsLeftRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { UserItemMenu } from './user-item-menu';
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2
+import { Button } from 'shared/components/ui/button';
 
 export const UserItem = () => {
   const {
@@ -43,26 +24,6 @@ export const UserItem = () => {
   } = useAuthStore((state) => state);
   const params = useParams();
   const { workspaceId } = params;
-<<<<<<< HEAD
-  // const {
-  //   isLoading,
-  //   data: myWorkspaces,
-  //   error,
-  // } = useQuery({
-  //   queryKey: ['workspaces'],
-  //   queryFn: async () => await getMyWorkspaces(),
-  // });
-
-  const {
-    isLoading: isLoadingMe,
-    data: me,
-    error: errorMe,
-  } = useQuery({
-    queryKey: ['me'],
-    queryFn: async () => await getMe(),
-  });
-=======
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2
 
   const wantedWorkspace = myWorkspaces?.find(
     (workspace: Workspace) => workspace?.id === Number(workspaceId),
@@ -100,17 +61,11 @@ export const UserItem = () => {
             <p className="text-xs font-medium leading-none text-muted-foreground">
               {user?.email || 'unknown email'}
             </p>
-<<<<<<< HEAD
-          )}
-
-          {myWorkspaces && myWorkspaces?.length > 0 &&
-            myWorkspaces?.map((workspace: Workspace) => (
-=======
-            <UserItemMenu />
           </div>
-          {myWorkspaces?.length > 0 &&
-            myWorkspaces?.map((workspace: any) => (
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2
+
+          {myWorkspaces &&
+            myWorkspaces?.length > 0 &&
+            myWorkspaces?.map((workspace: Workspace) => (
               <WorkspaceBoxInDropDown
                 workspace={workspace}
                 inWorkspaceId={workspaceId}

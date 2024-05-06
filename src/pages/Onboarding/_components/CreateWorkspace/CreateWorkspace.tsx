@@ -18,11 +18,7 @@ export default function CreateWorkspace({
   setIsHaveAWorkspace,
 }: {
   user: User | null;
-<<<<<<< HEAD:src/pages/Onboarding/_components/CreateWorkspace/CreateWorkspace.tsx
   setIsHaveAWorkspace: React.Dispatch<React.SetStateAction<boolean>>;
-=======
-  setIsHaveProfile?: any;
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2:src/pages/Authentication/Onboarding/_components/InviteMembers/InviteMembers.tsx
 }) {
   const { setMyWorkspaces } = useAuthStore((state) => state);
   const navigate = useNavigate();
@@ -72,23 +68,11 @@ export default function CreateWorkspace({
 
     try {
       const res = await CreateWorkspace(data);
-<<<<<<< HEAD:src/pages/Onboarding/_components/CreateWorkspace/CreateWorkspace.tsx
       setMyWorkspaces(res);
       setIsHaveAWorkspace(true);
     } catch (error) {
       console.error('Something went wrong. Please try again');
     }
-=======
-      if (res) {
-        setIsHaveProfile(true);
-      }
-      const updateUser = await update({ status: { id: 1 }, id: user?.id });
-      if (updateUser) {
-        setUser(updateUser);
-        navigate(`/workspaces/${res?.id}/documents`);
-      }
-    } catch (error) {}
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2:src/pages/Authentication/Onboarding/_components/InviteMembers/InviteMembers.tsx
   };
 
   return (

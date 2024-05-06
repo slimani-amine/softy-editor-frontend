@@ -16,11 +16,7 @@ export default function WorkSpaceBoxInNavigation({
         />
       </Avatar>
       <span className="text-start font-medium line-clamp-1">
-<<<<<<< HEAD
         {workspace?.title || 'Anonymous'}&apos;s E-ditor
-=======
-        {workspace?.title || 'Untitled'}
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2
       </span>
     </div>
   );

@@ -6,12 +6,8 @@ import {
   Trash,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-<<<<<<< HEAD
 import { Skeleton } from 'shared/components/ui/skeleton';
 // import { api } from "@/convex/_generated/api";
-=======
-import { Skeleton } from '@/components/ui/skeleton';
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2
 import {
   DropdownMenu,
   DropdownMenuTrigger,

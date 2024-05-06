@@ -1,8 +1,8 @@
-import { Button } from '@/components/ui/button';
+import { Button } from 'shared/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import Spinner from '../Shared/Spinner';
+import Spinner from 'shared/components/Shared/Spinner';
 const Navbar = () => {
   const [isAuthenticated, setIsAuthentication] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

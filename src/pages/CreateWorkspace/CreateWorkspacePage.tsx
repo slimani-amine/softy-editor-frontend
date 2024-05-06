@@ -1,17 +1,17 @@
-import Header from '../Authentication/Onboarding/_components/WelcomeProfileHeader/WelcomeProfile';
-import Button from '@/components/Shared/Button';
-import Input from '@/components/Shared/Input';
+import Button from 'shared/components/Shared/Button';
+import Input from 'shared/components/Shared/Input';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { CreateWorkspaceBody } from '@/types/workspace';
+import { CreateWorkspaceBody } from 'shared/types/workspace';
 import { createWorkspaceSchema } from '@/lib/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import EmojiPicker from 'emoji-picker-react';
 import { useState, useEffect, useRef } from 'react';
 import { useCreateWorkSpaceQuery } from '@/services/queries/workspace.query';
-import EmptyWorkspaceIcon from '@/components/Shared/Icons/EmptyWorkspaceIcon';
+import EmptyWorkspaceIcon from 'shared/components/Shared/Icons/EmptyWorkspaceIcon';
 import { useNavigate } from 'react-router';
 import { useQueryClient } from '@tanstack/react-query';
 import useAuthStore from '@/store/useAuthStore';
+import Header from '../Onboarding/_components/WelcomeProfileHeader/WelcomeProfile';
 
 export default function CreateWorkspacePage() {
   const navigate = useNavigate();
@@ -63,9 +63,10 @@ export default function CreateWorkspacePage() {
 
     try {
       const res = await CreateWorkspace(data);
-      setMyWorkspaces([...myWorkspaces, res]);
-
-      navigate(`/workspaces/${res?.id}/documents`);
+      if (res) {
+        setMyWorkspaces([...(myWorkspaces || []), res]);
+        navigate(`/workspaces/${res.id}/documents`);
+      }
     } catch (error) {}
   };
 

@@ -1,20 +1,7 @@
-<<<<<<< HEAD
-// import { useConvexAuth } from "convex/react";
-// import { redirect } from "next/navigation";
-
-// import { SearchCommand } from "shared/components/search-command";
-
-// import { Navigation } from "./_components/navigation";
-// import { Spinner } from "shared/components/spinner";
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { Navigation } from './_components/navigation';
 import { SearchCommand } from 'shared/components/search-command';
 import DocumentsPage from './_components/DocumentsEmptyPage';
-=======
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
-import { Navigation } from './_components/navigation';
-import { SearchCommand } from '@/components/search-command';
->>>>>>> c72175d2c8fd4058ab06e8133095992d78db29f2
 import { useQuery } from '@tanstack/react-query';
 import { getWorkspaceById } from '@/services/api/workspaces/getWorkspaceById';
 import Spinner from 'shared/components/Shared/Spinner';

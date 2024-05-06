@@ -1,10 +1,10 @@
 import EmojiPicker, { Theme } from 'emoji-picker-react';
-import { useTheme } from './providers/theme-provider';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from 'shared/components/ui/popover';
+import { useTheme } from 'shared/providers/theme-provider';
 
 interface IconPickerProps {
   onChange: (icon: string) => void;
