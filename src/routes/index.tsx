@@ -17,6 +17,7 @@ import Onboarding from '@/pages/Onboarding';
 import Success from '@/pages/payment/success';
 import Canceled from '@/pages/payment/Canceled';
 import CreateWorkspacePage from '@/pages/CreateWorkspace/CreateWorkspacePage';
+import InviteMembers from '@/pages/InviteMembers';
 const Router = () => (
   <BrowserRouter>
     <Routes>
@@ -52,6 +53,22 @@ const Router = () => (
           </PublicRoute>
         }
       />
+      <Route
+        path="/invite"
+        element={
+          <PrivateRoute>
+            <InviteMembers />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/workspaces/:workspaceId/invite"
+        element={
+          <PrivateRoute>
+            <InviteMembers />
+          </PrivateRoute>
+        }
+      ></Route>
       <Route
         path="/pricing"
         element={

@@ -88,32 +88,30 @@ export default function CreateWorkspace({ user, setIsHaveAWorkspace }: any) {
       className="flex flex-col items-center cursor-pointer gap-3 relative "
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="flex flex-col items-center gap-2">
-        <EmptyWorkspaceIcon selectedFileUrl={selectedFileUrl} />
-        <div ref={emojiPickerRef}>
-          <label
-            className="text-xs text-gray-500 cursor-pointer hover:bg-gray-200 px-2 py-1 hover:rounded-[4px]"
-            onClick={() => {
-              setOpen(!open);
-            }}
-          >
+      <div ref={emojiPickerRef}>
+        <label
+          onClick={() => {
+            setOpen(!open);
+          }}
+          className="flex flex-col items-center gap-2"
+        >
+          <EmptyWorkspaceIcon selectedFileUrl={selectedFileUrl} />
+          <p className="text-xs text-gray-500 cursor-pointer hover:bg-gray-200 px-2 py-1 hover:rounded-[4px]">
             Choose icon
-          </label>
-          {open && (
-            <div className="absolute z-10">
-              {' '}
-              <EmojiPicker
-                onEmojiClick={(e) => {
-                  console.log(e.imageUrl);
-                  setSelectedFileUrl(e.imageUrl);
-                }}
-                height={'300px'}
-                width={'400px'}
-                searchDisabled={true}
-              />
-            </div>
-          )}
-        </div>
+          </p>
+        </label>
+        {open && (
+          <div className="absolute z-10">
+            <EmojiPicker
+              onEmojiClick={(e) => {
+                setSelectedFileUrl(e.imageUrl);
+              }}
+              height={'350px'}
+              width={'400px'}
+              searchDisabled={false}
+            />
+          </div>
+        )}
       </div>
 
       <div className="flex flex-col gap-4 w-[80%]">

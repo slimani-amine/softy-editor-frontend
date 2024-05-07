@@ -10,11 +10,14 @@ export interface InviteMembersBody {
   email_03?: string;
 }
 
+export interface InviteMembersApiBody {
+  id: number;
+  emails: string[];
+}
 export interface AddMembersBody {
   id: number;
-  emails:string[]
+  members: string[];
 }
-
 export interface Workspace {
   createdAt: string;
   creator_id: null | number;

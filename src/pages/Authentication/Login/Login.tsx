@@ -14,13 +14,17 @@ import { generateUniqueCode } from '@/lib/utils/generateUniqueCode';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { setTokens } from '@/lib/utils/token';
-import { useGetMyWorkSpacesQuery } from '@/services/queries/workspace.query';
+import {
+  useAddMembers,
+  useGetMyWorkSpacesQuery,
+  useGetWorkSpacesQuery,
+} from '@/services/queries/workspace.query';
 import GoogleButton from './_components/GoogleButton';
 import AppleButton from './_components/AppleButton';
 import SingleAuthButton from './_components/SingleAuthButton';
 import Terms from './_components/Terms';
-import { string } from 'slate';
 import { isValidToken } from 'shared/utils/isValidToken';
+import { User } from 'shared/types/user';
 
 const Login = () => {
   const { setIsAuthenticated, setUser, user, myWorkspaces, setMyWorkspaces } =
@@ -40,10 +44,11 @@ const Login = () => {
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [isAnInvitation, setIsAnInvitation] = useState(
+  const [isAnInvitation, setIsAnInvitation] = useState<any>(
     searchParams.get('invite'),
   );
   const [emailInvitation, setEmailInvitation] = useState('');
+  const [workspaceId, setWorkspaceId] = useState<any>();
 
   useEffect(() => {
     const inviteToken = searchParams.get('token') as string;
@@ -51,7 +56,8 @@ const Login = () => {
       if (isValidToken(inviteToken)) {
         const hash = jwtDecode(inviteToken) as any;
         setEmail(hash.invitedEmail);
-        setEmailInvitation('zz');
+        setEmailInvitation(hash.invitedEmail);
+        setWorkspaceId(hash.workspaceId);
       }
     }
   }, [isAnInvitation]);
@@ -77,6 +83,16 @@ const Login = () => {
     isError: isErrorForGetMyWorkspaces,
     error: errorForGetMyWorkspaces,
   } = useGetMyWorkSpacesQuery();
+
+  const {
+    isLoading: getWorkspacesLoading,
+    mutateAsync: getWorkspaces,
+    isError: isErrorForGetWorkspaces,
+    error: errorForGetWorkspaces,
+  } = useGetWorkSpacesQuery();
+
+  const { isLoading: addMembersLoading, mutateAsync: addMembers }: any =
+    useAddMembers();
 
   useEffect(() => {
     const errors = {
@@ -123,6 +139,19 @@ const Login = () => {
           // If user is new and signed up with email, show verification code input
           const { token: accessToken, refreshToken } = res;
           setIseNewUser(true);
+          if (isAnInvitation) {
+            const workspace = await getWorkspaces(workspaceId);
+            const usersIds: { id: number }[] = workspace?.members.map(
+              (user: User) => user.id,
+            );
+            usersIds.push(user?.id as any);
+            const body = {
+              id: workspaceId,
+              members: usersIds.map((id) => ({ id })),
+            };
+            const res = await addMembers(body);
+            setMyWorkspaces(res);
+          }
           setShowCode(true);
           setUser(user);
           setRefreshToken(refreshToken);

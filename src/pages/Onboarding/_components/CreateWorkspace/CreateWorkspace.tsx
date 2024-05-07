@@ -1,4 +1,3 @@
-
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { createWorkspaceSchema } from '@/lib/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,6 +11,7 @@ import EmptyWorkspaceIcon from 'shared/components/Shared/Icons/EmptyWorkspaceIco
 import { CreateWorkspaceBody } from 'shared/types/workspace';
 import Input from 'shared/components/Shared/Input';
 import Button from 'shared/components/Shared/Button';
+import { useUpdateUserQuery } from '@/services/queries/auth.query';
 
 export default function CreateWorkspace({
   user,
@@ -20,7 +20,7 @@ export default function CreateWorkspace({
   user: User | null;
   setIsHaveAWorkspace: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const { setMyWorkspaces } = useAuthStore((state) => state);
+  const { setMyWorkspaces, setUser } = useAuthStore((state) => state);
   const navigate = useNavigate();
 
   const [selectedFileUrl, setSelectedFileUrl] = useState<string>();
@@ -55,6 +55,9 @@ export default function CreateWorkspace({
     error,
   }: any = useCreateWorkSpaceQuery();
 
+  const { isLoading: updateLoading, mutateAsync: update }: any =
+    useUpdateUserQuery();
+
   const {
     register,
     handleSubmit,
@@ -69,6 +72,9 @@ export default function CreateWorkspace({
     try {
       const res = await CreateWorkspace(data);
       setMyWorkspaces(res);
+      const updateBody = { id: user?.id, status: { id: 1 } };
+      const updateRes = await update(updateBody);
+      setUser(updateRes);
       setIsHaveAWorkspace(true);
     } catch (error) {
       console.error('Something went wrong. Please try again');
@@ -124,7 +130,7 @@ export default function CreateWorkspace({
         <div className="flex flex-col justify-center items-center gap-1 w-full">
           <Button
             text={'Continue'}
-            isLoading={isLoading}
+            isLoading={isLoading || updateLoading}
             disabled={!isValid}
             type="submit"
             className="w-full flex items-center justify-center h-8 rounded-[5px] text-white text-sm font-medium bg-blue-500 hover:bg-blue-600 shadow-inner md:shadow-md mt-2 disabled:opacity-40  "

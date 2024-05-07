@@ -27,15 +27,11 @@ export default function InviteMembersForm({
   handleSetMore,
   setTextAreaValue,
   copyInviteLink,
-  invite,
-  setInvite,
   isLoading,
   getUsersByEmailsLoading,
   addMembersLoading,
   isValid,
 }: InviteMembersFormProps) {
-  console.log('🚀 ~ invite:', invite);
-  console.log('🚀 ~ isValid:', isValid);
 
   return (
     <form

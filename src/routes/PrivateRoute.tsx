@@ -7,9 +7,11 @@ interface Props {
 }
 
 const PrivateRoute: React.FC<Props> = ({ children }) => {
-  const { isAuthenticated, user } = useAuthStore((state) => state);
+  const { isAuthenticated, user, myWorkspaces } = useAuthStore(
+    (state) => state,
+  );
 
-  if (user && user?.status?.id === 2) {
+  if ((user && user?.status?.id === 2) || !myWorkspaces) {
     return <Navigate to="/onboarding" />;
   } else {
     return isAuthenticated ? children : <Navigate to="/" />;

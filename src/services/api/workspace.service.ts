@@ -1,5 +1,10 @@
 import { api } from '@/lib/api';
-import { AddMembersBody, CreateWorkspaceBody } from 'shared/types/workspace';
+import {
+  AddMembersBody,
+  CreateWorkspaceBody,
+  InviteMembersApiBody,
+  InviteMembersBody,
+} from 'shared/types/workspace';
 
 import { BASE_URL } from 'shared/config';
 
@@ -27,10 +32,38 @@ export const getMyWorkspaces = async function ({ token }: { token: string }) {
   }
 };
 
-export const addMembers = async (body: AddMembersBody) => {
+export const getMyWorkspaces2 = async function () {
+  try {
+    const { data } = await api.get(`${BASE_URL}/workspaces`);
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+export const getWorkspaces = async (id: number) => {
+  try {
+    const { data } = await api.get(`${BASE_URL}/workspaces/${id}`);
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+export const inviteMembers = async (body: InviteMembersApiBody) => {
   try {
     const { data } = await api.post(`${BASE_URL}/workspaces/${body.id}`, {
       emails: body.emails,
+    });
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+export const addMembers = async (body: AddMembersBody) => {
+  try {
+    const { data } = await api.patch(`${BASE_URL}/workspaces/${body.id}`, {
+      members: body.members,
     });
     return data;
   } catch (error: any) {

@@ -20,7 +20,7 @@ const OnboardingRoute: React.FC<Props> = ({ children }) => {
   ) {
     return children;
   } else {
-    return <Navigate to="/pricing" />;
+    return <Navigate to="/invite" />;
   }
 };
 

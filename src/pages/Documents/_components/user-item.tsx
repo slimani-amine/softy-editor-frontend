@@ -58,22 +58,30 @@ export const UserItem = () => {
         alignOffset={11}
         forceMount
       >
-        <div className="flex flex-col space-y-4 py-2">
+        <div className="flex flex-col space-y-4 py-2 max-h-48 ">
           <div className="flex justify-between items-center px-2">
             <p className="text-xs font-medium leading-none text-muted-foreground">
               {user?.email || 'unknown email'}
             </p>
             <UserItemMenu />
           </div>
-          {myWorkspaces &&
-            myWorkspaces?.length > 0 &&
-            myWorkspaces?.map((workspace: any) => (
-              <WorkspaceBoxInDropDown
-                workspace={workspace}
-                inWorkspaceId={workspaceId}
-                key={workspace.id}
-              />
-            ))}
+          <div className="overflow-auto">
+            {myWorkspaces &&
+              myWorkspaces
+                .slice()
+                .sort(
+                  (a: any, b: any) =>
+                    new Date(b.createdAt).getTime() -
+                    new Date(a.createdAt).getTime(),
+                )
+                .map((workspace: any) => (
+                  <WorkspaceBoxInDropDown
+                    workspace={workspace}
+                    inWorkspaceId={workspaceId}
+                    key={workspace.id}
+                  />
+                ))}
+          </div>
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem
