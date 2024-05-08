@@ -18,9 +18,7 @@ import { setTokens } from '@/lib/utils/token';
 import {
   useAddMembers,
   useGetMyWorkSpacesQuery,
-  useGetMyWorkSpacesWithTokenQuery,
   useGetWorkSpacesQuery,
-  useGetWorkSpacesWithTokenQuery,
 } from '@/services/queries/workspace.query';
 import GoogleButton from './_components/GoogleButton';
 import AppleButton from './_components/AppleButton';
@@ -32,6 +30,8 @@ import { User } from 'shared/types/user';
 const Login = () => {
   const { setIsAuthenticated, setUser, user, myWorkspaces, setMyWorkspaces } =
     useAuthStore((state) => state);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [token, setToken] = useState<string>('');
   const [refreshToken, setRefreshToken] = useState();
   const [isNewUser, setIseNewUser] = useState<boolean>(false);
@@ -40,18 +40,15 @@ const Login = () => {
   const [forgotPassword, setForgotPassword] = useState<boolean>(false);
   const [mailSended, setMailSended] = useState<boolean>(false);
   const [sendMailLogin, setSendMailLogin] = useState<any>();
+  console.log("🚀 ~ Login ~ sendMailLogin:", sendMailLogin)
   const [email, setEmail] = useState<string | undefined>();
   const [allErrors, setAllErrors] = useState<any>({});
+  const [emailInvitation, setEmailInvitation] = useState('');
+  const [workspaceId, setWorkspaceId] = useState<any>();
 
   const defaultValues = { email: email };
 
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const [isAnInvitation, setIsAnInvitation] = useState<any>(
-    searchParams.get('invite'),
-  );
-  const [emailInvitation, setEmailInvitation] = useState('');
-  const [workspaceId, setWorkspaceId] = useState<any>();
+  const isAnInvitation = Boolean(searchParams.get('invite')) ;
 
   useEffect(() => {
     const inviteToken = searchParams.get('token') as string;
@@ -164,7 +161,7 @@ const Login = () => {
             try {
               const workspace = await getWorkspaces(workspaceId);
               if (!workspace) {
-                console.log('Workspace not found');
+                toast.error('Sorry! Workspace not found');
               } else {
                 const usersIds: { id: number }[] = workspace.members.map(
                   (user: User) => user.id,
@@ -187,7 +184,7 @@ const Login = () => {
                 }
               }
             } catch (error) {
-              navigate('/onboarding')
+              navigate('/onboarding');
             }
           }
         } else {
@@ -278,7 +275,13 @@ const Login = () => {
             <LoginForm
               onSubmit={onSubmit}
               isNewUser={isNewUser}
-              isLoading={isLoading || emailLoginLoading || sendMailLoginLoading}
+              isLoading={
+                isLoading ||
+                emailLoginLoading ||
+                sendMailLoginLoading ||
+                isUpdateLoading ||
+                addMembersLoading
+              }
               showCode={showCode}
               setShowCode={setShowCode}
               ShowPassword={ShowPassword}
