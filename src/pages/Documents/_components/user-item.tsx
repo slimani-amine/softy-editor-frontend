@@ -58,12 +58,21 @@ export const UserItem = () => {
         alignOffset={11}
         forceMount
       >
-        <div className="flex flex-col space-y-4 py-2 max-h-48 ">
-          <div className="flex justify-between items-center px-2">
-            <p className="text-xs font-medium leading-none text-muted-foreground">
-              {user?.email || 'unknown email'}
+        <div className="flex flex-col space-y-4  max-h-48 ">
+          <div className="flex flex-col px-2 w-full gap-0">
+            <div className="flex justify-between items-center ">
+              <p className="text-xs font-medium leading-none text-muted-foreground">
+                {user?.email || 'unknown email'}
+              </p>
+              <UserItemMenu />
+            </div>
+            <p className="text-xs font-light text-gray-300 ">
+              {user && user?.offer && user?.offer?.id === 1
+                ? 'Free Plan'
+                : user?.offer?.id === 2
+                  ? 'Plus Plan'
+                  : 'Buisness Plan'}
             </p>
-            <UserItemMenu />
           </div>
           <div className="overflow-auto">
             {myWorkspaces &&

@@ -105,7 +105,12 @@ export const Publish = ({ document }: DocumentItemPropsType) => {
           <div className="space-y-4">
             <div className="flex items-center gap-x-2">
               <Globe className="text-sky-500 animate-pulse h-4 w-4" />
-              <p className="text-xs font-medium text-sky-500">
+              <p
+                className="text-xs font-medium text-sky-500 cursor-pointer"
+                onClick={() => {
+                  window.open(url, '_blank');
+                }}
+              >
                 This note is live on web.
               </p>
             </div>
