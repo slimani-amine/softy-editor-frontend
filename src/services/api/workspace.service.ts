@@ -9,6 +9,7 @@ import {
 import { BASE_URL } from 'shared/config';
 
 export const createWorkspace = async (body: CreateWorkspaceBody) => {
+  console.log("🚀 ~ createWorkspace ~ body:", body)
   try {
     const { data } = await api.post(`${BASE_URL}/workspaces`, body);
     return data;
@@ -16,7 +17,11 @@ export const createWorkspace = async (body: CreateWorkspaceBody) => {
     throw error;
   }
 };
-export const getMyWorkspaces = async function ({ token }: { token: string }) {
+export const getMyWorkspacesWithToken = async function ({
+  token,
+}: {
+  token: string;
+}) {
   try {
     const res = await fetch(`${BASE_URL}/workspaces`, {
       method: 'GET',
@@ -50,9 +55,29 @@ export const getWorkspaces = async (id: number) => {
   }
 };
 
+export const getWorkspacesWithToken = async function ({
+  payload,
+}: {
+  payload: { id: number; token: string };
+}) {
+  try {
+    const res = await fetch(`${BASE_URL}/workspaces/${payload.id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${payload.token}`,
+      },
+    });
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    throw err;
+  }
+};
+
 export const inviteMembers = async (body: InviteMembersApiBody) => {
   try {
-    const { data } = await api.post(`${BASE_URL}/workspaces/${body.id}`, {
+    const { data } = await api.put(`${BASE_URL}/workspaces/${body.id}`, {
       emails: body.emails,
     });
     return data;

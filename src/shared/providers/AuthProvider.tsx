@@ -7,7 +7,7 @@ import { clearTokens, getTokens } from '@/lib/utils/token';
 import useAuthStore from '@/store/useAuthStore';
 import useIsMountedRef from 'shared/hooks/useIsMountedRef';
 import { BASE_URL } from 'shared/config';
-import { useGetMyWorkSpacesQuery } from '@/services/queries/workspace.query';
+import { useGetMyWorkSpacesWithTokenQuery } from '@/services/queries/workspace.query';
 interface AuthProviderProps {
   children: React.ReactNode;
 }
@@ -23,7 +23,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     mutateAsync: getMyWorkspaces,
     isError: isErrorForGetMyWorkspaces,
     error: errorForGetMyWorkspaces,
-  } = useGetMyWorkSpacesQuery();
+  } = useGetMyWorkSpacesWithTokenQuery();
 
   const { isInitialised, setUser, setIsAuthenticated, setMyWorkspaces } =
     useAuthStore();

@@ -76,6 +76,7 @@ export default function CreateWorkspace({
       const updateRes = await update(updateBody);
       setUser(updateRes);
       setIsHaveAWorkspace(true);
+      navigate('/invite')
     } catch (error) {
       console.error('Something went wrong. Please try again');
     }

@@ -21,7 +21,7 @@ export default function InviteMembersInputs() {
           color: '#acaba9',
         }}
       >
-        Notion works best with your teammates
+        E-ditor works best with your teammates
       </h2>
     </div>
   );

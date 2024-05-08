@@ -12,11 +12,11 @@ export default function WorkspaceBoxInDropDown({
 
   return (
     <div
-      className={`flex items-center w-full gap-x-2  cursor-pointer transition-all p-2 rounded-md ${workspace?.id === Number(inWorkspaceId) && 'dark:bg-gray-700 bg-[#F1F5F9]'}`}
+      className={`flex items-center w-full gap-x-2  cursor-pointer transition-all p-2 rounded-md hover:bg-[#F1F5F9] dark:hover:bg-gray-700 ${workspace?.id === Number(inWorkspaceId) && 'dark:bg-gray-700 bg-[#F1F5F9]'}`}
     >
       <Link
         to={`/workspaces/${workspace?.id}/documents`}
-        className={`flex items-center w-full gap-x-2 '}`}
+        className={`flex items-center w-full gap-x-2 `}
       >
         <div className="rounded-md p-1">
           <Avatar className="h-8 w-8">
@@ -47,7 +47,10 @@ export default function WorkspaceBoxInDropDown({
         </div>
       </Link>
 
-      <UserItemInviteMenu workspaceId={workspace?.id} />
+      <UserItemInviteMenu
+        workspaceId={workspace?.id}
+        isCreator={workspace?.creator_id === user?.id}
+      />
     </div>
   );
 }

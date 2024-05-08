@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useGetUsersByEmails } from '@/services/queries/auth.query';
 import { useState } from 'react';
 import {
-  useGetMyWorkSpacesQuery2,
+  useGetMyWorkSpacesQuery,
   useGetWorkSpacesQuery,
   useInviteMembers,
 } from '@/services/queries/workspace.query';
@@ -13,7 +13,10 @@ import { useNavigate, useParams } from 'react-router';
 import toast from 'react-hot-toast';
 import InviteMembersHeader from './_components/InviteMembersHeader';
 import InviteMembersForm from './_components/InviteMembersForm';
-import { InviteMembersBody } from 'shared/types/workspace';
+import {
+  InviteMembersApiBody,
+  InviteMembersBody,
+} from 'shared/types/workspace';
 
 export default function InviteMembers() {
   const { user, myWorkspaces, setMyWorkspaces } = useAuthStore(
@@ -45,7 +48,7 @@ export default function InviteMembers() {
     mutateAsync: getMyWorkspaces,
     isError: isErrorForGetMyWorkspaces,
     error: errorForGetMyWorkspaces,
-  } = useGetMyWorkSpacesQuery2();
+  } = useGetMyWorkSpacesQuery();
 
   const {
     isLoading: getWorkspacesLoading,
@@ -83,33 +86,14 @@ export default function InviteMembers() {
         if (myWorkspaces && myWorkspaces.length > 0) {
           const id = workspaceId || (myWorkspaces[0]?.id as any);
           try {
-            const existingWorkspace = await getWorkspaces(id);
-            console.log(
-              '🚀 ~ constonSubmit:SubmitHandler<InviteMembersBody>= ~ existingWorkspace:',
-              existingWorkspace,
-            );
             if (user?.email) newEmails.add(user.email);
-            existingWorkspace &&
-              existingWorkspace.members.map((member: { id: string }) => {
-                console.log(
-                  '🚀 ~ constonSubmit:SubmitHandler<InviteMembersBody>= ~ member:',
-                  member,
-                );
-                // newEmails.add(member?.id);
-              });
-
             const body = {
               id,
               emails: Array.from(newEmails),
             };
 
             const res = await inviteMembers(body);
-            console.log(
-              '🚀 ~ constonSubmit:SubmitHandler<InviteMembersBody>= ~ res:',
-              res,
-            );
             const allMyWorkspaces = await getMyWorkspaces();
-            console.log("🚀 ~ constonSubmit:SubmitHandler<InviteMembersBody>= ~ allMyWorkspaces:", allMyWorkspaces)
             setMyWorkspaces(allMyWorkspaces);
             toast.success(`Members added successfully`);
             navigate(

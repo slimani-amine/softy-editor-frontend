@@ -4,6 +4,7 @@ import {
   useEmailLoginQuery,
   useLoginQuery,
   useSendMailQuery,
+  useUpdateUserQuery,
 } from '@/services/queries/auth.query';
 import useAuthStore from '@/store/useAuthStore';
 import { LoginBody } from 'shared/types/auth';
@@ -17,7 +18,9 @@ import { setTokens } from '@/lib/utils/token';
 import {
   useAddMembers,
   useGetMyWorkSpacesQuery,
+  useGetMyWorkSpacesWithTokenQuery,
   useGetWorkSpacesQuery,
+  useGetWorkSpacesWithTokenQuery,
 } from '@/services/queries/workspace.query';
 import GoogleButton from './_components/GoogleButton';
 import AppleButton from './_components/AppleButton';
@@ -29,7 +32,7 @@ import { User } from 'shared/types/user';
 const Login = () => {
   const { setIsAuthenticated, setUser, user, myWorkspaces, setMyWorkspaces } =
     useAuthStore((state) => state);
-  const [token, setToken] = useState();
+  const [token, setToken] = useState<string>('');
   const [refreshToken, setRefreshToken] = useState();
   const [isNewUser, setIseNewUser] = useState<boolean>(false);
   const [showCode, setShowCode] = useState<boolean>(false);
@@ -91,6 +94,13 @@ const Login = () => {
     error: errorForGetWorkspaces,
   } = useGetWorkSpacesQuery();
 
+  const {
+    isLoading: isUpdateLoading,
+    mutateAsync: update,
+    isError: isUpdateError,
+    error: updateError,
+  }: any = useUpdateUserQuery();
+
   const { isLoading: addMembersLoading, mutateAsync: addMembers }: any =
     useAddMembers();
 
@@ -139,8 +149,14 @@ const Login = () => {
           // If user is new and signed up with email, show verification code input
           const { token: accessToken, refreshToken } = res;
           setIseNewUser(true);
+          setShowCode(true);
+          setUser(user);
+          setRefreshToken(refreshToken);
+          setToken(accessToken);
+          setTokens(accessToken, refreshToken);
           if (isAnInvitation) {
             const workspace = await getWorkspaces(workspaceId);
+
             const usersIds: { id: number }[] = workspace?.members.map(
               (user: User) => user.id,
             );
@@ -149,13 +165,18 @@ const Login = () => {
               id: workspaceId,
               members: usersIds.map((id) => ({ id })),
             };
+
             const res = await addMembers(body);
-            setMyWorkspaces(res);
+
+            const myWorkspaces = await getMyWorkspaces();
+            if (myWorkspaces) {
+              const updateUser = await update({
+                status: { id: 1 },
+                id: user.id,
+              });
+            }
+            setMyWorkspaces(myWorkspaces);
           }
-          setShowCode(true);
-          setUser(user);
-          setRefreshToken(refreshToken);
-          setToken(accessToken);
         } else {
           // If user is neither new nor active, show verification code input
           const { token: accessToken, refreshToken } = res;
@@ -187,7 +208,7 @@ const Login = () => {
           setTokens(token, refreshToken);
           setToken(token);
           setIsAuthenticated(true);
-          const myWorkspaces = await getMyWorkspaces(token);
+          const myWorkspaces = await getMyWorkspaces();
           if (myWorkspaces) {
             setMyWorkspaces(myWorkspaces);
             navigate(`/workspaces/${myWorkspaces[0]?.id}/documents`);

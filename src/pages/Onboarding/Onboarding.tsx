@@ -24,74 +24,50 @@ const Onboarding = () => {
   const [isHaveAWorkspace, setIsHaveAWorkspace] = useState<boolean>(
     myWorkspaces && myWorkspaces.length > 0 ? true : false,
   );
-  // const [isInviteTeam, setIsInviteTeam] = useState<boolean>(() => {
-  //   if (myWorkspaces && myWorkspaces.length > 0) {
-  //     console.log(myWorkspaces[0]?.creator_id === user?.id);
-  //     return myWorkspaces[0]?.creator_id !== user?.id;
-  //   }
-  //   return false;
-  // });
-
-  // if (user?.status?.id === 1) {
-  // }
-  // console.log('🚀 ~ Onboarding ~ isInviteTeam:', isInviteTeam);
   return (
     <div className="h-full flex flex-col justify-center bg-[#F7F6F3] relative">
       <WelcomeIcon className="absolute bottom-2 left-7 w-[10.5rem]" />
-      {
-        !isHaveProfile ? (
-          <section className="px-4 w-[24rem] h-full m-auto overflow-visible flex flex-col justify-center  ">
-            <div className="w-full  mx-auto flex flex-col gap-5 ">
-              <Header
-                title={'Welcome to E-ditor'}
-                subTitle={' First things first, tell us a bit about yourself.'}
-              />
-              <WelcomeProfileForm
-                user={user}
-                setIsHaveProfile={setIsHaveProfile}
-              />
-            </div>
-          </section>
-        ) : !isHaveAPlan ? (
-          <section className="px-4 w-full h-full m-auto overflow-visible flex flex-col justify-center  ">
-            <div className="w-full  mx-auto flex flex-col gap-10 ">
-              <Header
-                title={'How are you planning to use Notion?'}
-                subTitle={
-                  ' We’ll streamline your setup experience accordingly.'
-                }
-              />
-              <PlanningToUse user={user} setIsHaveAPlan={setIsHaveAPlan} />
-            </div>
-          </section>
-        ) : !isHaveAWorkspace ? (
-          <section className="px-4 w-[24rem] h-full m-auto overflow-visible flex flex-col justify-center ">
-            <div className="w-full  mx-auto flex flex-col gap-10 ">
-              <Header
-                title={'Create a team workspace'}
-                subTitle={' Fill in some details for your teammates.'}
-              />
-              <CreateWorkspace
-                user={user}
-                setIsHaveAWorkspace={setIsHaveAWorkspace}
-              />
-            </div>
-          </section>
-        ) : (
-          <Navigate to={`/invite`} />
-        )
-        // ) : !isInviteTeam ? (
-        //   <section className="px-4 w-[30rem] h-full m-auto overflow-visible flex flex-col justify-center ">
-        //     <div className="w-full  mx-auto flex flex-col gap-10 ">
-        //       <InviteMembers user={user} setIsInviteTeam={setIsInviteTeam} />
-        //     </div>
-        //   </section>
-        // ) : user?.status?.id === 1 ? (
-        //   <Navigate to="/pricing" />
-        // ) : (
-        //   <></>
-        // )}
-      }
+      {!isHaveProfile ? (
+        <section className="px-4 w-[24rem] h-full m-auto overflow-visible flex flex-col justify-center  ">
+          <div className="w-full  mx-auto flex flex-col gap-5 ">
+            <Header
+              title={'Welcome to E-ditor'}
+              subTitle={' First things first, tell us a bit about yourself.'}
+            />
+            <WelcomeProfileForm
+              user={user}
+              setIsHaveProfile={setIsHaveProfile}
+            />
+          </div>
+        </section>
+      ) : !isHaveAPlan ? (
+        <section className="px-4 w-full h-full m-auto overflow-visible flex flex-col justify-center  ">
+          <div className="w-full  mx-auto flex flex-col gap-10 ">
+            <Header
+              title={'How are you planning to use E-ditor?'}
+              subTitle={' We’ll streamline your setup experience accordingly.'}
+            />
+            <PlanningToUse user={user} setIsHaveAPlan={setIsHaveAPlan} />
+          </div>
+        </section>
+      ) : !isHaveAWorkspace ? (
+        <section className="px-4 w-[24rem] h-full m-auto overflow-visible flex flex-col justify-center ">
+          <div className="w-full  mx-auto flex flex-col gap-10 ">
+            <Header
+              title={'Create a team workspace'}
+              subTitle={' Fill in some details for your teammates.'}
+            />
+            <CreateWorkspace
+              user={user}
+              setIsHaveAWorkspace={setIsHaveAWorkspace}
+            />
+          </div>
+        </section>
+      ) : (
+        <Navigate
+          to={`/workspaces/${myWorkspaces && myWorkspaces[0]?.id}/documents`}
+        />
+      )}
     </div>
   );
 };

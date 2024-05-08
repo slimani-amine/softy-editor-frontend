@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -12,42 +12,48 @@ import { FaMoneyCheck } from 'react-icons/fa';
 
 export const UserItemInviteMenu = ({
   workspaceId,
+  isCreator,
 }: {
   workspaceId: number;
+  isCreator: boolean;
 }) => {
   const navigate = useNavigate();
 
   const inviteHandleClick = async () => {
     navigate(`/workspaces/${workspaceId}/invite`);
   };
-  const upgrateHandleClick = async () => {
+  const upgradeHandleClick = async () => {
     navigate(`/pricing`);
   };
 
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button size="sm" variant="ghost">
-          <MoreHorizontal className="h-4 w-4" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent
-        className="w-60"
-        align="end"
-        alignOffset={8}
-        forceMount
-      >
-        <DropdownMenuItem onClick={inviteHandleClick}>
-          <Plus className="h-4 w-4 mr-2" />
-          Invite members
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={upgrateHandleClick}>
-          <FaMoneyCheck className="h-4 w-4 mr-2" />
-          Upgrate your plan
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
+  if (isCreator) {
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button size="sm" variant="ghost">
+            <MoreHorizontal className="h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          className="w-60"
+          align="end"
+          alignOffset={8}
+          forceMount
+        >
+          <DropdownMenuItem onClick={inviteHandleClick}>
+            <Plus className="h-4 w-4 mr-2" />
+            Invite members
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={upgradeHandleClick}>
+            <FaMoneyCheck className="h-4 w-4 mr-2" />
+            Upgrade your plan
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  } else {
+    return null;
+  }
 };
 
 UserItemInviteMenu.Skeleton = function MenuSkeleton() {
