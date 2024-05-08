@@ -39,7 +39,7 @@ const Login = () => {
   const [ShowPassword, setShowPassword] = useState<boolean>(false);
   const [forgotPassword, setForgotPassword] = useState<boolean>(false);
   const [mailSended, setMailSended] = useState<boolean>(false);
-  const [sendMailLogin, setSendMailLogin] = useState();
+  const [sendMailLogin, setSendMailLogin] = useState<any>();
   const [email, setEmail] = useState<string | undefined>();
   const [allErrors, setAllErrors] = useState<any>({});
 
