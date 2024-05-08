@@ -8,12 +8,17 @@ import {
 import { Button } from 'shared/components/ui/button';
 import { Skeleton } from 'shared/components/ui/skeleton';
 import { MoreHorizontal, Plus } from 'lucide-react';
+import { FaMoneyCheck } from 'react-icons/fa';
 
 export const UserItemMenu = () => {
   const navigate = useNavigate();
 
   const handleClick = async () => {
     navigate(`/workspaces/createWorkspace`);
+  };
+
+  const upgradeHandleClick = async () => {
+    navigate(`/pricing`);
   };
 
   return (
@@ -32,6 +37,10 @@ export const UserItemMenu = () => {
         <DropdownMenuItem onClick={handleClick}>
           <Plus className="h-4 w-4 mr-2" />
           Create Workspace
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={upgradeHandleClick}>
+          <FaMoneyCheck className="h-4 w-4 mr-2" />
+          Upgrade your plan
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

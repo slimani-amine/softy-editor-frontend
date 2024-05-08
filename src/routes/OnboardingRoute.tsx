@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import useAuthStore from '@/store/useAuthStore';
 
 interface Props {
@@ -8,6 +8,7 @@ interface Props {
 
 const OnboardingRoute: React.FC<Props> = ({ children }) => {
   const { user, myWorkspaces } = useAuthStore((state) => state);
+  console.log("🚀 ~ myWorkspaces:", myWorkspaces)
   if (!user) {
     return <Navigate to="/login" />;
   }
@@ -19,7 +20,7 @@ const OnboardingRoute: React.FC<Props> = ({ children }) => {
   ) {
     return children;
   } else {
-    return <Navigate to="/invite" />;
+    return <Navigate to={`/workspaces/${myWorkspaces[0]?.id}/documents`} />;
   }
 };
 

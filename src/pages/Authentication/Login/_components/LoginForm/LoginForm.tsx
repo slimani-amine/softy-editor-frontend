@@ -17,7 +17,7 @@ interface LoginFormProps {
   mailSended: boolean;
   defaultValues: { email: string | undefined };
   resend: (email: string) => void;
-  setSendMailLogin: (value: boolean) => void;
+  setSendMailLogin: (value: any) => void;
   allErrors: {
     loginError?: any;
     emailLoginError?: any;

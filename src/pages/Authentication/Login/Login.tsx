@@ -39,7 +39,7 @@ const Login = () => {
   const [ShowPassword, setShowPassword] = useState<boolean>(false);
   const [forgotPassword, setForgotPassword] = useState<boolean>(false);
   const [mailSended, setMailSended] = useState<boolean>(false);
-  const [sendMailLogin, setSendMailLogin] = useState<boolean>(false);
+  const [sendMailLogin, setSendMailLogin] = useState();
   const [email, setEmail] = useState<string | undefined>();
   const [allErrors, setAllErrors] = useState<any>({});
 
@@ -109,9 +109,15 @@ const Login = () => {
       loginError: error,
       emailLoginError: errorForEmailLogin,
       sendMailError: errorForSendMail,
+      errorForGetWorkspaces: errorForGetWorkspaces,
     };
     setAllErrors(errors);
-  }, [isError, isErrorForEmailLogin, isErrorForSendMail]);
+  }, [
+    isError,
+    isErrorForEmailLogin,
+    isErrorForSendMail,
+    isErrorForGetWorkspaces,
+  ]);
 
   const resend = async (email: string) => {
     try {
@@ -155,27 +161,34 @@ const Login = () => {
           setToken(accessToken);
           setTokens(accessToken, refreshToken);
           if (isAnInvitation) {
-            const workspace = await getWorkspaces(workspaceId);
+            try {
+              const workspace = await getWorkspaces(workspaceId);
+              if (!workspace) {
+                console.log('Workspace not found');
+              } else {
+                const usersIds: { id: number }[] = workspace.members.map(
+                  (user: User) => user.id,
+                );
+                usersIds.push(user?.id as any);
+                const body = {
+                  id: workspaceId,
+                  members: usersIds.map((id) => ({ id })),
+                };
 
-            const usersIds: { id: number }[] = workspace?.members.map(
-              (user: User) => user.id,
-            );
-            usersIds.push(user?.id as any);
-            const body = {
-              id: workspaceId,
-              members: usersIds.map((id) => ({ id })),
-            };
+                const res = await addMembers(body);
 
-            const res = await addMembers(body);
-
-            const myWorkspaces = await getMyWorkspaces();
-            if (myWorkspaces) {
-              const updateUser = await update({
-                status: { id: 1 },
-                id: user.id,
-              });
+                const myWorkspaces = await getMyWorkspaces();
+                if (myWorkspaces) {
+                  const updateUser = await update({
+                    status: { id: 1 },
+                    id: user.id,
+                  });
+                  setMyWorkspaces(myWorkspaces);
+                }
+              }
+            } catch (error) {
+              navigate('/onboarding')
             }
-            setMyWorkspaces(myWorkspaces);
           }
         } else {
           // If user is neither new nor active, show verification code input

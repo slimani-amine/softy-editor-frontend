@@ -7,8 +7,9 @@ import {
 } from 'shared/components/ui/dropdown-menu';
 import { Button } from 'shared/components/ui/button';
 import { Skeleton } from 'shared/components/ui/skeleton';
-import { MoreHorizontal, Plus } from 'lucide-react';
-import { FaMoneyCheck } from 'react-icons/fa';
+import { MoreHorizontal, Plus, Trash } from 'lucide-react';
+import { useDeleteWorkspace } from '@/services/queries/workspace.query';
+import useAuthStore from '@/store/useAuthStore';
 
 export const UserItemInviteMenu = ({
   workspaceId,
@@ -17,13 +18,32 @@ export const UserItemInviteMenu = ({
   workspaceId: number;
   isCreator: boolean;
 }) => {
+  const { myWorkspaces, setMyWorkspaces } = useAuthStore((state) => state);
   const navigate = useNavigate();
 
   const inviteHandleClick = async () => {
     navigate(`/workspaces/${workspaceId}/invite`);
   };
-  const upgradeHandleClick = async () => {
-    navigate(`/pricing`);
+
+  const { isLoading, mutateAsync: deleteWorkspaceApi }: any =
+    useDeleteWorkspace();
+
+  const deleteWorkspace = async () => {
+    const res = await deleteWorkspaceApi(workspaceId);
+    if (res) {
+      const updatedWorkspaces =
+      myWorkspaces &&
+      (myWorkspaces.filter(
+        (workspace) => workspace.id !== workspaceId,
+      ) as any);
+      console.log("🚀 ~ deleteWorkspace ~ updatedWorkspaces:", updatedWorkspaces)
+      if (updatedWorkspaces.length > 0) {
+        setMyWorkspaces(updatedWorkspaces);
+      } else {
+        setMyWorkspaces([]);
+        navigate('/onboarding');
+      }
+    }
   };
 
   if (isCreator) {
@@ -44,9 +64,9 @@ export const UserItemInviteMenu = ({
             <Plus className="h-4 w-4 mr-2" />
             Invite members
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={upgradeHandleClick}>
-            <FaMoneyCheck className="h-4 w-4 mr-2" />
-            Upgrade your plan
+          <DropdownMenuItem onClick={deleteWorkspace}>
+            <Trash className="h-4 w-4 mr-2" />
+            Delete workspace
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

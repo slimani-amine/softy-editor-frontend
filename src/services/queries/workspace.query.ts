@@ -7,6 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import {
   addMembers,
   createWorkspace,
+  deleteWorkspace,
   getMyWorkspaces2,
   getMyWorkspacesWithToken,
   getWorkspaces,
@@ -58,3 +59,10 @@ export const useAddMembers = () =>
     const res = await addMembers(body);
     return res;
   });
+
+  export const useDeleteWorkspace = () =>
+    useMutation(['addMembers'], async (id:number) => {
+      const res = await deleteWorkspace(id);
+      return res;
+    });
+  

@@ -9,7 +9,7 @@ import {
 import { BASE_URL } from 'shared/config';
 
 export const createWorkspace = async (body: CreateWorkspaceBody) => {
-  console.log("🚀 ~ createWorkspace ~ body:", body)
+  console.log('🚀 ~ createWorkspace ~ body:', body);
   try {
     const { data } = await api.post(`${BASE_URL}/workspaces`, body);
     return data;
@@ -90,6 +90,15 @@ export const addMembers = async (body: AddMembersBody) => {
     const { data } = await api.patch(`${BASE_URL}/workspaces/${body.id}`, {
       members: body.members,
     });
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+export const deleteWorkspace = async (id: number) => {
+  try {
+    const { data } = await api.delete(`${BASE_URL}/workspaces/${id}`);
     return data;
   } catch (error: any) {
     throw error;
