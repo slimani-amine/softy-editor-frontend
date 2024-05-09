@@ -58,6 +58,7 @@ export async function exchangeCodeForIdToken(authorizationCode: string) {
     });
     return response.data.id_token;
   } catch (error) {
+    console.error("🚀 ~ exchangeCodeForIdToken ~ error:", error)
     return null;
   }
 }

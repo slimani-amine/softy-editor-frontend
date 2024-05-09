@@ -32,25 +32,27 @@ const GoogleButton: React.FC = () => {
 
   const onSuccess = async (tokenResponse: any) => {
     const idToken = await exchangeCodeForIdToken(tokenResponse?.code);
+    console.log('🚀 ~ onSuccess ~ idToken:', idToken);
+    if (idToken) {
+      const res = await loginWithGoogle({ idToken });
 
-    const res = await loginWithGoogle({ idToken });
-
-    if (res) {
-      const { token: accessToken, refreshToken, user } = res;
-      setTokens(accessToken, refreshToken);
-      setToken(accessToken);
-      setUser(user);
-      const myWorkspaces = await getMyWorkspaces(accessToken);
-      setIsAuthenticated(true);
-      if (myWorkspaces && myWorkspaces.length > 0) {
-        setMyWorkspaces(myWorkspaces);
-        navigate(`/workspaces/${myWorkspaces[0]?.id}/documents`);
+      if (res) {
+        const { token: accessToken, refreshToken, user } = res;
+        setTokens(accessToken, refreshToken);
+        setToken(accessToken);
+        setUser(user);
+        const myWorkspaces = await getMyWorkspaces(accessToken);
+        setIsAuthenticated(true);
+        if (myWorkspaces && myWorkspaces.length > 0) {
+          setMyWorkspaces(myWorkspaces);
+          navigate(`/workspaces/${myWorkspaces[0]?.id}/documents`);
+        } else {
+          navigate('/onboarding');
+        }
+        setIsAuthenticated(true);
       } else {
-        navigate('/onboarding');
+        toast.error('something went wrong');
       }
-      setIsAuthenticated(true);
-    } else {
-      toast.error('something went wrong');
     }
   };
 
