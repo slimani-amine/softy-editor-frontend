@@ -29,7 +29,8 @@ import { User } from 'shared/types/user';
 
 const Login = () => {
   const { setIsAuthenticated, setUser, user, myWorkspaces, setMyWorkspaces } =
-    useAuthStore((state) => state);
+  useAuthStore((state) => state);
+    
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [token, setToken] = useState<string>('');
@@ -40,7 +41,6 @@ const Login = () => {
   const [forgotPassword, setForgotPassword] = useState<boolean>(false);
   const [mailSended, setMailSended] = useState<boolean>(false);
   const [sendMailLogin, setSendMailLogin] = useState<any>();
-  console.log("🚀 ~ Login ~ sendMailLogin:", sendMailLogin)
   const [email, setEmail] = useState<string | undefined>();
   const [allErrors, setAllErrors] = useState<any>({});
   const [emailInvitation, setEmailInvitation] = useState('');
@@ -142,6 +142,7 @@ const Login = () => {
       const res = await login(data);
       if (res) {
         const { user } = res;
+        setUser(user);
         if (
           user.provider === 'email' &&
           (user?.status?.id === 1 || user?.plan?.id)
@@ -153,7 +154,6 @@ const Login = () => {
           const { token: accessToken, refreshToken } = res;
           setIseNewUser(true);
           setShowCode(true);
-          setUser(user);
           setRefreshToken(refreshToken);
           setToken(accessToken);
           setTokens(accessToken, refreshToken);
@@ -191,7 +191,6 @@ const Login = () => {
           // If user is neither new nor active, show verification code input
           const { token: accessToken, refreshToken } = res;
           setShowCode(true);
-          setUser(user);
           setRefreshToken(refreshToken);
           setToken(accessToken);
         }

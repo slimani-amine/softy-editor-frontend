@@ -17,13 +17,8 @@ import { UserItemMenu } from './user-item-menu';
 import { Workspace } from 'shared/types/workspace';
 
 export const UserItem = () => {
-  const {
-    isAuthenticated,
-    setIsAuthenticated,
-    myWorkspaces,
-    setMyWorkspaces,
-    user,
-  } = useAuthStore((state) => state);
+  const { setUser, setIsAuthenticated, myWorkspaces, setMyWorkspaces, user } =
+    useAuthStore((state) => state);
   const params = useParams();
   const { workspaceId } = params;
 
@@ -34,6 +29,7 @@ export const UserItem = () => {
     clearTokens();
     setIsAuthenticated(false);
     setMyWorkspaces([]);
+    setUser(null);
   };
 
   if (!wantedWorkspace) return <Navigate to={'/'} />;

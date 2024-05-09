@@ -48,7 +48,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         const user = response?.data;
         const myWorkspaces = await getMyWorkspaces(access_token);
 
-        setIsAuthenticated(true);
         if (myWorkspaces) {
           setMyWorkspaces(myWorkspaces);
         }

@@ -62,15 +62,15 @@ export default function LoginForm({
   } = useForm<LoginBody>({
     defaultValues: {
       email:
-        isAnInvitation && emailInvitation
-          ? emailInvitation
-          : defaultValues.email,
+      isAnInvitation && emailInvitation
+      ? emailInvitation
+      : defaultValues.email,
     },
     values: {
       email:
-        isAnInvitation && emailInvitation
-          ? emailInvitation
-          : (defaultValues.email as string),
+      isAnInvitation && emailInvitation
+      ? emailInvitation
+      : (defaultValues.email as string),
     },
   });
   const handleResendTimer = () => {
@@ -116,8 +116,8 @@ export default function LoginForm({
               placeholder="Enter your email address..."
               type="email"
               label="Email"
-              defaultValue={defaultValues?.email || dValues?.email}
-              value={defaultValues?.email}
+              // defaultValue={defaultValues?.email || dValues?.email}
+              // value={defaultValues?.email}
               autoComplete="email"
               aria-label="Enter your email address..."
               className="w-full outline-none border border-gray-200 h-9 rounded-[5px] px-2 placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"

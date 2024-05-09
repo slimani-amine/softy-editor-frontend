@@ -10,7 +10,6 @@ const PrivateRoute: React.FC<Props> = ({ children }) => {
   const { isAuthenticated, user, myWorkspaces } = useAuthStore(
     (state) => state,
   );
-  console.log(myWorkspaces);
 
   if (
     (user && user?.status?.id === 2) ||

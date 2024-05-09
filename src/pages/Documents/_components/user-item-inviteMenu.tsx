@@ -36,7 +36,6 @@ export const UserItemInviteMenu = ({
       (myWorkspaces.filter(
         (workspace) => workspace.id !== workspaceId,
       ) as any);
-      console.log("🚀 ~ deleteWorkspace ~ updatedWorkspaces:", updatedWorkspaces)
       if (updatedWorkspaces.length > 0) {
         setMyWorkspaces(updatedWorkspaces);
       } else {

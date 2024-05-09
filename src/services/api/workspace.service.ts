@@ -9,7 +9,6 @@ import {
 import { BASE_URL } from 'shared/config';
 
 export const createWorkspace = async (body: CreateWorkspaceBody) => {
-  console.log('🚀 ~ createWorkspace ~ body:', body);
   try {
     const { data } = await api.post(`${BASE_URL}/workspaces`, body);
     return data;
