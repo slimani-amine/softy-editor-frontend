@@ -3,6 +3,7 @@ import Input from 'shared/components/Shared/Input';
 import { LoginBody } from 'shared/types/auth';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import GoogleButton from '../GoogleButton';
 
 interface LoginFormProps {
   isNewUser: boolean;
@@ -212,6 +213,8 @@ export default function LoginForm({
                 isLoading={isLoading}
                 className="w-full flex items-center justify-center h-9 rounded-[5px] text-white text-sm font-medium bg-blue-500 hover:bg-blue-600 shadow-inner md:shadow-md mt-2"
               />
+            <GoogleButton />
+
               {allErrors.emailLoginError &&
                 allErrors.emailLoginError.response?.data?.errors?.password && (
                   <span className="text-red-500">
