@@ -29,8 +29,8 @@ import { User } from 'shared/types/user';
 
 const Login = () => {
   const { setIsAuthenticated, setUser, user, myWorkspaces, setMyWorkspaces } =
-  useAuthStore((state) => state);
-    
+    useAuthStore((state) => state);
+
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [token, setToken] = useState<string>('');
@@ -48,7 +48,7 @@ const Login = () => {
 
   const defaultValues = { email: email };
 
-  const isAnInvitation = Boolean(searchParams.get('invite')) ;
+  const isAnInvitation = Boolean(searchParams.get('invite'));
 
   useEffect(() => {
     const inviteToken = searchParams.get('token') as string;
@@ -156,9 +156,10 @@ const Login = () => {
           setShowCode(true);
           setRefreshToken(refreshToken);
           setToken(accessToken);
-          setTokens(accessToken, refreshToken);
           if (isAnInvitation) {
             try {
+              setTokens(accessToken, refreshToken);
+
               const workspace = await getWorkspaces(workspaceId);
               if (!workspace) {
                 toast.error('Sorry! Workspace not found');
