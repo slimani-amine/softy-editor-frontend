@@ -40,7 +40,7 @@ axiosInstance.interceptors.response.use(
             Authorization: `Bearer ${refresh_token}`,
           },
         });
-        const { accessToken } = response.data.payload;
+        const { token:accessToken } = response.data.payload;
         setTokens(accessToken);
         previousRequest.headers['Authorization'] = `Bearer ${accessToken}`;
         return axiosInstance(previousRequest);

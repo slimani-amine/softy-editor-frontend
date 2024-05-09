@@ -31,6 +31,7 @@ const GoogleButton: React.FC = () => {
   const navigate = useNavigate();
 
   const onSuccess = async (tokenResponse: any) => {
+    console.log("🚀 ~ onSuccess ~ tokenResponse:", tokenResponse)
     const idToken = await exchangeCodeForIdToken(tokenResponse?.code);
     console.log('🚀 ~ onSuccess ~ idToken:', idToken);
     if (idToken) {
