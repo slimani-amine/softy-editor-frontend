@@ -269,8 +269,8 @@ const Login = () => {
           </div>
           <div className="flex flex-col items-center  ">
             <GoogleButton />
-            <AppleButton />
-            <SingleAuthButton />
+            {/* <AppleButton />
+            <SingleAuthButton /> */}
             <hr className="h-1 w-full mb-4 mt-4 border-color" />
             <LoginForm
               onSubmit={onSubmit}
