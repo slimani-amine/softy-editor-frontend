@@ -9,7 +9,7 @@ import {
   UpdateUserBody,
 } from 'shared/types/auth';
 import axios from 'axios';
-import { BASE_URL, googleClientId, googleSecret } from 'shared/config';
+import { BASE_URL, googleClientId, googleRedirect, googleSecret } from 'shared/config';
 
 export const login = async (body: LoginBody) => {
   try {
@@ -54,7 +54,7 @@ export async function exchangeCodeForIdToken(authorizationCode: string) {
       client_secret: googleSecret,
       code: authorizationCode,
       grant_type: 'authorization_code',
-      // redirect_uri: 'http://localhost:5173',
+      redirect_uri: googleRedirect,
     });
     return response.data.id_token;
   } catch (error) {
