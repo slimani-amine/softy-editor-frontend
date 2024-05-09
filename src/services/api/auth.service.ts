@@ -54,7 +54,7 @@ export async function exchangeCodeForIdToken(authorizationCode: string) {
       client_secret: googleSecret,
       code: authorizationCode,
       grant_type: 'authorization_code',
-      redirect_uri: 'http://localhost:5173',
+      // redirect_uri: 'http://localhost:5173',
     });
     return response.data.id_token;
   } catch (error) {
