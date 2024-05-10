@@ -75,10 +75,10 @@ export const inviteMembersSchema = yup.object().shape({
     .optional(),
 });
 export const validateEmail = (email: string): boolean => {
-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
   return regex.test(email);
 };
-
 
 export const ResetPasswordSchema = yup.object().shape({
   password: yup.string().min(8).required('Password is required'),

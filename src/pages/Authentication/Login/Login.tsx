@@ -26,6 +26,7 @@ import SingleAuthButton from './_components/SingleAuthButton';
 import Terms from './_components/Terms';
 import { isValidToken } from 'shared/utils/isValidToken';
 import { User } from 'shared/types/user';
+import { validateEmail } from '@/lib/validation';
 
 const Login = () => {
   const { setIsAuthenticated, setUser, user, myWorkspaces, setMyWorkspaces } =
@@ -131,6 +132,11 @@ const Login = () => {
   };
 
   const onSubmit: SubmitHandler<LoginBody> = async (data) => {
+    if (!data.email || !validateEmail(data.email)) {
+      toast.error('Please enter a valid email address.');
+      setAllErrors({ ...allErrors, validationError: 'Email Invalid' });
+      return;
+    }
     if (forgotPassword) {
       // If user is trying to reset password, send mail
       await sendMail(data);
@@ -268,7 +274,7 @@ const Login = () => {
             </h2>
           </div>
           <div className="flex flex-col items-center  ">
-          <GoogleButton />
+            <GoogleButton />
             {/* <AppleButton />
             <SingleAuthButton /> */}
             <hr className="h-1 w-full mb-4 mt-4 border-color" />
