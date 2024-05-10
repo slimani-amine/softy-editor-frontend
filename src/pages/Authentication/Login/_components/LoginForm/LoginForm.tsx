@@ -4,6 +4,8 @@ import { LoginBody } from 'shared/types/auth';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import GoogleButton from '../GoogleButton';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { LoginSchema } from '@/lib/validation';
 
 interface LoginFormProps {
   isNewUser: boolean;
@@ -59,19 +61,20 @@ export default function LoginForm({
   const {
     register,
     handleSubmit,
-    formState: { defaultValues: dValues },
+    formState: { errors },
   } = useForm<LoginBody>({
+    resolver: yupResolver(LoginSchema),
     defaultValues: {
       email:
-      isAnInvitation && emailInvitation
-      ? emailInvitation
-      : defaultValues.email,
+        isAnInvitation && emailInvitation
+          ? emailInvitation
+          : defaultValues.email,
     },
     values: {
       email:
-      isAnInvitation && emailInvitation
-      ? emailInvitation
-      : (defaultValues.email as string),
+        isAnInvitation && emailInvitation
+          ? emailInvitation
+          : (defaultValues.email as string),
     },
   });
   const handleResendTimer = () => {
@@ -124,6 +127,7 @@ export default function LoginForm({
               className="w-full outline-none border border-gray-200 h-9 rounded-[5px] px-2 placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
               name="email"
               register={register}
+              errors={errors}
               onChange={() => {
                 if (showCode || ShowPassword) {
                   setShowCode(false);
@@ -213,7 +217,7 @@ export default function LoginForm({
                 isLoading={isLoading}
                 className="w-full flex items-center justify-center h-9 rounded-[5px] text-white text-sm font-medium bg-blue-500 hover:bg-blue-600 shadow-inner md:shadow-md mt-2"
               />
-            {/* <GoogleButton />< */}
+              {/* <GoogleButton />< */}
 
               {allErrors.emailLoginError &&
                 allErrors.emailLoginError.response?.data?.errors?.password && (
