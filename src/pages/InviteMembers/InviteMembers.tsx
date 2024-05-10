@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { inviteMembersSchema } from '@/lib/validation';
+import { inviteMembersSchema, validateEmail } from '@/lib/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useGetUsersByEmails } from '@/services/queries/auth.query';
 import { useState } from 'react';
@@ -50,70 +50,99 @@ export default function InviteMembers() {
     error: errorForGetMyWorkspaces,
   } = useGetMyWorkSpacesQuery();
 
-  const {
-    isLoading: getWorkspacesLoading,
-    mutateAsync: getWorkspaces,
-    isError: isErrorForGetWorkspaces,
-    error: errorForGetWorkspaces,
-  } = useGetWorkSpacesQuery();
-
   const { isLoading: addMembersLoading, mutateAsync: inviteMembers }: any =
     useInviteMembers();
 
-  const onSubmit: SubmitHandler<InviteMembersBody> = async (data) => {
+  const validateEmails = (data: InviteMembersBody, more: boolean): boolean => {
     const { email_01, email_02, email_03 } = data;
-    const newEmails: Set<string> = new Set(emails);
+    const newEmails: Set<string> = new Set();
+
+    const addEmail = (email: any) => {
+      if (email.trim() !== '') {
+        if (!validateEmail(email)) {
+          toast.error(`Invalid email format: ${email}`);
+          return false;
+        }
+        newEmails.add(email.trim());
+      }
+      return true;
+    };
+
+    let isValid = true;
+
     if (more) {
       if (textAreaValue) {
         const emailsFromTextArea = textAreaValue.split(/[\s,]+/);
-        emailsFromTextArea.forEach((email) => newEmails.add(email));
+        emailsFromTextArea.forEach((email) => {
+          if (!addEmail(email)) {
+            isValid = false;
+          }
+        });
         if (emailsFromTextArea.length > 10) {
           toast.error('You can invite a maximum of 10 guests for your plan.');
+          isValid = false;
         }
       }
     } else {
-      if (email_01) newEmails.add(email_01);
-      if (email_02) newEmails.add(email_02);
-      if (email_03) newEmails.add(email_03);
+      if (!addEmail(email_01)) {
+        isValid = false;
+      }
+      if (!addEmail(email_02)) {
+        isValid = false;
+      }
+      if (!addEmail(email_03)) {
+        isValid = false;
+      }
     }
 
+    return isValid;
+  };
+
+  const onSubmit: SubmitHandler<InviteMembersBody> = async (data) => {
+    const { email_01, email_02, email_03 } = data;
+    const newEmails: Set<string> = new Set();
+    
+    // Add individual email fields to the newEmails set if they are valid
+    if (email_01 && validateEmail(email_01)) {
+      newEmails.add(email_01);
+    }
+    if (email_02 && validateEmail(email_02)) {
+      newEmails.add(email_02);
+    }
+    if (email_03 && validateEmail(email_03)) {
+      newEmails.add(email_03);
+    }
+    
     try {
       if (newEmails.size === 0) {
-        navigate(
-          `/workspaces/${workspaceId || (myWorkspaces && myWorkspaces[0]?.id)}/documents`,
-        );
+        // Handle case when no valid emails are provided
+        navigate(`/workspaces/${workspaceId || (myWorkspaces && myWorkspaces[0]?.id)}/documents`);
       } else {
-        if (myWorkspaces && myWorkspaces.length > 0) {
-          const id = workspaceId || (myWorkspaces[0]?.id as any);
-          try {
-            if (user?.email) newEmails.add(user.email);
-            const body = {
-              id,
-              emails: Array.from(newEmails),
-            };
-
-            const res = await inviteMembers(body);
-            const allMyWorkspaces = await getMyWorkspaces();
-            setMyWorkspaces(allMyWorkspaces);
-            toast.success(`Members added successfully`);
-            navigate(
-              `/workspaces/${workspaceId || (myWorkspaces && myWorkspaces[0]?.id)}/documents`,
-            );
-          } catch (error) {
-            toast.error('Error occurred while inviting members');
-            console.error('Error:', error);
-          }
-        } else {
-          navigate(
-            `/workspaces/${workspaceId || (myWorkspaces && myWorkspaces[0]?.id)}/documents`,
-          );
+        // Proceed with invitation process
+        // Include user's email if available
+        if (user?.email && validateEmail(user.email)) {
+          newEmails.add(user.email);
         }
+        
+        // Construct body for invitation
+        const body = {
+          id: workspaceId || (myWorkspaces && myWorkspaces[0]?.id as any),
+          emails: Array.from(newEmails),
+        };
+  
+        // Call API to invite members
+        const res = await inviteMembers(body);
+        const allMyWorkspaces = await getMyWorkspaces();
+        setMyWorkspaces(allMyWorkspaces);
+        toast.success(`Members added successfully`);
+        navigate(`/workspaces/${workspaceId || (myWorkspaces && myWorkspaces[0]?.id)}/documents`);
       }
     } catch (error) {
       toast.error('Error occurred while inviting members');
       console.error('Error:', error);
     }
   };
+  
 
   const handleSetMore = () => {
     setMore(true);
@@ -151,6 +180,7 @@ export default function InviteMembers() {
             getUsersByEmailsLoading={getUsersByEmailsLoading}
             addMembersLoading={addMembersLoading}
             isValid={isValid}
+            errors={errors}
           />
         </div>
       </section>

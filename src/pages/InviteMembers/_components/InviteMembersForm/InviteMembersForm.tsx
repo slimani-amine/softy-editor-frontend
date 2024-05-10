@@ -17,6 +17,7 @@ interface InviteMembersFormProps {
   getUsersByEmailsLoading: boolean;
   addMembersLoading: boolean;
   isValid: boolean;
+  errors: any;
 }
 
 export default function InviteMembersForm({
@@ -31,6 +32,7 @@ export default function InviteMembersForm({
   getUsersByEmailsLoading,
   addMembersLoading,
   isValid,
+  errors
 }: InviteMembersFormProps) {
 
   return (
@@ -46,6 +48,7 @@ export default function InviteMembersForm({
             <InviteMembersInputs
               register={register}
               handleSetMore={handleSetMore}
+              errors={errors}
             />
           ) : (
             <TextareaForm setValue={setTextAreaValue} />

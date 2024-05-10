@@ -4,9 +4,11 @@ import { Plus } from 'lucide-react';
 export default function InviteMembersInputs({
   register,
   handleSetMore,
+  errors
 }: {
   register: any;
   handleSetMore: any;
+  errors:any
 }) {
   return (
     <>
@@ -18,6 +20,7 @@ export default function InviteMembersInputs({
         className="w-full outline-none border border-gray-200 h-8 rounded-[5px] px-2  placeholder:text-sm placeholder:font-extralight placeholder:bg-[#FFFEFC]"
         name="email_01"
         register={register}
+        errors={errors}
       />
       <Input
         placeholder="Email"
@@ -26,6 +29,7 @@ export default function InviteMembersInputs({
         className="w-full outline-none border border-gray-200 h-8 rounded-[5px] px-2  placeholder:text-sm placeholder:font-extralight placeholder:bg-[#FFFEFC]"
         name="email_02"
         register={register}
+        errors={errors}
       />
       <Input
         placeholder="Email"
@@ -34,6 +38,7 @@ export default function InviteMembersInputs({
         className="w-full outline-none border border-gray-200 h-8 rounded-[5px] px-2 placeholder:text-sm placeholder:font-extralight placeholder:bg-[#FFFEFC]"
         name="email_03"
         register={register}
+        errors={errors}
       />
       <div
         className="flex gap-1 items-center text-sm font-normal text-[#949493] pl-2 mt-2 cursor-pointer hover:bg-gray-200 px-2 py-1 hover:rounded-[4px]"
