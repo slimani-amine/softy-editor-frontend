@@ -213,7 +213,7 @@ export default function LoginForm({
                 isLoading={isLoading}
                 className="w-full flex items-center justify-center h-9 rounded-[5px] text-white text-sm font-medium bg-blue-500 hover:bg-blue-600 shadow-inner md:shadow-md mt-2"
               />
-            <GoogleButton />
+            {/* <GoogleButton />< */}
 
               {allErrors.emailLoginError &&
                 allErrors.emailLoginError.response?.data?.errors?.password && (

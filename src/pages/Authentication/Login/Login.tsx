@@ -268,6 +268,7 @@ const Login = () => {
             </h2>
           </div>
           <div className="flex flex-col items-center  ">
+          <GoogleButton />
             {/* <AppleButton />
             <SingleAuthButton /> */}
             <hr className="h-1 w-full mb-4 mt-4 border-color" />
