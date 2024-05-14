@@ -127,7 +127,7 @@ export default function LoginForm({
               className="w-full outline-none border border-gray-200 h-9 rounded-[5px] text-black px-2 placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
               name="email"
               register={register}
-              errors={errors}
+              // errors={errors}
               onChange={() => {
                 if (showCode || ShowPassword) {
                   setShowCode(false);

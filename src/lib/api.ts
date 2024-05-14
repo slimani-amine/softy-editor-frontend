@@ -23,27 +23,21 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const previousRequest = error?.config;
-    console.log('🚀 ~ previousRequest:', previousRequest);
-    console.log('🚀 ~ error?.response?.status:', error?.response?.status);
     if (error?.response?.status === 401 && !previousRequest?.sent) {
-      console.log('🚀 ~ previousRequest:', previousRequest.sent);
       previousRequest.sent = true;
       try {
         const { refresh_token } = getTokens();
-        console.log('🚀 ~ refresh_token:', refresh_token);
-        const response = await axios.get(BASE_URL + '/auth/refresh', {
+        const response = await axios.get(BASE_URL + '/auth/access-token', {
           headers: {
             Authorization: `Bearer ${refresh_token}`,
           },
         });
-        console.log('🚀 ~ response:', response);
-        const { token: accessToken } = response.data.payload;
-        console.log('🚀 ~ accessToken:', accessToken);
+        const accessToken = response.data;
         setTokens(accessToken);
         previousRequest.headers['Authorization'] = `Bearer ${accessToken}`;
         return axiosInstance(previousRequest);
       } catch (err) {
-        // clearTokens();
+        clearTokens();
       }
     }
     return Promise.reject(
