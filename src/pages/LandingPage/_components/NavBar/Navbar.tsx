@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <div
       className={cn(
-        'bg-transparent dark:bg-[#1F1F1F] fixed top-0 flex items-center w-full px-6 z-50',
+        'bg-transparent dark:bg-transparent fixed top-0 flex items-center w-full px-6 z-50',
       )}
     >
       <Link to="/">
@@ -15,7 +15,7 @@ const Navbar = () => {
       </Link>
       <div className="justify-end w-full flex items-center gap-x-2 font-semibold text-gray-700 text-lg">
         <Button variant={'empty'}>
-          <Link to="/login" className="text-lg text-black">
+          <Link to="/login" className="text-lg text-black dark:text-white">
             Log in
           </Link>
         </Button>

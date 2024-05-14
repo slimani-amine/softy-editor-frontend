@@ -266,7 +266,7 @@ const Login = () => {
       <section className="px-4 w-[22.5rem] h-full m-auto overflow-visible flex flex-col justify-center mt-16 ">
         <div className="w-full  mx-auto flex flex-col gap-5 ">
           <div className="flex flex-col items-start mb-5 leading-3">
-            <h1 className="text-2xl font-semibold text-center  max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl">
+            <h1 className="text-2xl font-semibold text-center text-black  max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl">
               Think it. Make it.
             </h1>
             <h2 className="text-[#acaba9] text-2xl font-semibold leading-3">

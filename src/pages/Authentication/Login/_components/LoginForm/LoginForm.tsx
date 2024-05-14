@@ -124,7 +124,7 @@ export default function LoginForm({
               // value={defaultValues?.email}
               autoComplete="email"
               aria-label="Enter your email address..."
-              className="w-full outline-none border border-gray-200 h-9 rounded-[5px] px-2 placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
+              className="w-full outline-none border border-gray-200 h-9 rounded-[5px] text-black px-2 placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
               name="email"
               register={register}
               errors={errors}
@@ -154,7 +154,7 @@ export default function LoginForm({
                   aria-label={
                     isNewUser ? 'Paste signup code' : `Paste verification code`
                   }
-                  className="w-full outline-none border border-gray-200 h-9 rounded-[5px] px-2 placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
+                  className="w-full outline-none border border-gray-200 h-9 rounded-[5px] px-2 text-black placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
                   name="code"
                   value={codeValue}
                   onChange={(e) => {
@@ -190,7 +190,7 @@ export default function LoginForm({
                   type="password"
                   label="Password"
                   aria-label="Enter your password"
-                  className="w-full outline-none border border-gray-200 h-9 rounded-[5px] px-2 placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
+                  className="w-full outline-none border border-gray-200 h-9 rounded-[5px] px-2 text-black placeholder:text-gray-400 placeholder:bg-[#FFFEFC]"
                   name="password"
                   value={passwordValue}
                   onChange={(e) => {
@@ -215,7 +215,7 @@ export default function LoginForm({
                 text={forgotPassword ? `Send reset link` : 'Continue'}
                 type="submit"
                 isLoading={isLoading}
-                className="w-full flex items-center justify-center h-9 rounded-[5px] text-white text-sm font-medium bg-blue-500 hover:bg-blue-600 shadow-inner md:shadow-md mt-2"
+                className="w-full flex items-center justify-center h-9 rounded-[5px] text-white text-sm  font-medium bg-blue-500 hover:bg-blue-600 shadow-inner md:shadow-md mt-2"
               />
               {/* <GoogleButton />< */}
 
