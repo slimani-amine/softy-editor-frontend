@@ -109,15 +109,15 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
 
   const onInput = (value: string) => {
     setValue(value);
+    updateDocTitle({
+      documentId: initialData.id,
+      title: value || 'Untitled',
+    });
   };
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      updateDocTitle({
-        documentId: initialData.id,
-        title: value || 'Untitled',
-      });
       disableInput();
     }
   };
@@ -146,7 +146,7 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
   };
 
   return (
-    <div className="pl-[54px] group relative">
+    <div className="pl-[20px] sm:pl-[36px] md:pl-[54px] group relative">
       {!!initialData?.emoji && !preview && (
         <div className="flex items-center gap-x-2 group/icon pt-6">
           <IconPicker onChange={onIconSelect}>

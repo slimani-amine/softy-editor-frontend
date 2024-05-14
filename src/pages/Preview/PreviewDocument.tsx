@@ -6,6 +6,8 @@ import { Cover } from 'shared/components/cover';
 import { Skeleton } from 'shared/components/ui/skeleton';
 import { Toolbar } from 'shared/components/toolbar';
 import PlateEditor from 'shared/components/plate-editor';
+import { formatDocContent } from 'shared/helpers/formatDocContent';
+import { SoftyNote } from 'tk-note';
 
 export default function PreviewDocument() {
   const params = useParams();
@@ -47,12 +49,33 @@ export default function PreviewDocument() {
         </div>
       </div>
     );
+
+  const initialValue =
+    document?.content !== null
+      ? formatDocContent(
+          `[${document?.content.slice(2, -2).replace(/\\/g, '').replaceAll(`}","{`, `},{`)}]`,
+        )
+      : [
+          {
+            type: 'p',
+            children: [
+              {
+                text: '',
+              },
+            ],
+          },
+        ];
+
   return (
     <div className="pb-40 dark:bg-[#191919]">
       <Cover url={document?.coverImageUrl} preview={document?.isPublished} />
       <div className=" mx-20">
         <Toolbar initialData={document} preview={document?.isPublished} />
-        <PlateEditor document={document} />
+        <SoftyNote
+          initialValue={initialValue}
+          readOnly={true}
+          key={documentId}
+        />
       </div>
     </div>
   );

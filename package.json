@@ -127,6 +127,7 @@
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
+    "tk-note": "^1.3.4",
     "universal-cookie": "^7.1.4",
     "usehooks-ts": "^3.1.0",
     "vite-tsconfig-paths": "^4.2.0",

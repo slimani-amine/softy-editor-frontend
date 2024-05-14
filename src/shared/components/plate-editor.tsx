@@ -33,15 +33,6 @@ export default function PlateEditor({ document }: DocumentItemPropsType) {
   const { pathname } = useLocation();
   const { documentId } = params;
 
-  // const test = `[${document?.content.slice(2, -2).replaceAll(`}","{`, `},{`)}]`;
-  // console.log(test);
-  // // console.log(`[${document?.content.slice(2, -2).replaceAll(`}","{`, `},{`)}]`);
-
-  // const parsedInput = JSON.parse(test);
-  // console.log(parsedInput);
-
-  //
-
   const initialValue =
     document?.content !== null
       ? formatDocContent(
@@ -58,12 +49,6 @@ export default function PlateEditor({ document }: DocumentItemPropsType) {
           },
         ];
 
-  // const x = `{"{\"type\":\"p\",\"children\":[{\"text\":\"desfqdfg\\\"\"}]}"}`;
-  // console.log(`[${x.slice(2, -2).replaceAll(`}","{`, `},{`)}]`);
-  // console.log(
-  //   formatDocContent(`[${x.slice(2, -2).replaceAll(`}","{`, `},{`)}]`),
-  // );
-
   const { mutateAsync: updateContent } = useMutation({
     mutationFn: async (content: any) => {
       const { error, data }: any = await updateDocumentContent({
@@ -79,12 +64,6 @@ export default function PlateEditor({ document }: DocumentItemPropsType) {
       queryClient.invalidateQueries({ queryKey: ['documents'] });
     },
   });
-
-  const key = useMemo(() => {
-    if (initialValue) {
-      return window.crypto.randomUUID();
-    }
-  }, [initialValue]);
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -107,7 +86,7 @@ export default function PlateEditor({ document }: DocumentItemPropsType) {
               )}
             >
               <Editor
-                className="px-[96px] py-16 dark:bg-[#191919]"
+                className="px-[96px] py-16 bg-transparent"
                 autoFocus
                 focusRing={false}
                 variant="ghost"

@@ -63,10 +63,10 @@ export const TableCellElement = withRef<
                   `before:border-b before:border-b-border`,
                 borders.right?.size && `before:border-r before:border-r-border`,
                 borders.left?.size && `before:border-l before:border-l-border`,
-                borders.top?.size && `before:border-t before:border-t-border`
-              )
+                borders.top?.size && `before:border-t before:border-t-border`,
+              ),
           ),
-        className
+        className,
       )}
       {...cellProps}
       {...props}
@@ -114,7 +114,7 @@ export const TableCellElement = withRef<
                   <div
                     className={cn(
                       'absolute -top-3 z-30 h-[calc(100%_+_12px)] w-1 bg-ring',
-                      'right-[-1.5px]'
+                      'right-[-1.5px]',
                     )}
                   />
                 )}
@@ -122,7 +122,7 @@ export const TableCellElement = withRef<
                   <div
                     className={cn(
                       'absolute -top-3 z-30 h-[calc(100%_+_12px)] w-1 bg-ring',
-                      'left-[-1.5px]'
+                      'left-[-1.5px]',
                     )}
                   />
                 )}

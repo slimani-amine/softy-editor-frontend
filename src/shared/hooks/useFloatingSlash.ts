@@ -13,7 +13,7 @@ import {
   UseVirtualFloatingOptions,
 } from '@udecode/plate-floating';
 import { useFocused } from 'slate-react';
-import { useScrollBlock } from '../../shared/hooks/useScrollBlock';
+import { useScrollBlock } from './useScrollBlock';
 
 export type FloatingToolbarState = {
   floatingOptions?: UseVirtualFloatingOptions;
