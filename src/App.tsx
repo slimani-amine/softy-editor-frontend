@@ -30,7 +30,10 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <GoogleAuthProvider>
-          <div className="App h-screen bg-[#FFFEFC] scroll-smooth leading-1 ">
+          <div
+            className="App h-screen bg-[#FFFEFC] scroll-smooth leading-1 "
+            id="root"
+          >
             <Router />
           </div>
           <Toaster position="bottom-center" reverseOrder={false} />

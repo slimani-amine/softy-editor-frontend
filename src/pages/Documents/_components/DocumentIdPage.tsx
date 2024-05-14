@@ -2,17 +2,37 @@ import { Toolbar } from 'shared/components/toolbar';
 import { Cover } from 'shared/components/cover';
 import { Skeleton } from 'shared/components/ui/skeleton';
 import { useParams } from 'react-router-dom';
-import PlateEditor from 'shared/components/plate-editor';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getDocumentById } from '@/services/api/documents/getDocumentById';
+import { SoftyNote } from 'tk-note';
+import { formatDocContent } from 'shared/helpers/formatDocContent';
+import { updateDocumentContent } from '@/services/api/documents/updateDocumentContent';
+import toast from 'react-hot-toast';
 
 const DocumentIdPage = () => {
   const params = useParams();
   const { documentId, workspaceId } = params;
+  const queryClient = useQueryClient();
 
   const { isLoading, data: document } = useQuery({
     queryKey: ['documents', documentId],
     queryFn: async () => await getDocumentById({ documentId }),
+  });
+
+  const { mutateAsync: updateContent } = useMutation({
+    mutationFn: async (content: any) => {
+      const { error, data }: any = await updateDocumentContent({
+        documentId,
+        content,
+      });
+
+      if (error) {
+        toast.error('Changing Content Failed.');
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['documents'] });
+    },
   });
 
   if (isLoading) {
@@ -42,12 +62,35 @@ const DocumentIdPage = () => {
     );
   }
 
+  const initialValue =
+    document?.content !== null
+      ? formatDocContent(
+          `[${document?.content.slice(2, -2).replace(/\\/g, '').replaceAll(`}","{`, `},{`)}]`,
+        )
+      : [
+          {
+            type: 'p',
+            children: [
+              {
+                text: '',
+              },
+            ],
+          },
+        ];
   return (
     <div className="pb-40">
       <Cover url={document?.coverImageUrl} />
-      <div className=" mx-20">
+      <div className="lg:mx-10 ">
         <Toolbar initialData={document} />
-        <PlateEditor document={document} />
+        <div className="md:px-[96px] sm:px-[60px] px-[30px]">
+          <SoftyNote
+            onChange={(e) => updateContent(e)}
+            initialValue={initialValue}
+            readOnly={false}
+            key={documentId}
+          />
+        </div>
+        {/* <PlateEditor document={document} /> */}
       </div>
     </div>
   );

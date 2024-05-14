@@ -52,14 +52,14 @@ export const Title = ({ document }: DocumentItemPropsType) => {
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
+    updateDocTitle({
+      documentId: document.id,
+      title: event.target.value || 'Untitled',
+    });
   };
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      updateDocTitle({
-        documentId: document.id,
-        title: title || 'Untitled',
-      });
       disableInput();
     }
   };
