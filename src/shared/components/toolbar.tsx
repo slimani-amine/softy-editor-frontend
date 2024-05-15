@@ -107,11 +107,10 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
 
   const disableInput = () => setIsEditing(false);
 
-  const onInput = (value: string) => {
-    setValue(value);
+  const onInput = (inputValue: string) => {
     updateDocTitle({
       documentId: initialData.id,
-      title: value || 'Untitled',
+      title: inputValue ,
     });
   };
 
@@ -209,7 +208,7 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
           ref={inputRef}
           onBlur={disableInput}
           onKeyDown={onKeyDown}
-          value={value}
+          value={initialData?.title}
           onChange={(e) => onInput(e.target.value)}
           className="text-5xl bg-transparent font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF] resize-none"
         />
