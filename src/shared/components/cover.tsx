@@ -21,8 +21,6 @@ export const Cover = ({ url, preview }: CoverImageProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { documentId } = useParams();
   const queryClient = useQueryClient();
-  const [coverImgUrl, setCoverImgUrl] = useState('');
-  const [isClicked, setIsClicked] = useState(false);
 
   const cloudName = import.meta.env.VITE_CLOUDNAME;
   const unsignedUploadPreset = import.meta.env.VITE_UNSIGNED_UPLOAD_PRESET;
@@ -139,8 +137,7 @@ export const Cover = ({ url, preview }: CoverImageProps) => {
             ref={fileInputRef}
             style={{ display: 'none' }}
             onChange={handleImageSelect}
-            accept="image/*" // Only allow selection of image files
-            multiple // Allow multiple file selection
+            accept="image/*"
           />
 
           <Button
