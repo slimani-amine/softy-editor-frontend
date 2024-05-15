@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import { ImageIcon, X } from 'lucide-react';
 import { Skeleton } from 'shared/components/ui/skeleton';
 import { cn } from '@/lib/utils';
@@ -13,11 +13,19 @@ interface CoverImageProps {
   preview?: boolean;
 }
 
+interface ImageUploadButtonProps {
+  onImageSelect: (images: FileList) => void;
+}
+
 export const Cover = ({ url, preview }: CoverImageProps) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const { documentId } = useParams();
   const queryClient = useQueryClient();
   const [coverImgUrl, setCoverImgUrl] = useState('');
   const [isClicked, setIsClicked] = useState(false);
+
+  const cloudName = import.meta.env.VITE_CLOUDNAME;
+  const unsignedUploadPreset = import.meta.env.VITE_UNSIGNED_UPLOAD_PRESET;
 
   const { mutateAsync: removeCoverImg } = useMutation({
     mutationFn: async ({ documentId }: { documentId: string }) => {
@@ -61,12 +69,40 @@ export const Cover = ({ url, preview }: CoverImageProps) => {
   });
 
   if (!documentId) return;
-  const handleKeyDown = (e: any) => {
-    if (e.key === 'Enter') {
-      if (coverImgUrl.trim() === '') return;
-      updateDocCoverImg({ documentId, url: coverImgUrl });
-      setIsClicked(false);
-      setCoverImgUrl('');
+
+  const uploadFile = (file: any) => {
+    const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+    const fd = new FormData();
+    fd.append('upload_preset', unsignedUploadPreset);
+    fd.append('tags', 'browser_upload');
+    fd.append('file', file);
+
+    fetch(url, {
+      method: 'POST',
+      body: fd,
+    })
+      .then((response) => response.json())
+      .then(async (data) => {
+        const url = data.secure_url;
+        if (documentId) await updateDocCoverImg({ documentId, url });
+      })
+      .catch((error) => {
+        console.error('Error uploading the file:', error);
+      });
+  };
+
+  const handleImageSelect = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const file = event.target.files[0];
+      if (file) {
+        uploadFile(file);
+      }
+    }
+  };
+
+  const handleClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
     }
   };
 
@@ -90,7 +126,7 @@ export const Cover = ({ url, preview }: CoverImageProps) => {
       {url && !preview && (
         <div className="opacity-0 group-hover:opacity-100 absolute bottom-5 right-5 flex items-center gap-x-2">
           <Button
-            onClick={() => setIsClicked((prev) => !prev)}
+            onClick={handleClick}
             className="text-muted-foreground text-xs"
             variant="outline"
             size="sm"
@@ -98,16 +134,15 @@ export const Cover = ({ url, preview }: CoverImageProps) => {
             <ImageIcon className="h-4 w-4 mr-2" />
             Change cover
           </Button>
-          {isClicked ? (
-            <input
-              type="text"
-              placeholder="type the url here ..."
-              className="p-2 pl-2 rounded-lg border border-gray-200 text-xs placeholder:text-xs placeholder:font-extralight w-full dark:bg-gray-900"
-              value={coverImgUrl}
-              onChange={(e) => setCoverImgUrl(e.target.value)}
-              onKeyDown={(e) => handleKeyDown(e)}
-            />
-          ) : null}
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            onChange={handleImageSelect}
+            accept="image/*" // Only allow selection of image files
+            multiple // Allow multiple file selection
+          />
+
           <Button
             onClick={onRemove}
             className="text-muted-foreground text-xs"

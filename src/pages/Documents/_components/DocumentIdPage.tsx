@@ -82,15 +82,12 @@ const DocumentIdPage = () => {
       <Cover url={document?.coverImageUrl} />
       <div className="lg:mx-10 ">
         <Toolbar initialData={document} />
-        <div className="md:px-[96px] sm:px-[60px] px-[30px]">
-          <SoftyNote
-            onChange={(e) => updateContent(e)}
-            initialValue={initialValue}
-            readOnly={false}
-            key={documentId}
-          />
-        </div>
-        {/* <PlateEditor document={document} /> */}
+        <SoftyNote
+          onChange={(e) => updateContent(e)}
+          initialValue={initialValue}
+          readOnly={false}
+          key={documentId}
+        />
       </div>
     </div>
   );

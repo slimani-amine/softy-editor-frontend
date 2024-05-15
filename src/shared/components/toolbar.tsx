@@ -1,6 +1,7 @@
 import { ElementRef, useRef, useState } from 'react';
 import { ImageIcon, Smile, X } from 'lucide-react';
 import TextareaAutosize from 'react-textarea-autosize';
+import isArabic from 'is-arabic';
 
 import { Button } from 'shared/components/ui/button';
 
@@ -110,7 +111,7 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
   const onInput = (inputValue: string) => {
     updateDocTitle({
       documentId: initialData.id,
-      title: inputValue ,
+      title: inputValue,
     });
   };
 
@@ -144,8 +145,15 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
     }
   };
 
+  const options = {
+    count: 10,
+  };
+  const isArabicTitle = isArabic(initialData?.title, options);
+
   return (
-    <div className="pl-[20px] sm:pl-[36px] md:pl-[54px] group relative">
+    <div
+      className={`pl-[20px] sm:pl-[36px] md:pl-[54px] group relative ${isArabicTitle && initialData?.title !== '' && initialData?.title !== ' ' ? '[direction:rtl]' : ''} `}
+    >
       {!!initialData?.emoji && !preview && (
         <div className="flex items-center gap-x-2 group/icon pt-6">
           <IconPicker onChange={onIconSelect}>
@@ -210,7 +218,7 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
           onKeyDown={onKeyDown}
           value={initialData?.title}
           onChange={(e) => onInput(e.target.value)}
-          className="text-5xl bg-transparent font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF] resize-none"
+          className="text-5xl bg-transparent font-bold break-words w-full outline-none text-[#3F3F3F] dark:text-[#CFCFCF] resize-none"
         />
       ) : (
         <div
