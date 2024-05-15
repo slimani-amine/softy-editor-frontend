@@ -1,3 +1,4 @@
+import { api } from '@/lib/api';
 import { BASE_URL } from 'shared/config';
 
 export const deleteDocument = async function ({
@@ -6,18 +7,9 @@ export const deleteDocument = async function ({
   documentId: string | undefined;
 }) {
   try {
-    const jwtToken = localStorage.getItem('access_token');
-    const res = await fetch(`${BASE_URL}/documents/${documentId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${jwtToken}`,
-      },
-    });
-
-    const { data } = await res.json();
+    const { data } = await api.delete(`${BASE_URL}/documents/${documentId}`);
     return data;
   } catch (err) {
-    return err;
+    throw err;
   }
 };

@@ -1,3 +1,4 @@
+import { api } from '@/lib/api';
 import { BASE_URL } from 'shared/config';
 
 export const getDocumentsofWorkspace = async function ({
@@ -8,17 +9,9 @@ export const getDocumentsofWorkspace = async function ({
   isTemporarilyDeleted: boolean;
 }) {
   try {
-    const jwtToken = localStorage.getItem('access_token');
-    let query = `${BASE_URL}/documents?workspaceId=${workspaceId}&isTemporarilyDeleted=${isTemporarilyDeleted}`;
-    const res = await fetch(query, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${jwtToken}`,
-      },
-    });
-
-    const data = await res.json();
+    const query = `${BASE_URL}/documents?workspaceId=${workspaceId}&isTemporarilyDeleted=${isTemporarilyDeleted}`;
+    const { data } = await api.get(query);
+    // Sorting the data by createdAt
     return data.sort((a: any, b: any) =>
       a.createdAt.localeCompare(b.createdAt),
     );
