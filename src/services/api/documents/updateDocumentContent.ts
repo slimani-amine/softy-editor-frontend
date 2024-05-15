@@ -12,9 +12,12 @@ export const updateDocumentContent = async function ({
     key === 'text' && value.includes('"') ? value.replaceAll('"', '“') : value;
 
   try {
-    const { data } = await api.patch(`${BASE_URL}/documents/${documentId}`, {
-      body: JSON.stringify({ content: content }, replacer),
-    });
+    const body = JSON.stringify({ content: content }, replacer);
+
+    const { data } = await api.patch(
+      `${BASE_URL}/documents/${documentId}`,
+      body,
+    );
 
     return data;
   } catch (err) {
