@@ -82,9 +82,9 @@ export const Title = ({ document }: DocumentItemPropsType) => {
           onClick={enableInput}
           variant="ghost"
           size="sm"
-          className="font-normal h-auto p-1"
+          className="font-normal h-auto p-1 max-w-24 md:max-w-80 lg:max-w-[600px]"
         >
-          <span className="truncate">{document?.title}</span>
+          <span className="truncate ">{document?.title}</span>
         </Button>
       )}
     </div>

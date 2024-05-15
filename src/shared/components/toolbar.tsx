@@ -184,7 +184,7 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
 
   return (
     <div
-      className={`pl-[20px] sm:pl-[36px] md:pl-[54px] group relative ${isArabicTitle && initialData?.title !== '' && initialData?.title !== ' ' ? '[direction:rtl]' : ''} `}
+      className={`pl-[10px]  md:pl-[30px] group relative ${isArabicTitle && initialData?.title !== '' && initialData?.title !== ' ' ? '[direction:rtl]' : ''} `}
     >
       {!!initialData?.emoji && !preview && (
         <div className="flex items-center gap-x-2 group/icon pt-6">
