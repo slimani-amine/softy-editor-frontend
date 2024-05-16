@@ -69,11 +69,12 @@ export default function PreviewDocument() {
   return (
     <div className="pb-40 dark:bg-[#191919]">
       <Cover url={document?.coverImageUrl} preview={document?.isPublished} />
-      <div className=" mx-20">
+      <div className=" lg:mx-10">
         <Toolbar initialData={document} preview={document?.isPublished} />
         <SoftyNote
           initialValue={initialValue}
           readOnly={true}
+          editorClassName="px-[36px] lg:!px-[96px]"
           key={documentId}
         />
       </div>
