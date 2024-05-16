@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Logo from '../Shared/Icons/Logo';
+import AuthLogo from '../Shared/Icons/AuthLogo';
 
 const AuthNav: React.FC = () => (
   <div
@@ -9,7 +9,7 @@ const AuthNav: React.FC = () => (
     }
   >
     <Link to="/">
-      <Logo />
+      <AuthLogo />
     </Link>
   </div>
 );
