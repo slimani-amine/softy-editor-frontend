@@ -189,7 +189,11 @@ export const Navigation = () => {
         )}
       >
         {!!params.documentId ? (
-          <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
+          <Navbar
+            isCollapsed={isCollapsed}
+            isMobile={isMobile}
+            onResetWidth={resetWidth}
+          />
         ) : (
           <nav className="bg-transparent px-3 py-2 w-full">
             {isCollapsed && (

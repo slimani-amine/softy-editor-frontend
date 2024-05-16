@@ -65,7 +65,7 @@ export const Title = ({ document }: DocumentItemPropsType) => {
   };
 
   return (
-    <div className="flex items-center gap-x-1">
+    <div className="flex items-center gap-x-1 _xs:!hidden">
       {!!document?.emoji && <p>{document?.emoji}</p>}
       {isEditing ? (
         <Input
@@ -82,7 +82,7 @@ export const Title = ({ document }: DocumentItemPropsType) => {
           onClick={enableInput}
           variant="ghost"
           size="sm"
-          className="font-normal h-auto p-1 max-w-24 md:max-w-80 lg:max-w-[600px]"
+          className="font-normal h-auto p-1 max-w-24  sm:max-w-64 md:max-w-80 lg:max-w-[600px]"
         >
           <span className="truncate ">{document?.title}</span>
         </Button>

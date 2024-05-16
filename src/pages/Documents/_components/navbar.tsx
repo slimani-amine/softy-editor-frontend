@@ -10,10 +10,15 @@ import { getDocumentById } from '@/services/api/documents/getDocumentById';
 
 interface NavbarProps {
   isCollapsed: boolean;
+  isMobile: boolean;
   onResetWidth: () => void;
 }
 
-export const Navbar = ({ isCollapsed, onResetWidth }: NavbarProps) => {
+export const Navbar = ({
+  isCollapsed,
+  onResetWidth,
+  isMobile,
+}: NavbarProps) => {
   const { documentId, workspaceId } = useParams();
   const {
     isLoading,
@@ -41,23 +46,29 @@ export const Navbar = ({ isCollapsed, onResetWidth }: NavbarProps) => {
 
   return (
     <>
-      <nav className="bg-background dark:bg-[#191919] px-3 py-2 w-full flex items-center gap-x-4">
-        {isCollapsed && (
-          <MenuIcon
-            role="button"
-            onClick={onResetWidth}
-            className="h-6 min-w-6 text-muted-foreground "
-          />
-        )}
-        <div className="flex items-center justify-between w-full">
-          <Title document={document} />
-          <div className="flex items-center gap-x-2">
-            {!document?.isTemporarilyDeleted && <Publish document={document} />}
-            <ModeToggle />
-            <Menu document={document} />
+      {!isCollapsed && isMobile ? null : (
+        <nav className="bg-background dark:bg-[#191919] px-3 py-2 w-full flex items-center gap-x-4">
+          {isCollapsed && (
+            <MenuIcon
+              role="button"
+              onClick={onResetWidth}
+              className="h-6 min-w-6 text-muted-foreground "
+            />
+          )}
+          <div className="flex items-center justify-between w-full ">
+            <div>
+              <Title document={document} />
+            </div>
+            <div className="flex items-center gap-x-2">
+              {!document?.isTemporarilyDeleted && (
+                <Publish document={document} />
+              )}
+              <ModeToggle />
+              <Menu document={document} />
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      )}
       {document?.isTemporarilyDeleted && <Banner documentId={document?.id} />}
     </>
   );
