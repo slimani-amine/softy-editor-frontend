@@ -86,8 +86,8 @@ const DocumentIdPage = () => {
           onChange={(e) => updateContent(e)}
           initialValue={initialValue}
           readOnly={false}
-          key={documentId}
           editorClassName="px-[36px] lg:!px-[96px]"
+          key={documentId}
         />
       </div>
     </div>
