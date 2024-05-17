@@ -101,7 +101,7 @@ export default function InviteMembers() {
   const onSubmit: SubmitHandler<InviteMembersBody> = async (data) => {
     const { email_01, email_02, email_03 } = data;
     const newEmails: Set<string> = new Set();
-    
+
     // Add individual email fields to the newEmails set if they are valid
     if (email_01 && validateEmail(email_01)) {
       newEmails.add(email_01);
@@ -112,37 +112,40 @@ export default function InviteMembers() {
     if (email_03 && validateEmail(email_03)) {
       newEmails.add(email_03);
     }
-    
+
     try {
       if (newEmails.size === 0) {
         // Handle case when no valid emails are provided
-        navigate(`/workspaces/${workspaceId || (myWorkspaces && myWorkspaces[0]?.id)}/documents`);
+        navigate(
+          `/workspaces/${workspaceId || (myWorkspaces && myWorkspaces[0]?.id)}/documents`,
+        );
       } else {
         // Proceed with invitation process
         // Include user's email if available
         if (user?.email && validateEmail(user.email)) {
           newEmails.add(user.email);
         }
-        
+
         // Construct body for invitation
         const body = {
-          id: workspaceId || (myWorkspaces && myWorkspaces[0]?.id as any),
+          id: workspaceId || (myWorkspaces && (myWorkspaces[0]?.id as any)),
           emails: Array.from(newEmails),
         };
-  
+
         // Call API to invite members
         const res = await inviteMembers(body);
         const allMyWorkspaces = await getMyWorkspaces();
         setMyWorkspaces(allMyWorkspaces);
         toast.success(`Members added successfully`);
-        navigate(`/workspaces/${workspaceId || (myWorkspaces && myWorkspaces[0]?.id)}/documents`);
+        navigate(
+          `/workspaces/${workspaceId || (myWorkspaces && myWorkspaces[0]?.id)}/documents`,
+        );
       }
     } catch (error) {
       toast.error('Error occurred while inviting members');
       console.error('Error:', error);
     }
   };
-  
 
   const handleSetMore = () => {
     setMore(true);
