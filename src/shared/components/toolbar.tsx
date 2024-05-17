@@ -1,6 +1,7 @@
-import { ElementRef, useRef, useState } from 'react';
+import { ChangeEvent, ElementRef, useRef, useState } from 'react';
 import { ImageIcon, Smile, X } from 'lucide-react';
 import TextareaAutosize from 'react-textarea-autosize';
+import isArabic from 'is-arabic';
 
 import { Button } from 'shared/components/ui/button';
 
@@ -9,6 +10,7 @@ import { DocumentPropsType } from 'shared/types/Propstypes';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateDocument } from '@/services/api/documents/updateDocument';
 import toast from 'react-hot-toast';
+import { useParams } from 'react-router';
 
 interface ToolbarProps {
   initialData: DocumentPropsType;
@@ -16,12 +18,16 @@ interface ToolbarProps {
 }
 
 export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { documentId } = useParams();
+
   const queryClient = useQueryClient();
   const inputRef = useRef<ElementRef<'textarea'>>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(initialData?.title);
-  const [coverImgUrl, setCoverImgUrl] = useState('');
-  const [isClicked, setIsClicked] = useState(false);
+
+  const cloudName = import.meta.env.VITE_CLOUDNAME;
+  const unsignedUploadPreset = import.meta.env.VITE_UNSIGNED_UPLOAD_PRESET;
 
   const { mutateAsync: updateDocEmoji } = useMutation({
     mutationFn: async ({
@@ -110,7 +116,7 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
   const onInput = (inputValue: string) => {
     updateDocTitle({
       documentId: initialData.id,
-      title: inputValue ,
+      title: inputValue,
     });
   };
 
@@ -135,17 +141,51 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
     });
   };
 
-  const handleKeyDown = (e: any) => {
-    if (e.key === 'Enter') {
-      if (coverImgUrl.trim() === '') return;
-      updateDocCoverImg({ documentId: initialData.id, url: coverImgUrl });
-      setIsClicked(false);
-      setCoverImgUrl('');
+  const uploadFile = (file: any) => {
+    const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+    const fd = new FormData();
+    fd.append('upload_preset', unsignedUploadPreset);
+    fd.append('tags', 'browser_upload');
+    fd.append('file', file);
+
+    fetch(url, {
+      method: 'POST',
+      body: fd,
+    })
+      .then((response) => response.json())
+      .then(async (data) => {
+        const url = data.secure_url;
+        if (documentId) await updateDocCoverImg({ documentId, url });
+      })
+      .catch((error) => {
+        console.error('Error uploading the file:', error);
+      });
+  };
+
+  const handleImageSelect = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const file = event.target.files[0];
+      if (file) {
+        uploadFile(file);
+      }
     }
   };
 
+  const handleClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const options = {
+    count: 10,
+  };
+  const isArabicTitle = isArabic(initialData?.title, options);
+
   return (
-    <div className="pl-[20px] sm:pl-[36px] md:pl-[54px] group relative">
+    <div
+      className={`pl-[10px]  md:pl-[30px] group relative ${isArabicTitle && initialData?.title !== '' && initialData?.title !== ' ' ? '[direction:rtl]' : ''} `}
+    >
       {!!initialData?.emoji && !preview && (
         <div className="flex items-center gap-x-2 group/icon pt-6">
           <IconPicker onChange={onIconSelect}>
@@ -182,24 +222,21 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
         {!initialData.coverImageUrl && !preview && (
           <>
             <Button
-              onClick={() => setIsClicked((prev) => !prev)}
+              onClick={handleClick}
               className="text-muted-foreground text-xs"
               variant="outline"
               size="sm"
             >
               <ImageIcon className="h-4 w-4 mr-2" />
-              Add cover
+              Change cover
             </Button>
-            {isClicked ? (
-              <input
-                type="text"
-                placeholder="type the url here ..."
-                className="p-2 pl-2 rounded-lg border border-gray-200 text-xs placeholder:text-xs placeholder:font-extralight w-1/3 dark:bg-gray-900"
-                value={coverImgUrl}
-                onChange={(e) => setCoverImgUrl(e.target.value)}
-                onKeyDown={(e) => handleKeyDown(e)}
-              />
-            ) : null}
+            <input
+              type="file"
+              ref={fileInputRef}
+              style={{ display: 'none' }}
+              onChange={handleImageSelect}
+              accept="image/*"
+            />
           </>
         )}
       </div>
@@ -210,7 +247,7 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
           onKeyDown={onKeyDown}
           value={initialData?.title}
           onChange={(e) => onInput(e.target.value)}
-          className="text-5xl bg-transparent font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF] resize-none"
+          className="text-5xl bg-transparent font-bold break-words w-full outline-none text-[#3F3F3F] dark:text-[#CFCFCF] resize-none"
         />
       ) : (
         <div

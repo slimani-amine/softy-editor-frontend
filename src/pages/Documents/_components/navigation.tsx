@@ -139,7 +139,7 @@ export const Navigation = () => {
       <aside
         ref={sidebarRef}
         className={cn(
-          'group/sidebar h-full bg-[#F7F7F5] dark:bg-[#202020] overflow-y-auto relative flex w-60 flex-col z-[99999] pb-10',
+          'group/sidebar h-full bg-[#F7F7F5] dark:bg-[#202020] overflow-y-auto relative flex w-60 flex-col z-50 pb-10',
           isResetting && 'transition-all ease-in-out duration-300',
           isMobile && 'w-0',
         )}
@@ -183,13 +183,17 @@ export const Navigation = () => {
       <div
         ref={navbarRef}
         className={cn(
-          'absolute top-0 z-[99999] left-60 w-[calc(100%-240px)]',
+          'absolute top-0 z-[100] left-60 w-[calc(100%-240px)]',
           isResetting && 'transition-all ease-in-out duration-300',
           isMobile && 'left-0 w-full',
         )}
       >
         {!!params.documentId ? (
-          <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
+          <Navbar
+            isCollapsed={isCollapsed}
+            isMobile={isMobile}
+            onResetWidth={resetWidth}
+          />
         ) : (
           <nav className="bg-transparent px-3 py-2 w-full">
             {isCollapsed && (
