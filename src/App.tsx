@@ -4,6 +4,7 @@ import './App.css';
 import { Toaster } from 'react-hot-toast';
 import GoogleAuthProvider from 'shared/providers/google-auth-provider';
 import AuthProvider from 'shared/providers/AuthProvider';
+import SocketProvider from 'shared/providers/socket-provider';
 
 export const metadata = {
   title: 'E-ditor',
@@ -30,13 +31,15 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <GoogleAuthProvider>
-          <div
-            className="App h-screen bg-[#FFFEFC] scroll-smooth leading-1 "
-            id="root"
-          >
-            <Router />
-          </div>
-          <Toaster position="bottom-center" reverseOrder={false} />
+          <SocketProvider>
+            <div
+              className="App h-screen bg-[#FFFEFC] scroll-smooth leading-1 "
+              id="root"
+            >
+              <Router />
+            </div>
+            <Toaster position="bottom-center" reverseOrder={false} />
+          </SocketProvider>
         </GoogleAuthProvider>
       </AuthProvider>
     </QueryClientProvider>
